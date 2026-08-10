@@ -4,7 +4,7 @@
         <div class="sidebar-wrapper" data-layout="stroke-svg">
           <div class="logo-wrapper"><a href="{{ route('admin.dashboard') }}"><img class="img-fluid" src="{{ asset('') }}" alt="" style="max-width: 35% !important;"></a>
 		  	<a href="{{ route('admin.dashboard') }}">
-				<img class="img-fluid" src="{{ asset('admin/assets/images/logo/tata-trust-logo.webp') }}" alt="" style="max-width: 88% !important;">
+				<img class="img-fluid" src="{{ asset('admin/assets/images/logo/gws.webp') }}" alt="" style="max-width: 88% !important; background-color:#6c757d;">
 			</a>  
 		  <div class="back-btn"><i class="fa fa-angle-left"> </i></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>

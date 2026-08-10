@@ -14,8 +14,8 @@
                     <div>
                     <div>
                         <a class="logo" href="#">
-                            <!-- <img class="img-fluid for-dark" src="{{ asset('admin/assets/images/logo/tata-trust-logo.webp') }}" alt="looginpage" style="max-width: 17% !important;"> -->
-                            <img class="img-fluid for-light" src="{{ asset('admin/assets/images/logo/tata-trust-logo.webp') }}" alt="looginpage" style="max-width: 35% !important;">
+                            <!-- <img class="img-fluid for-dark" src="{{ asset('admin/assets/images/logo/gws.webp') }}" alt="looginpage" style="max-width: 17% !important; background-color:#6c757d;"> -->
+                            <img class="img-fluid for-light" src="{{ asset('admin/assets/images/logo/gws.webp') }}" alt="looginpage" style="max-width: 35% !important; background-color:#6c757d;">
                         </a>
                     </div>
 

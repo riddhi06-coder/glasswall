@@ -6,7 +6,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{ asset('admin/assets/images/logo/favicon.png')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/logo/favicon.png')}}" type="image/x-icon">
-    <title>Welcome to Small Animal Hospital Mumbai | Advanced Pet Care</title>
+    <title>Glass Wall Systems – Premium Glass & Facade Solutions</title>
     <!-- Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
