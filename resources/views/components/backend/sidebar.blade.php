@@ -36,6 +36,54 @@
                   </a>
                 </li>
 
+                @php
+                    $authUser = auth()->user();
+                    $can = fn (string $permission) => (bool) $authUser?->hasPermission($permission);
+                @endphp
+
+                {{-- User management: Roles / Users / Permissions --}}
+                @if($can('roles.view') || $can('users.view') || $can('permissions.view'))
+                <li class="sidebar-list {{ request()->routeIs('admin.roles.*', 'admin.users.*', 'admin.permissions.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-user') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-user') }}"></use>
+                    </svg>
+                    <span>User</span>
+                  </a>
+                  <ul class="sidebar-submenu">
+                      @if($can('roles.view'))
+                          <li><a href="{{ route('admin.roles.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Roles</a></li>
+                      @endif
+                      @if($can('users.view'))
+                          <li><a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users.*') ? 'active' : '' }}">Users</a></li>
+                      @endif
+                      @if($can('permissions.view'))
+                          <li><a href="{{ route('admin.permissions.index') }}" class="{{ request()->routeIs('admin.permissions.*') ? 'active' : '' }}">Permissions</a></li>
+                      @endif
+                  </ul>
+                </li>
+                @endif
+
+                {{-- Activity Log: Super Admin only --}}
+                @if($authUser?->isSuperAdmin())
+                <li class="sidebar-list {{ request()->routeIs('admin.activity-logs.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+                  <a class="sidebar-link" href="{{ route('admin.activity-logs.index') }}">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                    </svg>
+                    <span>Activity Log</span>
+                  </a>
+                </li>
+                @endif
+
               </ul>
               <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
             </div>

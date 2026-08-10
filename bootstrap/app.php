@@ -15,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo('/login');
         // Already-authenticated users hitting a `guest` route go to the dashboard.
         $middleware->redirectUsersTo('/dashboard');
+
+        // Route-level permission gate: ->middleware('permission:users.view')
+        $middleware->alias([
+            'permission' => \App\Http\Middleware\CheckPermission::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

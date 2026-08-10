@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Concerns\TracksDeletedBy;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, TracksDeletedBy;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +25,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
         'is_active',
+        'deleted_by',
     ];
 
     /**
@@ -50,26 +54,52 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Whether the user holds a given permission.
-     *
-     * NOTE: A full roles/permissions system is not built yet. Until then every
-     * authenticated user is treated as fully privileged so the admin menu and
-     * sections are all reachable. Replace this with a real roles lookup once the
-     * permissions module exists.
-     */
-    public function hasPermission(string $permission): bool
+    // ----------------------------------------------------------------
+    // Relationships
+    // ----------------------------------------------------------------
+    public function role(): BelongsTo
     {
-        return true;
+        return $this->belongsTo(Role::class);
+    }
+
+    public function deletedBy(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'deleted_by');
+    }
+
+    // ----------------------------------------------------------------
+    // Roles & permissions
+    // ----------------------------------------------------------------
+    public function hasRole(string $slug): bool
+    {
+        return $this->role && $this->role->slug === $slug;
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(Role::SUPERADMIN_SLUG);
     }
 
     /**
-     * Whether the user is a super admin.
+     * Whether this user is allowed to perform the given permission slug.
      *
-     * Placeholder until roles exist — see {@see hasPermission()}.
+     * Order of checks: inactive users have no access; super admins have full
+     * access; otherwise the user must have an active role that holds the slug.
      */
-    public function isSuperAdmin(): bool
+    public function hasPermission(string $slug): bool
     {
-        return true;
+        if (! $this->is_active) {
+            return false;
+        }
+
+        if ($this->isSuperAdmin()) {
+            return true;
+        }
+
+        if (! $this->role || ! $this->role->is_active) {
+            return false;
+        }
+
+        return $this->role->hasPermission($slug);
     }
 }
