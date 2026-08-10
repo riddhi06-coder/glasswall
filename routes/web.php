@@ -24,7 +24,12 @@ use App\Http\Controllers\LoginController;
         // Reset password — clicked from email
         Route::get('/reset-password/{token}', [LoginController::class, 'showResetPasswordForm'])->name('password.reset');
         Route::post('/reset-password',         [LoginController::class, 'resetPassword'])->name('admin.password.update');
+    });
 
-        // Backward-compat alias
-        Route::get('/change-password', [LoginController::class, 'showForgotPasswordForm'])->name('admin.changepassword');
+    // ----------------------
+    // Authenticated admin routes
+    // ----------------------
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('admin.dashboard');
+        Route::post('/logout',   [LoginController::class, 'logout'])->name('admin.logout');
     });

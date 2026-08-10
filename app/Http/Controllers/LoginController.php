@@ -12,11 +12,6 @@ use Illuminate\Validation\Rules\Password as PasswordRule;
 use Carbon\Carbon;
 
 use App\Models\User;
-use App\Models\AppointmentEnquiry;
-use App\Models\AppointmentStatus;
-use App\Models\AppointmentUser;
-use App\Models\ContactEnquiry;
-use App\Models\JobApplication;
 
 class LoginController extends Controller
 {
@@ -25,66 +20,10 @@ class LoginController extends Controller
     // ----------------------------------------------------------------
     public function dashboard()
     {
-        $today    = Carbon::today();
-        $tomorrow = $today->copy()->addDay();
-        $dayAfter = $today->copy()->addDays(2);
-        $weekEnd  = $today->copy()->addDays(6);
-
-        // Today's appointments.
-        $todaysAppointments = AppointmentEnquiry::whereNull('deleted_by')
-            ->with('status')
-            ->whereDate('appointment_date', $today)
-            ->orderBy('id')
-            ->get();
-
-        // Next two days (tomorrow + day after), split per day.
-        $next2Days = AppointmentEnquiry::whereNull('deleted_by')
-            ->with('status')
-            ->whereDate('appointment_date', '>=', $tomorrow)
-            ->whereDate('appointment_date', '<=', $dayAfter)
-            ->orderBy('appointment_date')
-            ->orderBy('id')
-            ->get();
-
-        $tomorrowAppts = $next2Days->filter(fn ($a) => optional($a->appointment_date)->isSameDay($tomorrow))->values();
-        $dayAfterAppts = $next2Days->filter(fn ($a) => optional($a->appointment_date)->isSameDay($dayAfter))->values();
-
-        // Pending = appointments still sitting at the default status.
-        $defaultStatusId = AppointmentStatus::whereNull('deleted_by')->where('is_default', true)->value('id');
-        $pendingCount = AppointmentEnquiry::whereNull('deleted_by')
-            ->when($defaultStatusId, fn ($q) => $q->where('appointment_status_id', $defaultStatusId))
-            ->count();
-
-        // Status breakdown for the overview panel.
-        $statusBreakdown = AppointmentStatus::whereNull('deleted_by')
-            ->withCount(['appointments' => fn ($q) => $q->whereNull('deleted_by')])
-            ->orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
-
-        // Recent form submissions.
-        $recentContacts = ContactEnquiry::whereNull('deleted_by')->orderByDesc('id')->take(5)->get();
-        $recentJobs     = JobApplication::whereNull('deleted_by')->orderByDesc('id')->take(5)->get();
-
-        $counts = [
-            'today'    => $todaysAppointments->count(),
-            'next2'    => $next2Days->count(),
-            'week'     => AppointmentEnquiry::whereNull('deleted_by')
-                            ->whereDate('appointment_date', '>=', $today)
-                            ->whereDate('appointment_date', '<=', $weekEnd)
-                            ->count(),
-            'pending'  => $pendingCount,
-            'clients'  => AppointmentUser::whereNull('deleted_by')->count(),
-            'total'    => AppointmentEnquiry::whereNull('deleted_by')->count(),
-            'contacts' => ContactEnquiry::whereNull('deleted_by')->count(),
-            'jobs'     => JobApplication::whereNull('deleted_by')->count(),
-        ];
-
-        return view('backend.dashboard', compact(
-            'today', 'tomorrow', 'dayAfter',
-            'todaysAppointments', 'tomorrowAppts', 'dayAfterAppts',
-            'statusBreakdown', 'recentContacts', 'recentJobs', 'counts'
-        ));
+        return view('backend.dashboard', [
+            'today' => Carbon::today(),
+            'user'  => Auth::user(),
+        ]);
     }
 
     // ----------------------------------------------------------------
@@ -117,8 +56,7 @@ class LoginController extends Controller
 
                 return back()
                     ->withInput($request->only('email'))
-                    ->with('message', 'Your account has been deactivated. Please contact an administrator.')
-                    ->withErrors(['email' => 'Your account has been deactivated.']);
+                    ->withErrors(['email' => 'Your account has been deactivated. Please contact an administrator.']);
             }
 
             $request->session()->regenerate();
@@ -129,7 +67,6 @@ class LoginController extends Controller
 
         return back()
             ->withInput($request->only('email'))
-            ->with('message', 'Credentials do not match our records!')
             ->withErrors(['email' => 'Credentials do not match our records!']);
     }
 
@@ -245,37 +182,5 @@ class LoginController extends Controller
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('admin.login')->with('message', 'Password reset successfully. Please log in.')
             : back()->withInput($request->only('email'))->withErrors(['email' => __($status)]);
-    }
-
-    // ----------------------------------------------------------------
-    // Change password — for already-authenticated users
-    // ----------------------------------------------------------------
-    public function showChangePasswordForm()
-    {
-        return view('backend.forgot_password');
-    }
-
-    public function updatePassword(Request $request)
-    {
-        if (Auth::check()) {
-            $request->validate([
-                'current_password' => 'required|string|current_password',
-                'password'         => ['required', 'string', 'confirmed', PasswordRule::min(8)],
-            ], [
-                'current_password.required'      => 'Current password is required',
-                'current_password.current_password' => 'Current password is incorrect',
-                'password.required'              => 'New Password is required',
-                'password.confirmed'             => 'Confirm Password must match the New Password',
-                'password.min'                   => 'Password must be at least 8 characters.',
-            ]);
-
-            $user = $request->user();
-            $user->password = Hash::make($request->password);
-            $user->save();
-
-            return redirect()->route('admin.dashboard')->with('message', 'Password changed successfully!');
-        }
-
-        return $this->sendResetLink($request);
     }
 }
