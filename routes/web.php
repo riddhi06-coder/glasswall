@@ -7,7 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ActivityLogController;
-
+use App\Http\Controllers\Backend\HomeBannerController;
 
     // ----------------------
     // Guest-only auth routes (login / register / forgot password)
@@ -17,7 +17,7 @@ use App\Http\Controllers\ActivityLogController;
         Route::get('/login',  [LoginController::class, 'login'])->name('admin.login');
         Route::post('/login', [LoginController::class, 'authenticate'])->name('admin.authenticate');
 
-        // Register
+        // Register 
         Route::get('/register',  [LoginController::class, 'register'])->name('admin.register');
         Route::post('/register', [LoginController::class, 'authenticate_register'])->name('admin.register.authenticate');
 
@@ -69,4 +69,12 @@ use App\Http\Controllers\ActivityLogController;
         // ---- Activity Log (Super Admin only; gated inside the controller) ----
         Route::get('activity-logs',      [ActivityLogController::class, 'index'])->name('admin.activity-logs.index');
         Route::get('activity-logs/{id}', [ActivityLogController::class, 'show'])->whereNumber('id')->name('admin.activity-logs.show');
+    
+    
+        // Home slider
+        Route::resource('banner-details', HomeBannerController::class);
+    
+    
+    
+    
     });
