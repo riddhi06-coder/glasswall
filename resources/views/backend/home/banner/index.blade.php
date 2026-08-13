@@ -58,7 +58,7 @@
                                         @forelse($banners as $key => $banner)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ \Illuminate\Support\Str::limit(strip_tags($banner->banner_heading), 60) }}</td>                                                <td>
+                                                <td>{!! $banner->banner_heading !!}</td>                                                <td>
                                                     @if($banner->media_type === 'image')
                                                         <img src="{{ asset('home/bannerimagevideo/'.$banner->banner_media) }}"
                                                              style="max-height: 120px;" class="img-fluid rounded" alt="banner">
