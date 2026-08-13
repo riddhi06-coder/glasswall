@@ -8,6 +8,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Backend\HomeBannerController;
+use App\Http\Controllers\Backend\HomeAboutController;
+
+
+
+
+
 
     // ----------------------
     // Guest-only auth routes (login / register / forgot password)
@@ -73,6 +79,7 @@ use App\Http\Controllers\Backend\HomeBannerController;
     
         // Home slider
         Route::resource('banner-details', HomeBannerController::class);
+        Route::resource('home-about-details', HomeAboutController::class);
     
     
     

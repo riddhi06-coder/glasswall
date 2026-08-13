@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
 {
     /** Every model whose activity should be recorded in the audit trail. */
     private array $auditedModels = [
+        \App\Models\HomeAbout::class,
         \App\Models\HomeBanner::class,
         \App\Models\Permission::class,
         \App\Models\Role::class,
