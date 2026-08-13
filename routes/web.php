@@ -9,6 +9,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\HomeAboutController;
+use App\Http\Controllers\Backend\HomeClienteleController;
 
 
 
@@ -80,6 +81,7 @@ use App\Http\Controllers\Backend\HomeAboutController;
         // Home slider
         Route::resource('banner-details', HomeBannerController::class);
         Route::resource('home-about-details', HomeAboutController::class);
+        Route::resource('home-clientele', HomeClienteleController::class);
     
     
     

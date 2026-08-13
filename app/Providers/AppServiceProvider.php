@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     private array $auditedModels = [
         \App\Models\HomeAbout::class,
         \App\Models\HomeBanner::class,
+        \App\Models\HomeClientele::class,
         \App\Models\Permission::class,
         \App\Models\Role::class,
         \App\Models\User::class,

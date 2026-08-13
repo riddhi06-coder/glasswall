@@ -85,7 +85,7 @@
                 @endif
 
 
-                <li class="sidebar-list {{ request()->routeIs('banner-details.*','home-about-details.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('banner-details.*','home-about-details.*','home-clientele.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
                   <a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon">
@@ -101,6 +101,8 @@
                           <li><a href="{{ route('banner-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Banner Details</a></li>
                       @endif
                           <li><a href="{{ route('home-about-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">About Details</a></li>
+                          <li><a href="{{ route('home-clientele.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Clientele</a></li>
+
                   </ul>
                 </li>
 
