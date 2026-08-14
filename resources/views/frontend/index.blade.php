@@ -14,222 +14,49 @@
         <main>
 
           <section class="tp-hero-slider-area p-relative">
+      
             <div class="swiper tp-hero-slider-active">
               <div class="swiper-wrapper">
-
-                <div class="swiper-slide">
-                  <div class="tp-hero-slider tp-bg tp-overlay-3" data-background="assets/images/banner/1.webp">
-                    <div class="container">
-                      <div class="row align-items-center min-vh-100">
-                        <div class="col-lg-6 col-md-6">
-                          <div class="tp-hero-slider-main">
-                            <div class="tp-hero-slider-content">
-                              <h1 class="tp-hero-slider-title tp-section-title tp-section-title-larg tp-text-white">
-                                Redefining Every Skyline, One Façade at a Time.
-                              </h1>
-                              <div class="tp-hero-slider-btn pt-25">
-                                <p class="margin-0 tp-text-white fw-500 pb-50">
-                                  Our Façades Are Built to Impress and Engineered for Performance.
-                                </p>
-                                <a href="https://mbihosting.in/glasswall/demo/projects.php?category=residential" class="tp-btn">
-                                  <span class="tp-btn-text">Explore Our Work</span>
-                                  <span class="tp-btn-icon">
-                                    <svg
-                                      width="12"
-                                      height="12"
-                                      viewBox="0 0 12 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M0.75 10.75L10.75 0.75"
-                                        stroke="currentcolor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                      <path
-                                        d="M0.75 0.75H10.75V10.75"
-                                        stroke="currentcolor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                    </svg>
-                                  </span>
-                                </a>
+                @foreach($banners as $banner)
+                  @php $mediaUrl = asset('home/bannerimagevideo/'.$banner->banner_media); @endphp
+                  <div class="swiper-slide">
+                    <div class="tp-hero-slider {{ $banner->media_type === 'image' ? 'tp-bg' : '' }} tp-overlay-3"
+                      @if($banner->media_type === 'image') data-background="{{ $mediaUrl }}" @endif>
+                      @if($banner->media_type === 'video')
+                        <video class="tp-hero-slider-video" autoplay muted loop playsinline
+                          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+                          <source src="{{ $mediaUrl }}">
+                        </video>
+                      @endif
+                      <div class="container">
+                        <div class="row align-items-center min-vh-100">
+                          <div class="col-lg-6 col-md-6">
+                            <div class="tp-hero-slider-main">
+                              <div class="tp-hero-slider-content">
+                                <h1 class="tp-hero-slider-title tp-section-title tp-section-title-larg tp-text-white">
+                                  {!! $banner->banner_heading !!}
+                                </h1>
+                                <div class="tp-hero-slider-btn pt-25">
+                                  <p class="margin-0 tp-text-white fw-500 pb-50">{{ $banner->banner_title }}</p>
+                                  <a href="#" class="tp-btn">
+                                    <span class="tp-btn-text">Explore Our Work</span>
+                                    <span class="tp-btn-icon">
+                                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.75 10.75L10.75 0.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M0.75 0.75H10.75V10.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                      </svg>
+                                    </span>
+                                  </a>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-
+                          <div class="col-lg-6 col-md-6"></div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="swiper-slide">
-                  <div class="tp-hero-slider tp-bg tp-overlay-3" data-background="assets/images/banner/3374.webp">
-                    <div class="container">
-                      <div class="row align-items-center min-vh-100">
-                        <div class="col-lg-6 col-md-6">
-                          <div class="tp-hero-slider-main">
-                            <div class="tp-hero-slider-content">
-                              <h1 class="tp-hero-slider-title tp-section-title tp-section-title-larg tp-text-white">
-                                Engineering Couture for Every Building Façade.
-                              </h1>
-                              <div class="tp-hero-slider-btn pt-25">
-                                <p class="margin-0 tp-text-white fw-500 pb-50">
-                                  Where Structural Integrity and Purpose Meets Architectural Artistry.
-                                </p>
-                                <a href="#" class="tp-btn">
-                                  <span class="tp-btn-text">Explore Our Work</span>
-                                  <span class="tp-btn-icon">
-                                    <svg
-                                      width="12"
-                                      height="12"
-                                      viewBox="0 0 12 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M0.75 10.75L10.75 0.75"
-                                        stroke="currentcolor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                      <path
-                                        d="M0.75 0.75H10.75V10.75"
-                                        stroke="currentcolor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                    </svg>
-                                  </span>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="swiper-slide">
-                  <div
-                    class="tp-hero-slider tp-bg tp-overlay-3"
-                    data-background="assets/images/banner/MARKET-PLACE.webp"
-                  >
-                    <div class="container">
-                      <div class="row align-items-center min-vh-100">
-                        <div class="col-lg-6 col-md-6">
-                          <div class="tp-hero-slider-main">
-                            <div class="tp-hero-slider-content">
-                              <h1 class="tp-hero-slider-title tp-section-title tp-section-title-larg tp-text-white">
-                                Exteriors That Inspire.
-                              </h1>
-                              <div class="tp-hero-slider-btn pt-25">
-                                <p class="margin-0 tp-text-white fw-500 pb-50">
-                                  We Focus on Smarter Materials That Lead to Better Performing Buildings for a World
-                                  with a Brighter Future.
-                                </p>
-                                <a href="#" class="tp-btn">
-                                  <span class="tp-btn-text">Explore Our Work</span>
-                                  <span class="tp-btn-icon">
-                                    <svg
-                                      width="12"
-                                      height="12"
-                                      viewBox="0 0 12 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M0.75 10.75L10.75 0.75"
-                                        stroke="currentcolor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                      <path
-                                        d="M0.75 0.75H10.75V10.75"
-                                        stroke="currentcolor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                    </svg>
-                                  </span>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="swiper-slide">
-                  <div class="tp-hero-slider tp-bg tp-overlay-3" data-background="assets/images/banner/JW-Marriot.webp">
-                    <div class="container">
-                      <div class="row align-items-center min-vh-100">
-                        <div class="col-lg-6 col-md-6">
-                          <div class="tp-hero-slider-main">
-                            <div class="tp-hero-slider-content">
-                              <h1 class="tp-hero-slider-title tp-section-title tp-section-title-larg tp-text-white">
-                                Where vision meets the surface – Unmatched Precision.
-                              </h1>
-                              <div class="tp-hero-slider-btn pt-25">
-                                <p class="margin-0 tp-text-white fw-500 pb-50">Redefining the outer edge of design.</p>
-                                <a href="#" class="tp-btn">
-                                  <span class="tp-btn-text">Explore Our Work</span>
-                                  <span class="tp-btn-icon">
-                                    <svg
-                                      width="12"
-                                      height="12"
-                                      viewBox="0 0 12 12"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M0.75 10.75L10.75 0.75"
-                                        stroke="currentcolor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                      <path
-                                        d="M0.75 0.75H10.75V10.75"
-                                        stroke="currentcolor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                    </svg>
-                                  </span>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                @endforeach
               </div>
 
               <div class="tp-hero-slider-pagination d-none d-md-flex"></div>

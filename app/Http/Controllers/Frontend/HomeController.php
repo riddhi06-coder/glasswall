@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\HomeBanner;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,9 @@ class HomeController extends Controller
     // Home Page
     public function index()
     {
-        return view('frontend.index');
+        $banners = HomeBanner::orderBy('id')->get();
+
+        return view('frontend.index', compact('banners'));
     }
 
 }
