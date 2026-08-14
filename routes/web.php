@@ -13,7 +13,8 @@ use App\Http\Controllers\Backend\HomeClienteleController;
 use App\Http\Controllers\Backend\HomeBlogController;
 
 
-
+//frontend controller
+use App\Http\Controllers\Frontend\HomeController;
 
 
     // ----------------------
@@ -88,3 +89,13 @@ use App\Http\Controllers\Backend\HomeBlogController;
     
     
     });
+
+
+
+
+
+    // ----------------------
+    // 🔹 Frontend Routes
+    // ----------------------
+
+    Route::get('/', [HomeController::class, 'index'])->name('frontend.index');

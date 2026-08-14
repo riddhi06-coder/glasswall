@@ -1,194 +1,173 @@
-    @php
-        $footerContact = \App\Models\ContactDetails::whereNull('deleted_by')->first();
+<footer>
+    <div class="tp-footer-area tp-bg-overlay-2 tp-footer-spacing tp-footer-spacing-2 tp-footer-margin tp-bg fix">
 
-        $footerPhoneDisplay = $footerContact->emergency_no ?? '';
-        $footerPhoneTel     = $footerPhoneDisplay ? preg_replace('/[^\d+]/', '', $footerPhoneDisplay) : '';
+        <div class="container z-index-2">
+            <div class="tp-footer-wrap">
+                <div class="row">
 
-        // Footer email prefers the dedicated footer_email field, else falls back to primary email.
-        $footerEmail = ($footerContact->footer_email ?? null) ?: ($footerContact->email ?? '');
+                    <!-- Company Info -->
+                    <div class="col-lg-5 col-md-7 col-sm-8">
+                        <div class="tp-footer-widgets mb-30 tp_fade_anim" data-delay=".1">
+                            <div class="tp-footer-info">
 
-        $footerMapUrl    = $footerContact->map_url ?? '';
+                                <div class="tp-footer-content mb-25">
+                                    <h3 class="tp-footer-info-title mb-20">
+                                        Have Questions?
+                                    </h3>
 
-        // donate_info may hold a full HTML anchor (rich editor) OR a plain link.
-        // Pull the real URL out either way so it isn't dumped into the href as markup.
-        $footerDonate = $footerContact->donate_info ?? '';
-        if ($footerDonate && preg_match('/href\s*=\s*["\']([^"\']+)["\']/i', $footerDonate, $mDonate)) {
-            $footerDonateUrl = html_entity_decode($mDonate[1]);
-        } else {
-            $footerDonateUrl = trim(strip_tags($footerDonate));
-        }
+                                    <address class="tp-footer-info-deg white-rgba footer-address-normal">
+                                        503-504, 5th Floor, A Wing, Marathon Futurex,
+                                        Mafatlal Mills Compound, N.M. Joshi Marg,
+                                        Lower Parel (E), Mumbai 400 013
+                                    </address>
 
-        // Address for the footer widget: convert </p> + <br> to newlines, strip HTML, escape, then nl2br.
-        // Keeps the multi-line address look without letting stray editor tags break the anchor markup.
-        $footerAddressBr = $footerContact && $footerContact->address
-            ? nl2br(e(trim(strip_tags(str_replace(['</p>', '<br>', '<br/>', '<br />'], "\n", $footerContact->address)))))
-            : '';
+                                    <p class="tp-footer-info-deg mt-20">
+                                        Email:
+                                        <a href="mailto:info@glasswallsystems.in">
+                                            info@glasswallsystems.in
+                                        </a>
+                                        <br />
 
-        // Policies — all CMS-uploaded policies (Privacy Policy, Refund Policy, etc.),
-        // each rendered as its own footer link. Falls back to the static PDF if none exist.
-        $footerPolicies = \App\Models\PrivacyPolicy::whereNull('deleted_by')
-            ->whereNotNull('file')
-            ->orderBy('id')
-            ->get();
-    @endphp
-
-    <section class="home-page-contact-us-footer-top">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <div class="why__we-are-content">
-                        <div class="section__title section_title_none mb-0">
-                            <h2 class="title">Appointment & Emergency help is available 24x7</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="home-appointment-emergency-footer-btn-sec">
-                        <a href="{{ route('frontend.contact_us') }}" class="btn">Contact Us<img src="{{ asset('frontend/assets/img/icon/right_arrow.svg') }}"
-                                alt="" class="injectable"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    
-    
-    <!-- footer-area -->
-    <footer>
-        <div class="footer__area">
-            <div class="footer__top fix">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-md-6">
-                            <div class="footer__widget">
-                                <div class="footer__logo">
-                                    <a href="{{ route('frontend.index') }}"><img
-                                            src="{{ asset('frontend/assets/img/logo/sahmumbai-logo.svg') }}" width="325" height="65" alt="Tata Trusts Small Animal Hospital Logo" loading="lazy"></a>
-                                    @if($footerAddressBr)
-                                        <p>
-                                            @if($footerMapUrl)
-                                                <a href="{{ $footerMapUrl }}" target="_blank">{!! $footerAddressBr !!}</a>
-                                            @else
-                                                {!! $footerAddressBr !!}
-                                            @endif
-                                        </p>
-                                    @endif
-                                    @if($footerMapUrl)
-                                        <div class="footer-btn-sah-custom-sec">
-                                            <a href="{{ $footerMapUrl }}" target="_blank" class="read-more-btn"><img src="{{ asset('frontend/assets/img/icon/map-icon-one.webp') }}" width="18" height="18" alt="View Map Icon" loading="lazy" class="view-map-img-one"> View Map</a>
-                                        </div>
-                                    @endif
+                                        Phone:
+                                        <a href="tel:+912261033456">
+                                            +91 22 6103 3456
+                                        </a>
+                                    </p>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="footer__widget">
-                                <h4 class="footer__widget-title">Contact Us</h4>
-                                <div class="footer__link">
-                                    <ul class="address">
-                                        @if($footerPhoneDisplay)
-                                            <li>
-                                                <div class="icon">
-                                                    <img src="{{ asset('frontend/assets/img/icon/telephone-icon.webp') }}" width="40" height="40" alt="Book An Appointment Icon" loading="lazy">
-                                                </div>
-                                                <div class="address-content-sec">
-                                                    <h4>Book An Appointment</h4>
-                                                    <p><a href="tel:{{ $footerPhoneTel }}">{{ $footerPhoneDisplay }}</a></p>
-                                                </div>
-                                            </li>
-                                        @endif
 
-                                        @if($footerEmail)
-                                            <li>
-                                                <div class="icon">
-                                                    <img src="{{ asset('frontend/assets/img/icon/email-icon.webp') }}" width="40" height="40" alt="Mail Us Icon" loading="lazy">
-                                                </div>
-                                                <div class="address-content-sec">
-                                                    <h4>Mail Us</h4>
-                                                    <p><a href="mailto:{{ $footerEmail }}">{{ $footerEmail }}</a></p>
-                                                </div>
-                                            </li>
-                                        @endif
+                                <!-- Social -->
+                                <div class="tp-footer-social tp-footer-social-white">
+                                    <ul>
 
-                                        @if($footerContact && $footerContact->email)
-                                            <li>
-                                                <div class="icon">
-                                                    <img src="{{ asset('frontend/assets/img/icon/donate-floating-icon.webp') }}" width="40" height="40" alt="Donate Icon" loading="lazy">
-                                                </div>
-                                                <div class="address-content-sec">
-                                                    <h4><a href="mailto:{{ $footerContact->email }}?subject=Interest%20in%20Donation%20/%20Enquiry"
-                                                    target="_blank">Donate</a></h4>
-                                                </div>
-                                            </li>
-                                        @endif
+                                        <!-- Facebook -->
+                                        <li>
+                                            <a href="https://www.facebook.com/glasswallsystems/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                                <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M8 0H5.81818C4.85376 0 3.92883 0.383116 3.24688 1.06507C2.56493 1.74702 2.18182 2.67194 2.18182 3.63636V5.81818H0V8.72727H2.18182V14.5455H5.09091V8.72727H7.27273L8 5.81818H5.09091V3.63636C5.09091 3.44348 5.16753 3.25849 5.30392 3.1221C5.44031 2.98571 5.6253 2.90909 5.81818 2.90909H8V0Z" fill="currentcolor"/> </svg>
+                                            </a>
+                                        </li>
+
+                                        <!-- Instagram -->
+                                        <li>
+                                            <a href="https://instagram.com/glasswallsystems/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"> <path d="M9.52217 6.77491L15.4785 0H14.0671L8.89516 5.88256L4.76437 0H0L6.24656 8.89547L0 16H1.41155L6.87321 9.78782L11.2356 16H16L9.52183 6.77491H9.52217ZM7.58887 8.97384L6.95596 8.08805L1.92015 1.03974H4.0882L8.15216 6.72795L8.78507 7.61374L14.0677 15.0075H11.8997L7.58887 8.97418V8.97384Z" fill="currentcolor"/> </svg>
+                                            </a>
+                                        </li>
+
+                                        <!-- LinkedIn -->
+                                        <li>
+                                            <a href="https://in.linkedin.com/company/glasss-wall-systems-india-pvt-ltd-"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="LinkedIn">
+                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M9.79961 4.2002C10.9135 4.2002 11.9818 4.64269 12.7695 5.43035C13.5571 6.218 13.9996 7.28629 13.9996 8.4002V13.3002H11.1996V8.4002C11.1996 8.02889 11.0521 7.6728 10.7896 7.41025C10.527 7.1477 10.1709 7.0002 9.79961 7.0002C9.42831 7.0002 9.07221 7.1477 8.80966 7.41025C8.54711 7.6728 8.39961 8.02889 8.39961 8.4002V13.3002H5.59961V8.4002C5.59961 7.28629 6.04211 6.218 6.82976 5.43035C7.61741 4.64269 8.6857 4.2002 9.79961 4.2002Z" fill="currentcolor"/> <path d="M2.8 4.90039H0V13.3004H2.8V4.90039Z" fill="currentcolor"/> <path d="M1.4 2.8C2.1732 2.8 2.8 2.1732 2.8 1.4C2.8 0.626801 2.1732 0 1.4 0C0.626801 0 0 0.626801 0 1.4C0 2.1732 0.626801 2.8 1.4 2.8Z" fill="currentcolor"/> </svg>
+                                            </a>
+                                        </li>
+
                                     </ul>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 quick-links-pad-sec">
-                            <div class="footer__widget ms-0">
-                                <h4 class="footer__widget-title">Quick Links</h4>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="footer__link">
-                                            <ul class="list-wrap">
-                                                <li><a href="{{ route('frontend.index') }}">Home</a></li>
-                                                <li><a href="{{ route('frontend.about_us') }}">About</a></li>
-                                                <li><a href="{{ route('frontend.specialities') }}">Specialities</a></li>
-                                                <li><a href="{{ route('frontend.our_facilities') }}">Facilities</a></li>
-                                                <li><a href="{{ route('frontend.faqs') }}">FAQs</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="footer__link">
-                                            <ul class="list-wrap">
-                                                <li><a href="{{ route('frontend.our_team') }}">Team</a></li>
-                                                <li><a href="{{ route('frontend.join_us') }}">Join Us</a></li>
-                                                <li><a href="{{ route('frontend.gallery') }}">Gallery</a></li>
-                                                <li><a href="{{ route('frontend.blogs') }}">Blog</a></li>
-                                                <li><a href="{{ route('frontend.contact_us') }}">Contact Us</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
+
+                    <!-- Company -->
+                    <div class="col-lg-2 col-md-5 col-sm-4">
+                        <div class="tp-footer-widgets tp-footer-widgets-white mb-30 tp_fade_anim"
+                            data-delay=".2">
+
+                            <h4 class="tp-footer-widgets-title white-rgba mb-25">
+                                Company
+                            </h4>
+
+                            <ul>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="board-of-directors.html">Our Team</a></li>
+                                <li><a href="#">Solutions</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <!-- Projects -->
+                    <div class="col-lg-3 col-md-7 col-sm-8">
+                        <div class="tp-footer-widgets tp-footer-widgets-white tp_fade_anim"
+                            data-delay=".3">
+
+                            <h4 class="tp-footer-widgets-title white-rgba mb-25">
+                                Projects
+                            </h4>
+
+                            
+                            <ul>
+                                <li><a href="projects.php?category=residential">Residential</a></li>
+                                <li><a href="projects.php?category=commercial">Commercial &amp; Hospitality</a></li>
+                                <li><a href="projects.php?category=international">International</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Infrastructure -->
+                    <div class="col-lg-2 col-md-5 col-sm-4">
+                        <div class="tp-footer-widgets tp-footer-widgets-white tp_fade_anim"
+                            data-delay=".4">
+
+                            <h4 class="tp-footer-widgets-title white-rgba mb-25">
+                                Infrastructure
+                            </h4>
+
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Design &amp; Engineering
+                                    </a>
+                                </li>
+                                <li><a href="#">Facility</a></li>
+                                <li>
+                                    <a href="#">
+                                        Project Management
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="footer__bottom">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <div class="copyright-text">
-                                <p>Copyright © {{ date('Y') }} Small Animal Hospital. All Rights Reserved. Designed By <a
-                                        href="https://www.matrixbricks.com/" target="_blank">Matrix Bricks.</a></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="footer__bottom-menu text-end">
-                                <p>@forelse($footerPolicies as $policy)<a href="{{ asset('home/privacy/'.$policy->file) }}" target="_blank">{{ $policy->name }}</a>@if(! $loop->last) | @endif @empty<a href="assets/pdf/hospital-online-payment-terms-and-conditions.pdf" target="_blank">Terms and Conditions</a> | <a href="assets/pdf/privacy-policy.pdf" target="_blank">Website Privacy Policy</a> | <a href="assets/pdf/hospital-privacy-policy-for-hospital-online-payments.pdf" target="_blank">Online Payment Privacy Policy</a>@endforelse</p>
-                            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="tp-footer-bottom pt-25 pb-25">
+            <div class="container">
+
+                <div class="row align-items-center">
+
+                    <div class="col-md-6">
+                        <div class="tp-footer-copyright">
+                            <p class="mb-0">
+&copy; 2026 Glass Wall Systems. All rights reserved.
+                            </p>
                         </div>
                     </div>
+
+                    <div class="col-md-6 text-md-end">
+                        <div class="tp-footer-links">
+                            <a href="#"
+                                class=" me-3">
+                                Privacy Policy
+                            </a>
+
+                            <a href="#" class="">
+                                Terms &amp; Conditions
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
+
+            </div>
         </div>
-    </footer>
 
-    <!-- footer-area-end -->
-
-
-    <!--Start Sticky Icon-->
-    <div class="sticky-icon">
-        <a href="{{ route('frontend.user_login') }}"> Book An Appointment <img src="{{ asset('frontend/assets/img/icon/appointment-floating-icon.webp') }}" alt="Book An Appointment Icon"></a>
-        @if($footerDonateUrl)
-            <a href="{{ $footerDonateUrl }}"> Donate <img src="{{ asset('frontend/assets/img/icon/donate-floating-icon.webp') }}" alt="Donate Icon" title="Donate Icon"></a>
-        @endif
-        <a href="{{ route('frontend.contact_us') }}"> Contact Us <img src="{{ asset('frontend/assets/img/icon/contact-us-floating-icon.webp') }}" alt="Contact Us Icon"></a>
     </div>
-    <!--End Sticky Icon-->
+</footer>

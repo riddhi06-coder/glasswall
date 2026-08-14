@@ -1,330 +1,209 @@
-    @php
-        $headerContact = \App\Models\ContactDetails::whereNull('deleted_by')
-            ->with([
-                'ribbonItems' => fn ($q) => $q->whereNull('deleted_by')->orderBy('sort_order')->orderBy('id'),
-                'socialLinks' => fn ($q) => $q->whereNull('deleted_by')->orderBy('sort_order')->orderBy('id'),
-            ])
-            ->first();
-
-        $headerSocials = $headerContact ? $headerContact->socialLinks : collect();
-        $headerRibbons = $headerContact ? $headerContact->ribbonItems : collect();
-
-        // Split ribbon items evenly between the two top-strip columns.
-        $ribbonHalf    = (int) ceil($headerRibbons->count() / 2);
-        $leftRibbons   = $headerRibbons->slice(0, $ribbonHalf);
-        $rightRibbons  = $headerRibbons->slice($ribbonHalf);
-
-        // Phone display + tel:link helpers used in the mobile menu / offcanvas.
-        $phoneDisplay = $headerContact->emergency_no ?? '';
-        $phoneTel     = $phoneDisplay ? preg_replace('/[^\d+]/', '', $phoneDisplay) : '';
-
-        // Header/menu blocks want short plain-text address (rich-text stripped).
-        $addressPlain = $headerContact && $headerContact->address
-            ? trim(preg_replace('/\s+/', ' ', strip_tags($headerContact->address)))
-            : '';
-
-        // Smart-link helper for ribbon values: URL, email, phone, or plain text.
-        $ribbonHref = function ($value) {
-            $v = trim((string) $value);
-            if ($v === '') { return null; }
-            if (str_starts_with($v, 'http')) { return $v; }
-            if (str_contains($v, '@'))       { return 'mailto:'.$v; }
-            if (preg_match('/^\+?[\d\s\-()]+$/', $v)) {
-                return 'tel:'.preg_replace('/[^\d+]/', '', $v);
-            }
-            return null;
-        };
-    @endphp
-
-     <!-- PRELOADER -->
-    <div id="preloader">
-        <div class="preloader-icon-wrap">
-            <div class="preloader-icon-stack">
-                <lottie-player class="lottie-preloader-player-sec" src="{{ asset('frontend/assets/preloader-logo.json') }}"
-                    background="transparent" speed="1" loop autoplay>
-                </lottie-player>
+<header>
+  <div class="tp-header-area tp-header-transparent sticky-black" id="header-sticky">
+    <div class="container">
+      <div class="tp-header-border-white tp-header-spacing">
+        <div class="tp-header-wrap">
+          <div class="row gx-0 tp-align-center">
+            <div class="col-xl-3 col-lg-3 col-md-8 col-5">
+              <div class="tp-header-logo">
+                <a href="index.html">
+                  <img data-width="275" src="{{ asset('frontend/assets/images/gws.png') }}" alt="Glass Wall Systems Logo" />
+                </a>
+              </div>
             </div>
+            <div class="col-xl-8 col-lg-8 col-md-8 col-2 tp-text-center">
+              <div class="tp-header-menu tp-header-menu-white tp-bluer-bg tp-text-center d-none d-xl-inline-block">
+                <nav class="tp-mobile-menu-active">
+                  <ul>
+                    <!--<li><a href="#">Overview </a></li>-->
+                    <li>
+                      <a href="#">Overview</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="vision-mission-values.html"><span>About Us</span></a>
+                        </li>
+                        <li>
+                          <a href="board-of-directors.html"><span>Board of Directors</span></a>
+                        </li>
+                        <li>
+                          <a href="innovation.html"><span>Innovation</span></a>
+                        </li>
+                        <li>
+                          <a href="esg.html"><span>ESG</span></a>
+                        </li>
+                        <li><a href="media.html"><span>Media</span></a></li>
+                        <li>
+                          <a href="awards-recognition.html"><span>Awards and Certificates</span></a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Products</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="facade-and-curtain-wall-systems.html"
+                            ><span>Facade and Curtain Wall Systems</span></a
+                          >
+                        </li>
+                        <li>
+                          <a href="louvers.html"><span>Louvers</span></a>
+                        </li>
+                        <li>
+                          <a href="rain-screen-cladding.html"><span>Rain Screen Cladding</span></a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Projects</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="projects.php?category=residential"><span>Residential</span></a>
+                        </li>
+                        <li>
+                          <a href="projects.php?category=commercial"><span>Commercial and Hospitality</span></a>
+                        </li>
+                        <li>
+                          <a href="projects.php?category=international"><span>International</span></a>
+                        </li>
+                      </ul>
+                    </li>
+                     <li>
+                      <a href="#">Infrastructure</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="#"><span>Design & Engineering</span></a>
+                        </li>
+                        <li>
+                          <a href="#"><span>Facility</span></a>
+                        </li>
+                        <li>
+                          <a href="project-management.html"><span>Project Management</span></a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">Investors Relations</a>
+                      <ul class="sub-menu">
+                        <li>
+                          <a href="ipo.html"><span>IPO</span></a>
+                        </li>
+                        <li>
+                          <a href="corporate-governance.html"><span>Corporate Governance</span></a>
+                        </li>
+                        <li>
+                          <a href="annual-report.html"><span>Annual Reports</span></a>
+                        </li>
+                        <li>
+                          <a href="#"><span>Investor Resources</span></a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <div class="col-xl-1 col-lg-1 col-md-1 col-5">
+              <div class="tp-header-cta tp-flex-center tp-justify-end">
+                <!--<div class="tp-header-cta-button d-none d-md-inline-block">-->
+                <!--  <a href="#" class="tp-btn">-->
+                <!--    <span class="tp-btn-text">Get in touch</span>-->
+                <!--    <span class="tp-btn-icon">-->
+                <!--      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+                <!--        <path-->
+                <!--          d="M0.75 10.75L10.75 0.75"-->
+                <!--          stroke="currentcolor"-->
+                <!--          stroke-width="1.5"-->
+                <!--          stroke-linecap="round"-->
+                <!--          stroke-linejoin="round"-->
+                <!--        />-->
+                <!--        <path-->
+                <!--          d="M0.75 0.75H10.75V10.75"-->
+                <!--          stroke="currentcolor"-->
+                <!--          stroke-width="1.5"-->
+                <!--          stroke-linecap="round"-->
+                <!--          stroke-linejoin="round"-->
+                <!--        />-->
+                <!--      </svg>-->
+                <!--    </span>-->
+                <!--  </a>-->
+                <!--</div>-->
+                <div class="tp-cta-phone tp-header-cta-phone mr-30 d-none d-xl-inline-block">
+                    <a class="tp-flex-center" href="#">
+                        <span class="tp-cta-phone-icon mr-10">
+                            <img src="{{ asset('frontend/assets/images/icons/search.svg') }}"/>
+                        </span>
+                    </a>
+                </div>
+                <div class="tp-header-bar d-xl-none">
+                  <button class="header-sidebar-btn tp-offcanvas-toogle ml-10" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="preloader-counter">
-            <span id="counter-current">0</span>
-            <span class="separator">/</span>
-            <span>100</span>
-        </div>
+      </div>
     </div>
+  </div>
+</header>
 
-    <!-- Scroll-top -->
-    <button class="scroll__top scroll-to-target" data-target="html">
-        <i class="fas fa-angle-up"></i>
-    </button>
-    
-    <div class="floating-social-menu">
-        <button class="social-toggle-btn">
-            <i class="fas fa-headset"></i>
-        </button>
-        <div class="social-icons">
-            @forelse($headerSocials as $link)
-                <a target="_blank" href="{{ $link->url }}" class="social-icon {{ $link->platform }}" title="{{ $link->platform_label }}">
-                    <i class="{{ $link->icon_class }}"></i>
-                </a>
-            @empty
-                <a target="_blank" href="https://www.instagram.com/sahmumbai/" class="social-icon instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a target="_blank" href="https://wa.me/917021850400" class="social-icon whatsapp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a target="_blank" href="#" class="social-icon linkedin">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            @endforelse
+
+<!-- header end -->
+    <div id="loading">
+      <div id="loading-center">
+        <div id="loading-center-absolute">
+          <div class="object" id="object_four"></div>
+          <div class="object" id="object_three"></div>
+          <div class="object" id="object_two"></div>
+          <div class="object" id="object_one"></div>
         </div>
+      </div>
     </div>
- 
- 
- 
- <!-- header-area -->
-    <header>
-        <div id="header-fixed-height"></div>
+    <!-- magic cursor start -->
+    <div id="magic-cursor" class="cursor-secoundery-bg">
+      <div id="ball"></div>
+    </div>
+    <!-- magic cursor end -->
 
-        @if($headerRibbons->count())
-            <div class="tg-header__top">
-                <div class="container custom-container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-8 col-md-6">
-                            <ul class="tg-header__top-info left-side list-wrap">
-                                @foreach($leftRibbons as $r)
-                                    @php $href = $ribbonHref($r->value); @endphp
-                                    <li>
-                                        @if($r->icon)
-                                            <img src="{{ asset('home/contact/ribbon/'.$r->icon) }}" alt="{{ $r->title }}">
-                                        @endif
-                                        @if($href)
-                                            <a href="{{ $href }}">{{ $r->title }}@if($r->value)  {{ $r->value }}@endif</a>
-                                        @else
-                                            {{ $r->title }}@if($r->value)  {{ $r->value }}@endif
-                                        @endif
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <div class="col-xl-6 col-lg-4 col-md-6">
-                            <ul class="tg-header__top-right list-wrap">
-                                @foreach($rightRibbons as $r)
-                                    @php $href = $ribbonHref($r->value); @endphp
-                                    <li>
-                                        @if($r->icon)
-                                            <img src="{{ asset('home/contact/ribbon/'.$r->icon) }}" alt="{{ $r->title }}">
-                                        @endif
-                                        @if($href)
-                                            <a href="{{ $href }}">{{ $r->title }}@if($r->value)  {{ $r->value }}@endif</a>
-                                        @else
-                                            {{ $r->title }}@if($r->value)  {{ $r->value }}@endif
-                                        @endif
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-        
-        <div id="sticky-header" class="tg-header__area">
-            <div class="container custom-container">
-            <!--<div class="container">-->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="tgmenu__wrap">
-                            <nav class="tgmenu__nav">
-                                <div class="logo">
-                                    <a href="{{ route('frontend.index') }}"><img
-                                            src="{{ asset('frontend/assets/img/logo/tata-trust-logo.webp') }}" alt="Tata Trusts Small Animal Hospital Logo"></a>
-                                </div>
-                                <div class="tgmenu__navbar-wrap tgmenu__main-menu d-none d-lg-flex">
-                                    <ul class="navigation">
-                                        <li><a href="{{ route('frontend.specialities') }}">Specialities</a></li>
-                                        <li><a href="{{ route('frontend.our_facilities') }}">Facilities</a></li>
-                                        <li><a href="{{ route('frontend.about_us') }}">About</a></li>
-                                        <li><a href="{{ route('frontend.our_team') }}">Team</a></li>
-                                        <li><a href="{{ route('frontend.events') }}">Events</a></li>
-                                        <li><a href="{{ route('frontend.blogs') }}">Blog</a></li> 
-                                        <li><a href="{{ route('frontend.media') }}">Media</a></li>
-                                        <li><a href="{{ route('frontend.contact_us') }}">Contact</a></li>
-                                       
-                                    </ul>
-                                </div>
-                                <div class="tgmenu__action d-none d-md-flex">
-                                    <div class="emergency-menu-button-custom-sec">
-                                        <a href="{{ $phoneTel ? 'tel:'.$phoneTel : '#' }}"
-                                           @if($phoneDisplay) title="Emergency: {{ $phoneDisplay }}" aria-label="Call Emergency: {{ $phoneDisplay }}" @endif>
-                                            <img src="{{ asset('frontend/assets/img/icon/call-icon-one.webp') }}" alt="">
-                                        </a>
-                                    </div>
-                                    <ul class="list-wrap">
-                                        <li class="offCanvas-menu">
-                                            <a href="javascript:void(0)" class="menu-tigger">
-                                                <svg id="Layer_1" enable-background="new 0 0 24 24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g><path d="m20 17.8h-16c-.4 0-.8-.3-.8-.8s.3-.8.8-.8h16c.4 0 .8.3.8.8s-.4.8-.8.8zm0-5h-16c-.4 0-.8-.3-.8-.8s.3-.8.8-.8h16c.4 0 .8.3.8.8s-.4.8-.8.8zm0-5h-16c-.4 0-.7-.4-.7-.8s.3-.7.7-.7h16c.4 0 .8.3.8.8s-.4.7-.8.7z"/></g></svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="mobile-nav-toggler">
-                                    <i class="flaticon-layout"></i>
-                                </div>
-                            </nav>
-                        </div>
+    <!-- back to top start -->
+    <div class="back-to-top-wrapper">
+      <button id="back_to_top" type="button" class="back-to-top-btn" aria-label="Back to top">
+        <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11 6L6 1L1 6"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+    <!-- back to top end -->
 
-                        <!-- Mobile Menu  -->
-                        <div class="tgmobile__menu">
-                            <nav class="tgmobile__menu-box">
-                                <div class="close-btn"><i class="fas fa-times"></i></div>
-                                <div class="nav-logo">
-                                    <a href="{{ route('frontend.index') }}"><img
-                                            src="{{ asset('frontend/assets/img/logo/tata-trust-logo.webp') }}"
-                                            alt="Tata Trusts Small Animal Hospital Logo"></a>
-                                </div>
-                                <div class="tgmobile__menu-outer">
-                                </div>
-
-                                <div class="tg-mobile-custom-book-appoint-sec">
-                                    @foreach($headerRibbons as $r)
-                                        @php $href = $ribbonHref($r->value); @endphp
-                                        <div class="address-item">
-                                            @if($r->icon)
-                                                <div class="icon">
-                                                    <img src="{{ asset('home/contact/ribbon/'.$r->icon) }}" alt="{{ $r->title }}">
-                                                </div>
-                                            @endif
-                                            <div class="address-content-sec">
-                                                <h4>{{ $r->title }}</h4>
-                                                @if($r->value)
-                                                    <p>
-                                                        @if($href)
-                                                            <a href="{{ $href }}">{{ $r->value }}</a>
-                                                        @else
-                                                            {{ $r->value }}
-                                                        @endif
-                                                    </p>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-
-                                <div class="social-links">
-                                    <ul class="list-wrap">
-                                        @forelse($headerSocials as $link)
-                                            <li><a href="{{ $link->url }}" target="_blank" title="{{ $link->platform_label }}"><i class="{{ $link->icon_class }}"></i></a></li>
-                                        @empty
-                                            <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                                            <li><a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-                                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                                        @endforelse
-                                    </ul>
-                                </div>
-                            </nav>
-                        </div>
-                        <div class="tgmobile__menu-backdrop"></div>
-                        <!-- End Mobile Menu -->
-                    </div>
-                </div>
-            </div>
+    <!-- offcanvas start -->
+    <aside class="tp-offcanvas">
+      <div class="tp-offcanvas-wrapper">
+        <div class="tp-offcanvas-header d-flex align-items-center justify-content-between mb-40">
+          <div class="tp-offcanvas-logo">
+            <a href="index.html">
+              <img data-width="183" src="{{ asset('frontend/assets/images/logo.webp') }}" alt="Glass Wall Systems" />
+            </a>
+          </div>
+          <div class="tp-offcanvas-button">
+            <button class="tp-offcanvas-button-close tp-offcanvas-close-toggle" aria-label="Close menu">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
         </div>
-
-        <!-- header-search -->
-        <div class="search__popup">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="search__wrapper">
-                            <div class="search__close">
-                                <button type="button" class="search-close-btn">
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M17 1L1 17" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M1 1L17 17" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="search__form">
-                                <form action="#">
-                                    <div class="search__input">
-                                        <input class="search-input-field" type="text" placeholder="Type keywords here">
-                                        <span class="search-focus-border"></span>
-                                        <button>
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M9.55 18.1C14.272 18.1 18.1 14.272 18.1 9.55C18.1 4.82797 14.272 1 9.55 1C4.82797 1 1 4.82797 1 9.55C1 14.272 4.82797 18.1 9.55 18.1Z"
-                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path d="M19.0002 19.0002L17.2002 17.2002" stroke="currentcolor"
-                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="tp-offcanvas-menu mb-30">
+          <nav></nav>
         </div>
-        <div class="search-popup-overlay"></div>
-        <!-- header-search-end -->
-
-        <!-- offCanvas-menu -->
-        <div class="offCanvas__info">
-            <div class="offCanvas__close-icon menu-close">
-                <button><i class="far fa-window-close"></i></button>
-            </div>
-            <div class="offCanvas__logo mb-20">
-                <a href="{{ route('frontend.index') }}"><img src="{{ asset('frontend/assets/img/logo/tata-trust-logo.webp') }}"
-                        alt="Tata Trusts Small Animal Hospital Logo"></a>
-            </div>
-            <div class="offCanvas__side-info mb-30">
-                @if($addressPlain)
-                    <div class="contact-list d-flex align-items-start mb-30">
-                        <img src="{{ asset('frontend/assets/img/icon/side-menu-address.webp') }}" alt="Address icon" class="contact-icon">
-                        <div>
-                            <h4>Address</h4>
-                            <p>
-                                @if($headerContact->map_url)
-                                    <a href="{{ $headerContact->map_url }}" target="_blank">{{ $addressPlain }}</a>
-                                @else
-                                    {{ $addressPlain }}
-                                @endif
-                            </p>
-                        </div>
-                    </div>
-                @endif
-
-                @if($phoneDisplay)
-                    <div class="contact-list d-flex align-items-start mb-30">
-                        <img src="{{ asset('frontend/assets/img/icon/side-menu-phone.webp') }}" alt=" Phone Number icon" class="contact-icon">
-                        <div>
-                            <h4>Phone Number</h4>
-                            <p><a href="tel:{{ $phoneTel }}">{{ $phoneDisplay }}</a></p>
-                        </div>
-                    </div>
-                @endif
-
-                @if($headerContact && $headerContact->email)
-                    <div class="contact-list d-flex align-items-start mb-30">
-                        <img src="{{ asset('frontend/assets/img/icon/side-menu-email.webp') }}" alt="Email icon" class="contact-icon">
-                        <div>
-                            <h4>Email Address</h4>
-                            <p><a href="mailto:{{ $headerContact->email }}">{{ $headerContact->email }}</a></p>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </div>
-        <div class="offCanvas__overly"></div>
-        <!-- offCanvas-menu-end -->
-
-    </header>
-    <!-- header-area-end -->
+      </div>
+    </aside>
+    <div class="tp-offcanvas-overlay"></div>
+    <!-- offcanvas end -->
