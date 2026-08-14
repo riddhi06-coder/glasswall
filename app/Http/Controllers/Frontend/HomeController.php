@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\HomeBanner;
+use App\Models\HomeAbout;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,8 +23,9 @@ class HomeController extends Controller
     public function index()
     {
         $banners = HomeBanner::orderBy('id')->get();
+        $about   = HomeAbout::with('milestones')->latest()->first();
 
-        return view('frontend.index', compact('banners'));
+        return view('frontend.index', compact('banners', 'about'));
     }
 
 }

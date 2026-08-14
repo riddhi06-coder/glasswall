@@ -76,97 +76,34 @@
             <div class="container">
               <div class="tp-about-heading tp-text-center">
                 <div class="col-lg-12">
-
-                  <p>
-                    Glass Wall Systems (India) Limited is a premier turnkey façade specialist, delivering integrated
-                    design, engineering, manufacturing and installation of façades for commercial, residential and
-                    institutional projects. We seamlessly combine in-house design, precision manufacturing and expert
-                    on-site execution to build durable, high-performance building façades that create exceptional
-                    human-centric spaces.
-                  </p>
-                  <p>
-                    We are headquartered in Mumbai, with a strong business presence in Bangalore, Delhi, NCR, Kolkata,
-                    Ahmedabad, Hyderabad and Pune, making us a true Pan India company. We have expanded our operations
-                    and expertise to USA, Australia, Israel, Canada, Qatar and Sri Lanka, where we offer a full range of
-                    glazing systems and custom-designed architectural metal works, steadfastly pursuing our vision as a
-                    leading global exterior façade solutions provider.
-                  </p>
+                  @if(optional($about)->description)
+                    {!! $about->description !!}
+                  @endif
                 </div>
               </div>
             </div>
             <div class="container">
               <div class="tp-fact-grid">
-
-                <div class="tpfact">
-                  <div class="tpfact__icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                  </div>
-                  <h3 class="tpfact__title">
-                    <span class="odometer" data-count="20">0</span>
-                    <span class="tpfact__text">M</span>
-                    <span class="tpfact__plus">+</span>
-                  </h3>
-                  <p class="tpfact__label">Square Feet of Façade Work Completed</p>
-                </div>
-
-                <div class="tpfact">
-                  <div class="tpfact__icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="12" y1="1" x2="12" y2="23"></line>
-                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                    </svg>
-                  </div>
-                  <h3 class="tpfact__title">
-                    <span class="odometer" data-count="350">0</span>
-                    <span class="tpfact__plus">+</span>
-                  </h3>
-                  <p class="tpfact__label">Projects Successfully Completed</p>
-                </div>
-
-                <div class="tpfact">
-                  <div class="tpfact__icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                      <line x1="3" y1="9" x2="21" y2="9"></line>
-                      <line x1="3" y1="15" x2="21" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h3 class="tpfact__title">
-                    <span class="odometer" data-count="45">0</span>
-                    <span class="tpfact__plus">+</span>
-                  </h3>
-                  <p class="tpfact__label">Tested Systems</p>
-                </div>
-
-                <div class="tpfact">
-                  <div class="tpfact__icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                        <g><defs><clipPath id="b" clipPathUnits="userSpaceOnUse"><path d="M0 512h512V0H0Z" fill="#1a4685" opacity="1" data-original="#000000"></path></clipPath></defs><mask id="a"><rect width="100%" height="100%" fill="#ffffff" opacity="1" data-original="#ffffff"></rect></mask><g mask="url(#a)"><g clip-path="url(#b)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)"><path d="M0 0a60 60 0 0 0 2.157-16v-100" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(489.843 376)" fill="none" stroke="#1a4685" stroke-width="40" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class="" opacity="1"></path><path d="M0 0c0-33.137-26.863-60-60-60h-352c-33.137 0-60 26.863-60 60v200c0 33.137 26.863 60 60 60h140" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(492 160)" fill="none" stroke="#1a4685" stroke-width="40" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class="" opacity="1"></path><path d="M0 0h180" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(166 20.122)" fill="none" stroke="#1a4685" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class="" opacity="1"></path><path d="M0 0v80" style="stroke-width:40;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(256 20.122)" fill="none" stroke="#1a4685" stroke-width="40" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class="" opacity="1"></path><path d="M0 0c-13.251 13.304-30.392 20.151-47.673 20.265-17.816.118-35.781-6.903-49.786-20.265-31.643-30.189-18.07-81.325-72.356-102.828 0 0 35.157-26.905 78.543-26.905 34.168 0 64.433 4.938 91.272 31.884C26.913-70.829 26.913-27.02 0 0" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(284.815 310.733)" fill="none" stroke="#1a4685" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class="" opacity="1"></path><path d="m0 0 114.638 138.51c6.493 8.936 15.992 14.394 26.103 15.995s20.833-.655 29.769-7.148c17.872-12.986 21.833-38.001 8.846-55.873L57-56" style="stroke-width:40;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(252 337)" fill="none" stroke="#1a4685" stroke-width="40" stroke-linecap="round" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class="" opacity="1"></path></g></g></g>
-                        </svg>
-                  </div>
-                  <h3 class="tpfact__title">
-                    <span class="odometer" data-count="500000">0</span>
-                    <span class="tpfact__plus">+</span>
-                  </h3>
-                  <p class="tpfact__label">Square Feet of Design and Manufacturing Floor Space</p>
-                </div>
-
-                <div class="tpfact">
-                  <div class="tpfact__icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                  </div>
-                  <h3 class="tpfact__title">
-                    <span class="odometer" data-count="1000">0</span>
-                    <span class="tpfact__plus">+ <span class="astrick">*</span></span>
-                  </h3>
-                  <p class="tpfact__label">Experts in various domain <br><span style="font-size: 9px;line-height: 1.6;display: block;    font-weight: 500;letter-spacing: 0;text-transform: capitalize;margin-top: 5px;">( *Including contractual factory and site installation crews)</span></p>
-                </div>
+                @foreach(optional($about)->milestones ?? [] as $m)
+                    @php
+                      // Count is free text (e.g. "20M+", "500,000+"). Strip stray spaces,
+                      // then split the leading number (keep commas) from the suffix (M+, +, *).
+                      $rawCount = preg_replace('/\s+/', '', (string) $m->count);
+                      preg_match('/^([\d.,]+)(.*)$/', $rawCount, $mm);
+                      $num = $mm[1] ?? $rawCount;
+                      $suffix = $mm[2] ?? '';
+                    @endphp
+                    <div class="tpfact">
+                      <div class="tpfact__icon">
+                        <img src="{{ asset('home/aboutmilestones/'.$m->icon) }}" alt="" style="max-height:60px;" />
+                      </div>
+                      <h3 class="tpfact__title">
+                        <span class="odometer" data-count="{{ $num }}">0</span>
+                        @if($suffix)<span class="tpfact__plus">{{ $suffix }}</span>@endif
+                      </h3>
+                      <p class="tpfact__label">{{ $m->milestone }}</p>
+                    </div>
+                @endforeach
               </div>
             </div>
           </section>
