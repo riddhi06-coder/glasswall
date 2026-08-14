@@ -10,7 +10,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\HomeAboutController;
 use App\Http\Controllers\Backend\HomeClienteleController;
-
+use App\Http\Controllers\Backend\HomeBlogController;
 
 
 
@@ -78,10 +78,11 @@ use App\Http\Controllers\Backend\HomeClienteleController;
         Route::get('activity-logs/{id}', [ActivityLogController::class, 'show'])->whereNumber('id')->name('admin.activity-logs.show');
     
     
-        // Home slider
+        // Home Page
         Route::resource('banner-details', HomeBannerController::class);
         Route::resource('home-about-details', HomeAboutController::class);
         Route::resource('home-clientele', HomeClienteleController::class);
+        Route::resource('home-blog-details', HomeBlogController::class);
     
     
     

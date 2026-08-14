@@ -85,8 +85,9 @@
                 @endif
 
 
-                <li class="sidebar-list {{ request()->routeIs('banner-details.*','home-about-details.*','home-clientele.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('banner-details.*','home-about-details.*','home-clientele.*','home-blog-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
+
                   <a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon">
                       <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-icons') }}"></use>
@@ -96,12 +97,14 @@
                     </svg>
                     <span>Home</span>
                   </a>
+                  
                   <ul class="sidebar-submenu">
                       @if($can('roles.view'))
                           <li><a href="{{ route('banner-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Banner Details</a></li>
                       @endif
                           <li><a href="{{ route('home-about-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">About Details</a></li>
                           <li><a href="{{ route('home-clientele.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Clientele</a></li>
+                          <li><a href="{{ route('home-blog-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Blog Section Details</a></li>
 
                   </ul>
                 </li>
