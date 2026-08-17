@@ -20,6 +20,7 @@ class ProjectListing extends Model
         'thumbnail',
         'location',
         'is_active',
+        'show_on_home',
         'priority',
         'created_by',
         'updated_by',
@@ -27,7 +28,8 @@ class ProjectListing extends Model
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'is_active'    => 'boolean',
+        'show_on_home' => 'boolean',
     ];
 
     public function category(): BelongsTo

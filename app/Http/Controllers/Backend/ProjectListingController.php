@@ -110,6 +110,20 @@ class ProjectListingController extends Controller
         return redirect()->route('manage-project-listing.index')->with('message', 'Project deleted successfully.');
     }
 
+    /** AJAX toggle: show this project's image on the home page or not. */
+    public function toggleHome($id)
+    {
+        $listing = ProjectListing::findOrFail($id);
+        $listing->show_on_home = ! $listing->show_on_home;
+        $listing->updated_by   = Auth::id();
+        $listing->save();
+
+        return response()->json([
+            'success'      => true,
+            'show_on_home' => $listing->show_on_home,
+        ]);
+    }
+
     // ------------------------------------------------------------------
     // Helpers
     // ------------------------------------------------------------------

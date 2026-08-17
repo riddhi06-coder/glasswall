@@ -93,6 +93,7 @@ use App\Http\Controllers\Frontend\HomeController;
 
         // Projects
         Route::resource('manage-project-category', ProjectCategoryController::class);
+        Route::post('manage-project-listing/{id}/toggle-home', [ProjectListingController::class, 'toggleHome'])->name('manage-project-listing.toggle-home');
         Route::resource('manage-project-listing', ProjectListingController::class);
     
     

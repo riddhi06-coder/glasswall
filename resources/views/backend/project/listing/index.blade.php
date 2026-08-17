@@ -63,10 +63,6 @@
                                 </a>
                             </div>
 
-                            @if(session('message'))
-                                <div class="alert alert-success">{{ session('message') }}</div>
-                            @endif
-
                             {{-- Filters (instant, no reload — wired into DataTables) --}}
                             <div class="prj-filter mb-4">
                                 <div class="row g-3 align-items-end">
@@ -104,6 +100,7 @@
                                             <th>Location</th>
                                             <th style="width:80px;">Priority</th>
                                             <th style="width:90px;">Status</th>
+                                            <th style="width:110px;">Show on Home</th>
                                             <th style="width:150px;">Actions</th>
                                         </tr>
                                     </thead>
@@ -122,6 +119,13 @@
                                                     @else
                                                         <span class="badge bg-secondary">Inactive</span>
                                                     @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-switch d-inline-block m-0">
+                                                        <input class="form-check-input home-toggle" type="checkbox" role="switch"
+                                                               data-id="{{ $listing->id }}" style="cursor:pointer;"
+                                                               {{ $listing->show_on_home ? 'checked' : '' }}>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex gap-2">
@@ -180,6 +184,35 @@
                     $('#f-category').val('');
                     $('#f-status').val('all');
                     table.search('').draw();
+                });
+
+                // "Show on Home" toggle — AJAX, no reload. Delegated so it works across paginated pages.
+                $(document).on('change', '.home-toggle', function () {
+                    var el = $(this), id = el.data('id');
+                    el.prop('disabled', true);
+                    function toast(msg) {
+                        $.notify('<i class="fa fa-bell-o"></i><strong>' + msg + '</strong>', {
+                            type: "theme",
+                            allow_dismiss: true,
+                            delay: 5000,
+                            showProgressbar: true,
+                            timer: 300,
+                            animate: { enter: "animated fadeInDown", exit: "animated fadeOutUp" }
+                        });
+                    }
+                    $.ajax({
+                        url: '{{ url('manage-project-listing') }}/' + id + '/toggle-home',
+                        method: 'POST',
+                        data: { _token: '{{ csrf_token() }}' },
+                        success: function (r) {
+                            el.prop('disabled', false);
+                            toast(r.show_on_home ? 'Project will now show on the home page.' : 'Project removed from the home page.');
+                        },
+                        error: function () {
+                            el.prop('checked', !el.prop('checked')).prop('disabled', false);
+                            toast('Could not update. Please try again.');
+                        }
+                    });
                 });
             });
         })();
