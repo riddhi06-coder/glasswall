@@ -110,7 +110,7 @@
                 </li>
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-project-category.*','manage-project-listing.*','home-clientele.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-project-category.*','manage-project-listing.*','manage-project-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -124,9 +124,9 @@
                   </a>
                   
                   <ul class="sidebar-submenu">
-                          <li><a href="{{ route('manage-project-category.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Category</a></li>
-                          <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Listing</a></li>
-                          <li><a href="{{ route('home-clientele.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Details</a></li>
+                      <li><a href="{{ route('manage-project-category.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Category</a></li>
+                      <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Listing</a></li>
+                      <li><a href="{{ route('manage-project-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Details</a></li>
                   </ul>
                 </li>
 

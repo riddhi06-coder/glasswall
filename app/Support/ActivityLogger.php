@@ -21,6 +21,7 @@ class ActivityLogger
         'HomeBlog'      => 'Home Blog',
         'HomeClientele'   => 'Home Clientele',
         'ProjectCategory' => 'Project Category',
+        'ProjectDetail'   => 'Project Details',
         'ProjectListing'  => 'Project Listing',
         'Role'       => 'Role',
         'Permission' => 'Permission',
