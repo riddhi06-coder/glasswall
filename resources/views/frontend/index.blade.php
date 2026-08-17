@@ -116,7 +116,7 @@
                     <div class="tp-section-title-wrap tp-text-center">
                       <span class="tp-section-sub-title mb-15 tp_fade_anim" data-duration=".9">Our Products</span>
                       <h2 class="tp-section-title tp_fade_anim" data-duration=".9" data-delay=".2">
-                        Our Products and Services
+                        {{ optional($clientele)->product_section_heading ?? 'Our Products and Services' }}
                       </h2>
                     </div>
                   </div>
@@ -306,7 +306,7 @@
                     <div class="tp-section-title-wrap tp_fade_anim tp-text-center" data-dure=".9">
                       <span class="tp-section-sub-title mb-15">Our Services</span>
                       <h2 class="tp-section-title mb-20">
-                        Explore Our Work
+                        {{ optional($clientele)->work_section_heading ?? 'Explore Our Work' }}
                       </h2>
                     </div>
                   </div>
@@ -599,7 +599,7 @@
                   <div class="col-md-12">
                     <div class="tp-section-title-wrap tp_fade_anim tp-text-center" data-dure=".9">
                       <h2 class="tp-section-title mb-50">
-                        Discover some of our impactful projects.
+                        {{ optional($clientele)->project_section_heading ?? 'Discover some of our impactful projects.' }}
                       </h2>
                     </div>
                   </div>
@@ -836,169 +836,30 @@
             </div>
           </section>
 
-            <div class="pb-100 partners-wrap">
+          <div class="pb-100 partners-wrap">
             <div class="container">
               <div class="tp-brand-text pb-45">
 
                 <div class="col-lg-12 text-center">
-                  <h2 class="fw-bold mb-3">We’re privileged to work with leading innovators.</h2>
+                  <h2 class="fw-bold mb-3">{{ optional($clientele)->clientele_section_heading ?? 'We’re privileged to work with leading innovators.' }}</h2>
 
+                  @if(optional($clientele)->clientele_section_desc)
+                    {!! $clientele->clientele_section_desc !!}
+                  @else
                   <p>We believe that the reason for our existence and success is the bonds we establish through our collaborations.</p>
+                  @endif
 
                 </div>
               </div>
               <div class="swiper tp-brand-active tp-brand-black">
                 <div class="swiper-wrapper tp-slide-transtion">
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/1.webp" alt="Brand 1" />
+                  @foreach(optional($clientele)->images ?? [] as $img)
+                    <div class="swiper-slide tp-brand-slide-element">
+                      <div class="tp-brand-item">
+                        <img src="{{ asset('home/clienteleimages/'.$img->image) }}" alt="Client" />
+                      </div>
                     </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/2.webp" alt="Brand 2" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/3.webp" alt="Brand 3" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/4.webp" alt="Brand 4" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/5.webp" alt="Brand 5" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/6.webp" alt="Brand 6" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/7.webp" alt="Brand 7" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/8.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/9.webp" alt="Brand 1" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/10.webp" alt="Brand 2" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/11.webp" alt="Brand 3" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/12.webp" alt="Brand 4" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/13.webp" alt="Brand 5" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/14.webp" alt="Brand 6" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/15.webp" alt="Brand 7" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/16.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/17.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/18.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/19.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/20.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/21.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/22.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/23.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/24.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/25.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/26.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/27.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/28.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/29.webp" alt="Brand 8" />
-                    </div>
-                  </div>
-                  <div class="swiper-slide tp-brand-slide-element">
-                    <div class="tp-brand-item">
-                      <img src="assets/images/clients/30.webp" alt="Brand 8" />
-                    </div>
-                  </div>
+                  @endforeach
                 </div>
               </div>
             </div>
@@ -1008,9 +869,9 @@
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
-                  <h2 class="fw-bold mb-3">Want to collaborate with GWS for your next project?</h2>
+                  <h2 class="fw-bold mb-3">{{ optional($clientele)->collaboration_section_heading ?? 'Want to collaborate with GWS for your next project?' }}</h2>
 
-                  <p class="mb-4">Let’s work together to bring your next project to life.</p>
+                  <p class="mb-4">{{ optional($clientele)->collaboration_section_title ?? 'Let’s work together to bring your next project to life.' }}</p>
 
                   <div class="tp-about-btn tp_fade_anim d-flex justify-content-center" data-delay=".3">
                     <a href="/contact-us/" class="tp-btn">
@@ -1046,7 +907,7 @@
               <div class="tp-blog-heading mb-70">
                 <div class="tp-section-title-wrap tp-text-center">
                   <span class="tp-section-sub-title mb-12 tp_fade_anim">Latest Insights</span>
-                  <h2 class="tp-section-title mb-20 tp_fade_anim" data-delay=".2">Let's grow together - Connect with us on social.
+                  <h2 class="tp-section-title mb-20 tp_fade_anim" data-delay=".2">{{ optional($blog)->section_heading ?? "Let's grow together - Connect with us on social." }}
                   </h2>
                 </div>
               </div>
@@ -1054,8 +915,7 @@
               <div class="row">
 
                 <div class="col-md-12">
-
-                    <script src="https://elfsightcdn.com/platform.js" async></script>
+                    <script src="{{ optional($blog)->api_link ?? 'https://elfsightcdn.com/platform.js' }}" async></script>
                     <div class="elfsight-app-906929a6-8d58-4c4c-975d-c93289ffce3b" data-elfsight-app-lazy></div>
                 </div>
               </div>

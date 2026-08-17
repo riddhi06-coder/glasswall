@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\HomeBanner;
 use App\Models\HomeAbout;
+use App\Models\HomeClientele;
+use App\Models\HomeBlog;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,10 +24,12 @@ class HomeController extends Controller
     // Home Page
     public function index()
     {
-        $banners = HomeBanner::orderBy('id')->get();
-        $about   = HomeAbout::with('milestones')->latest()->first();
+        $banners   = HomeBanner::orderBy('id')->get();
+        $about     = HomeAbout::with('milestones')->latest()->first();
+        $clientele = HomeClientele::latest()->first();
+        $blog      = HomeBlog::latest()->first();
 
-        return view('frontend.index', compact('banners', 'about'));
+        return view('frontend.index', compact('banners', 'about', 'clientele', 'blog'));
     }
 
 }

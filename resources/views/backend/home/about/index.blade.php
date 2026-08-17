@@ -73,10 +73,6 @@
                                 </a>
                             </div>
 
-                            @if(session('message'))
-                                <div class="alert alert-success">{{ session('message') }}</div>
-                            @endif
-
                             <div class="table-responsive custom-scrollbar">
                                 <table class="display" id="basic-1">
                                     <thead>
