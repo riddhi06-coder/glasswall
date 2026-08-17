@@ -22,7 +22,9 @@ class ProjectListingController extends Controller
             ->orderBy('id')
             ->get();
 
-        return view('backend.project.listing.index', compact('listings'));
+        $categories = ProjectCategory::orderBy('name')->get();
+
+        return view('backend.project.listing.index', compact('listings', 'categories'));
     }
 
     public function create()

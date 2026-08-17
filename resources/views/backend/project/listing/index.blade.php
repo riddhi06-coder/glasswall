@@ -3,40 +3,24 @@
 <head>
     @include('components.backend.head')
     <style>
-        .prj-table { width: 100%; border-collapse: collapse; }
-        .prj-table th, .prj-table td {
-            border: 1px solid #dee2e6;
-            padding: 12px;
-            vertical-align: middle;
-        }
-        .prj-table thead th {
-            background: #f7f8fc;
-            font-size: 12.5px;
-            text-transform: uppercase;
-            letter-spacing: .4px;
-            color: #6b7280;
-            white-space: nowrap;
-        }
-        .prj-table tbody tr:hover td { background: #fafbfe; }
+        #prj-table td { vertical-align: middle; }
+        #prj-table th, #prj-table td { padding: 12px; }
         .prj-thumb {
-            height: 80px; width: 120px; object-fit: cover;
+            height: 70px; width: 105px; object-fit: cover;
             border: 1px solid #e6e8f0; border-radius: 8px;
         }
-        .cat-group-row td {
-            background: #eef1f6;
+        .prj-filter {
+            background: #f7f8fc;
+            border: 1px solid #eef0f6;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        tr.dtrg-group td {
+            background: #eef1f6 !important;
             color: #2f2f3b;
             font-weight: 700;
             letter-spacing: .3px;
             font-size: 14px;
-        }
-        .cat-group-row .cat-count {
-            background: #dfe3ea;
-            color: #3a3f47;
-            border-radius: 20px;
-            padding: 2px 10px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: 8px;
         }
     </style>
 </head>
@@ -83,13 +67,40 @@
                                 <div class="alert alert-success">{{ session('message') }}</div>
                             @endif
 
+                            {{-- Filters (instant, no reload — wired into DataTables) --}}
+                            <div class="prj-filter mb-4">
+                                <div class="row g-3 align-items-end">
+                                    <div class="col-md-4">
+                                        <label class="form-label mb-1">Category</label>
+                                        <select id="f-category" class="form-control">
+                                            <option value="">All Categories</option>
+                                            @foreach($categories as $cat)
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label mb-1">Status</label>
+                                        <select id="f-status" class="form-control">
+                                            <option value="all">All</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" id="f-reset" class="btn btn-outline-secondary px-4">Reset Filters</button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="table-responsive custom-scrollbar">
-                                <table class="prj-table">
+                                <table class="display" id="prj-table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th style="width:60px;">Sr No.</th>
-                                            <th style="width:140px;">Thumbnail</th>
+                                            <th>Thumbnail</th>
                                             <th>Project Name</th>
+                                            <th>Category</th>
                                             <th>Location</th>
                                             <th style="width:80px;">Priority</th>
                                             <th style="width:90px;">Status</th>
@@ -97,46 +108,35 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $sr = 0; @endphp
-                                        @forelse($listings->groupBy(fn ($l) => optional($l->category)->name ?? 'Uncategorized') as $catName => $group)
-                                            <tr class="cat-group-row">
-                                                <td colspan="7">
-                                                    {{ $catName }}
-                                                    <span class="cat-count">{{ $group->count() }}</span>
+                                        @foreach($listings as $key => $listing)
+                                            <tr data-category="{{ $listing->project_category_id }}" data-status="{{ $listing->is_active ? '1' : '0' }}">
+                                                <td>{{ $key + 1 }}</td>
+                                                <td><img class="prj-thumb" src="{{ asset('project/listings/'.$listing->thumbnail) }}" alt="thumbnail"></td>
+                                                <td>{{ $listing->name }}</td>
+                                                <td>{{ optional($listing->category)->name ?? '—' }}</td>
+                                                <td>{{ $listing->location ?: '—' }}</td>
+                                                <td>{{ $listing->priority }}</td>
+                                                <td>
+                                                    @if($listing->is_active)
+                                                        <span class="badge bg-success">Active</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">Inactive</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <a href="{{ route('manage-project-listing.edit', $listing->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                                        <form action="{{ route('manage-project-listing.destroy', $listing->id) }}"
+                                                              method="POST" class="m-0"
+                                                              onsubmit="return confirm('Are you sure you want to delete this project?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
-                                            @foreach($group as $listing)
-                                                @php $sr++; @endphp
-                                                <tr>
-                                                    <td>{{ $sr }}</td>
-                                                    <td><img class="prj-thumb" src="{{ asset('project/listings/'.$listing->thumbnail) }}" alt="thumbnail"></td>
-                                                    <td>{{ $listing->name }}</td>
-                                                    <td>{{ $listing->location }}</td>
-                                                    <td>{{ $listing->priority }}</td>
-                                                    <td>
-                                                        @if($listing->is_active)
-                                                            <span class="badge bg-success">Active</span>
-                                                        @else
-                                                            <span class="badge bg-secondary">Inactive</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex gap-2">
-                                                            <a href="{{ route('manage-project-listing.edit', $listing->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                                            <form action="{{ route('manage-project-listing.destroy', $listing->id) }}"
-                                                                  method="POST" class="m-0"
-                                                                  onsubmit="return confirm('Are you sure you want to delete this project?')">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="btn btn-sm btn-danger">Delete</button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @empty
-                                            <tr><td colspan="7" class="text-center text-muted py-4">No projects added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -150,5 +150,39 @@
 
     @include('components.backend.footer')
     @include('components.backend.main-js')
+
+    {{-- RowGroup extension (compatible with the theme's DataTables 1.10.16) --}}
+    <script src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js"></script>
+    <script>
+        (function () {
+            // Custom category/status filter — reads the data-attrs on each row.
+            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                if (settings.nTable.id !== 'prj-table') return true;
+                var row = settings.aoData[dataIndex].nTr;
+                var c  = document.getElementById('f-category').value;
+                var st = document.getElementById('f-status').value;
+                if (c && row.getAttribute('data-category') !== c) return false;
+                if (st !== 'all' && row.getAttribute('data-status') !== st) return false;
+                return true;
+            });
+
+            $(function () {
+                var table = $('#prj-table').DataTable({
+                    pageLength: 15,
+                    lengthMenu: [[10, 15, 25, 50, -1], [10, 15, 25, 50, 'All']],
+                    ordering: false,                       // keep category order so grouping stays intact
+                    columnDefs: [{ visible: false, targets: 3 }],  // hide the Category column (shown as group header)
+                    rowGroup: { dataSrc: 3 }               // group by Category
+                });
+
+                $('#f-category, #f-status').on('change', function () { table.draw(); });
+                $('#f-reset').on('click', function () {
+                    $('#f-category').val('');
+                    $('#f-status').val('all');
+                    table.search('').draw();
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
