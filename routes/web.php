@@ -11,6 +11,11 @@ use App\Http\Controllers\Backend\HomeBannerController;
 use App\Http\Controllers\Backend\HomeAboutController;
 use App\Http\Controllers\Backend\HomeClienteleController;
 use App\Http\Controllers\Backend\HomeBlogController;
+use App\Http\Controllers\Backend\ProjectCategoryController;
+
+
+
+
 
 
 //frontend controller
@@ -84,6 +89,10 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::resource('home-about-details', HomeAboutController::class);
         Route::resource('home-clientele', HomeClienteleController::class);
         Route::resource('home-blog-details', HomeBlogController::class);
+
+
+         // Projects
+        Route::resource('manage-project-category', ProjectCategoryController::class);
     
     
     

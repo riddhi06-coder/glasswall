@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\HomeBlog::class,
         \App\Models\HomeClientele::class,
         \App\Models\Permission::class,
+        \App\Models\ProjectCategory::class,
         \App\Models\Role::class,
         \App\Models\User::class,
     ];

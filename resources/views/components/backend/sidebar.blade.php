@@ -109,6 +109,27 @@
                   </ul>
                 </li>
 
+
+                <li class="sidebar-list {{ request()->routeIs('manage-project-category.*','home-about-details.*','home-clientele.*','home-blog-details.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-project') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-project') }}"></use>
+                    </svg>
+                    <span>Projects</span>
+                  </a>
+                  
+                  <ul class="sidebar-submenu">
+                          <li><a href="{{ route('manage-project-category.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Category</a></li>
+                          <li><a href="{{ route('home-about-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Listing</a></li>
+                          <li><a href="{{ route('home-clientele.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Details</a></li>
+                  </ul>
+                </li>
+
               </ul>
               <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
             </div>
