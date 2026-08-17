@@ -12,7 +12,7 @@ use App\Http\Controllers\Backend\HomeAboutController;
 use App\Http\Controllers\Backend\HomeClienteleController;
 use App\Http\Controllers\Backend\HomeBlogController;
 use App\Http\Controllers\Backend\ProjectCategoryController;
-
+use App\Http\Controllers\Backend\ProjectListingController;
 
 
 
@@ -91,8 +91,9 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::resource('home-blog-details', HomeBlogController::class);
 
 
-         // Projects
+        // Projects
         Route::resource('manage-project-category', ProjectCategoryController::class);
+        Route::resource('manage-project-listing', ProjectListingController::class);
     
     
     

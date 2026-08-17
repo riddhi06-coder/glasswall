@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\HomeClientele::class,
         \App\Models\Permission::class,
         \App\Models\ProjectCategory::class,
+        \App\Models\ProjectListing::class,
         \App\Models\Role::class,
         \App\Models\User::class,
     ];
