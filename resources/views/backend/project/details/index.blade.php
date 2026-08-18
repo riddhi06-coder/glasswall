@@ -14,6 +14,12 @@
             background: #f6f7fb; border: 1px solid #e6e8f0; border-radius: 22px;
             padding: 4px 12px; font-size: 12px; color: #3a3f47;
         }
+        .pd-filter {
+            background: #f7f8fc;
+            border: 1px solid #eef0f6;
+            border-radius: 8px;
+            padding: 16px;
+        }
         tr.dtrg-group td {
             background: #eef1f6 !important;
             color: #2f2f3b;
@@ -62,6 +68,24 @@
                                 </a>
                             </div>
 
+                            {{-- Filters (instant, no reload — wired into DataTables) --}}
+                            <div class="pd-filter mb-4">
+                                <div class="row g-3 align-items-end">
+                                    <div class="col-md-4">
+                                        <label class="form-label mb-1">Category</label>
+                                        <select id="f-category" class="form-control">
+                                            <option value="">All Categories</option>
+                                            @foreach($categories as $cat)
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" id="f-reset" class="btn btn-outline-secondary px-4">Reset Filters</button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="table-responsive custom-scrollbar">
                                 <table class="display" id="pd-table" style="width:100%">
                                     <thead>
@@ -76,7 +100,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach($details as $key => $detail)
-                                            <tr>
+                                            <tr data-category="{{ optional($detail->listing)->project_category_id }}">
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="pd-thumb" src="{{ $detail->image_url }}" alt="image"></td>
                                                 <td>{{ optional($detail->listing)->name ?? '—' }}</td>
@@ -113,13 +137,28 @@
     {{-- RowGroup extension (compatible with the theme's DataTables 1.10.16) --}}
     <script src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js"></script>
     <script>
+        // Custom category filter — reads the data-category attr on each row.
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+            if (settings.nTable.id !== 'pd-table') return true;
+            var row = settings.aoData[dataIndex].nTr;
+            var c = document.getElementById('f-category').value;
+            if (c && row.getAttribute('data-category') !== c) return false;
+            return true;
+        });
+
         $(function () {
-            $('#pd-table').DataTable({
+            var table = $('#pd-table').DataTable({
                 pageLength: 15,
                 lengthMenu: [[10, 15, 25, 50, -1], [10, 15, 25, 50, 'All']],
                 ordering: false,                              // keep category order so grouping stays intact
                 columnDefs: [{ visible: false, targets: 3 }], // hide the Category column (shown as group header)
                 rowGroup: { dataSrc: 3 }                       // group by Category
+            });
+
+            $('#f-category').on('change', function () { table.draw(); });
+            $('#f-reset').on('click', function () {
+                $('#f-category').val('');
+                table.search('').draw();
             });
         });
     </script>

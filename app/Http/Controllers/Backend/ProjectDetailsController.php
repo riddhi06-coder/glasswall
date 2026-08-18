@@ -27,7 +27,9 @@ class ProjectDetailsController extends Controller
             ])
             ->values();
 
-        return view('backend.project.details.index', compact('details'));
+        $categories = ProjectCategory::orderBy('name')->get();
+
+        return view('backend.project.details.index', compact('details', 'categories'));
     }
 
     public function create()
