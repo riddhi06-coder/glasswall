@@ -18,6 +18,12 @@ class ProjectCategory extends Model
         return $this->hasMany(ProjectListing::class, 'project_category_id');
     }
 
+    /** Alias used by the route's scoped binding (/{category}/{project:slug}). */
+    public function projects(): HasMany
+    {
+        return $this->hasMany(ProjectListing::class, 'project_category_id');
+    }
+
     protected $fillable = [
         'name',
         'slug',

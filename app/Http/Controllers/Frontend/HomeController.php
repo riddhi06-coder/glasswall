@@ -54,4 +54,15 @@ class HomeController extends Controller
         return view('frontend.projects', compact('category', 'projects'));
     }
 
+    // Single project detail page (category slug + project slug)
+    public function projects_details(ProjectCategory $category, ProjectListing $project)
+    {
+        // Ensure the project actually belongs to this category.
+        abort_if($project->project_category_id !== $category->id, 404);
+
+        $detail = $project->detail()->first();
+
+        return view('frontend.project-details', compact('category', 'project', 'detail'));
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\TracksDeletedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectListing extends Model
@@ -35,6 +36,11 @@ class ProjectListing extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(ProjectCategory::class, 'project_category_id');
+    }
+
+    public function detail(): HasOne
+    {
+        return $this->hasOne(ProjectDetail::class, 'project_listing_id');
     }
 
     public function getThumbnailUrlAttribute(): ?string
