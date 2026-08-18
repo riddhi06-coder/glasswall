@@ -68,22 +68,7 @@
                 </li>
                 @endif
 
-                {{-- Activity Log: Super Admin only --}}
-                @if($authUser?->isSuperAdmin())
-                <li class="sidebar-list {{ request()->routeIs('admin.activity-logs.*') ? 'active' : '' }}">
-                  <i class="fa fa-thumb-tack"></i>
-                  <a class="sidebar-link" href="{{ route('admin.activity-logs.index') }}">
-                    <svg class="stroke-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
-                    </svg>
-                    <svg class="fill-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
-                    </svg>
-                    <span>Activity Log</span>
-                  </a>
-                </li>
-                @endif
-
+              
 
                 <li class="sidebar-list {{ request()->routeIs('banner-details.*','home-about-details.*','home-clientele.*','home-blog-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
@@ -129,6 +114,44 @@
                       <li><a href="{{ route('manage-project-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Details</a></li>
                   </ul>
                 </li>
+
+                {{-- Contact Details --}}
+                @if($authUser?->isSuperAdmin())
+                <li class="sidebar-list {{ request()->routeIs('manage-contact-details.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+                  <a class="sidebar-link" href="{{ route('manage-contact-details.index') }}">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-contact') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-contact') }}"></use>
+                    </svg>
+                    <span>Contact Details</span>
+                  </a>
+                </li>
+                @endif
+
+
+
+
+
+
+                {{-- Activity Log: Super Admin only --}}
+                @if($authUser?->isSuperAdmin())
+                <li class="sidebar-list {{ request()->routeIs('admin.activity-logs.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+                  <a class="sidebar-link" href="{{ route('admin.activity-logs.index') }}">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                    </svg>
+                    <span>Activity Log</span>
+                  </a>
+                </li>
+                @endif
+
 
               </ul>
               <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

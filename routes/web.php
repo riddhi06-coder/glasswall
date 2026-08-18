@@ -14,7 +14,7 @@ use App\Http\Controllers\Backend\HomeBlogController;
 use App\Http\Controllers\Backend\ProjectCategoryController;
 use App\Http\Controllers\Backend\ProjectListingController;
 use App\Http\Controllers\Backend\ProjectDetailsController;
-
+use App\Http\Controllers\Backend\ContactDetailsController;
 
 
 
@@ -95,10 +95,12 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::resource('manage-project-category', ProjectCategoryController::class);
         Route::post('manage-project-listing/{id}/toggle-home', [ProjectListingController::class, 'toggleHome'])->name('manage-project-listing.toggle-home');
         Route::resource('manage-project-listing', ProjectListingController::class);
-
         Route::get('manage-project-details/listings-by-category/{category}', [ProjectDetailsController::class, 'listingsByCategory'])->name('manage-project-details.listings-by-category');
         Route::resource('manage-project-details', ProjectDetailsController::class);
         Route::resource('manage-project-details', ProjectDetailsController::class);
+
+        // Contact
+        Route::resource('manage-contact-details', ContactDetailsController::class);
   
     
     
