@@ -6,13 +6,20 @@
         #basic-1 td { vertical-align: middle; }
         #basic-1 th, #basic-1 td { padding: 12px; }
         .pd-thumb {
-            height: 60px; width: 90px; object-fit: cover;
+            height: 90px; width: 140px; object-fit: cover;
             border: 1px solid #e6e8f0; border-radius: 8px;
         }
         .scope-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
         .scope-chip {
             background: #f6f7fb; border: 1px solid #e6e8f0; border-radius: 22px;
             padding: 4px 12px; font-size: 12px; color: #3a3f47;
+        }
+        tr.dtrg-group td {
+            background: #eef1f6 !important;
+            color: #2f2f3b;
+            font-weight: 700;
+            letter-spacing: .3px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -56,15 +63,14 @@
                             </div>
 
                             <div class="table-responsive custom-scrollbar">
-                                <table class="display" id="basic-1" style="width:100%">
+                                <table class="display" id="pd-table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th style="width:60px;">Sr No.</th>
-                                            <th style="width:110px;">Image</th>
+                                            <th style="width:150px;">Image</th>
                                             <th>Project</th>
+                                            <th>Category</th>
                                             <th>Client</th>
-                                            <th>Architect</th>
-                                            <th>Scope of Work</th>
                                             <th style="width:150px;">Actions</th>
                                         </tr>
                                     </thead>
@@ -73,19 +79,9 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="pd-thumb" src="{{ $detail->image_url }}" alt="image"></td>
-                                                <td>
-                                                    {{ optional($detail->listing)->name ?? '—' }}
-                                                    <div class="text-secondary small">{{ optional(optional($detail->listing)->category)->name }}</div>
-                                                </td>
+                                                <td>{{ optional($detail->listing)->name ?? '—' }}</td>
+                                                <td>{{ optional(optional($detail->listing)->category)->name ?? 'Uncategorized' }}</td>
                                                 <td>{{ $detail->client }}</td>
-                                                <td>{{ $detail->architect }}</td>
-                                                <td>
-                                                    <div class="scope-wrap">
-                                                        @foreach(($detail->scope_of_work ?? []) as $scope)
-                                                            <span class="scope-chip">{{ $scope }}</span>
-                                                        @endforeach
-                                                    </div>
-                                                </td>
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <a href="{{ route('manage-project-details.edit', $detail->id) }}" class="btn btn-sm btn-primary">Edit</a>
@@ -113,5 +109,19 @@
 
     @include('components.backend.footer')
     @include('components.backend.main-js')
+
+    {{-- RowGroup extension (compatible with the theme's DataTables 1.10.16) --}}
+    <script src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js"></script>
+    <script>
+        $(function () {
+            $('#pd-table').DataTable({
+                pageLength: 15,
+                lengthMenu: [[10, 15, 25, 50, -1], [10, 15, 25, 50, 'All']],
+                ordering: false,                              // keep category order so grouping stays intact
+                columnDefs: [{ visible: false, targets: 3 }], // hide the Category column (shown as group header)
+                rowGroup: { dataSrc: 3 }                       // group by Category
+            });
+        });
+    </script>
 </body>
 </html>

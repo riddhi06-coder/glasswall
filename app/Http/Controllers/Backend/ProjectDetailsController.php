@@ -17,7 +17,15 @@ class ProjectDetailsController extends Controller
 
     public function index()
     {
-        $details = ProjectDetail::with('listing.category')->latest()->get();
+        $details = ProjectDetail::with('listing.category')
+            ->get()
+            ->sortBy([
+                fn ($a, $b) => strcmp(
+                    optional(optional($a->listing)->category)->name ?? '',
+                    optional(optional($b->listing)->category)->name ?? ''
+                ),
+            ])
+            ->values();
 
         return view('backend.project.details.index', compact('details'));
     }
