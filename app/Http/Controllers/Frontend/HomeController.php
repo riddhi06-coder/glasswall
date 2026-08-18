@@ -8,6 +8,7 @@ use App\Models\HomeAbout;
 use App\Models\HomeClientele;
 use App\Models\HomeBlog;
 use App\Models\ProjectCategory;
+use App\Models\ProjectListing;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,7 +32,14 @@ class HomeController extends Controller
         $blog       = HomeBlog::latest()->first();
         $categories = ProjectCategory::orderBy('priority')->orderBy('name')->get();
 
-        return view('frontend.index', compact('banners', 'about', 'clientele', 'blog', 'categories'));
+        $homeProjects = ProjectListing::with('category')
+            ->where('is_active', true)
+            ->where('show_on_home', true)
+            ->orderBy('priority')
+            ->orderBy('id')
+            ->get();
+
+        return view('frontend.index', compact('banners', 'about', 'clientele', 'blog', 'categories', 'homeProjects'));
     }
 
     // Projects listing by category (slug-bound)

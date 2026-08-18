@@ -424,233 +424,58 @@
                     </div>
                   </div>
 
-                <div class="col-lg-7">
-                  <div class="tpportfolio tpportfolio__mr">
-                    <div class="tpportfolio__thumb tp-text-center p-relative mb-30">
-                      <img src="https://mbihosting.in/glasswall/demo/assets/images/projects/Commercial/rio-google.webp" alt="Indiabulls Blu Project" />
-                    </div>
-                    <div class="tpportfolio__content tp-flex-center tp-justify-between mb-20 ml-30 mr-30">
-                      <div class="tpportfolio__content--wrap">
-                        <h3 class="tpportfolio__title">
-                          <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=rio-google">Rio – Google</a>
-                        </h3>
-                        <span class="tpportfolio__date">Bangalore, India</span>
+                @php
+                    // Staggered layout slots that match the theme's portfolio design.
+                    $portfolioLayouts = [
+                        ['col' => 'col-lg-7', 'wrap' => 'tpportfolio tpportfolio__mr'],
+                        ['col' => 'col-lg-5', 'wrap' => 'tpportfolio tpportfolio__transform'],
+                        ['col' => 'col-lg-5', 'wrap' => 'tpportfolio tpportfolio__transform-short'],
+                        ['col' => 'col-lg-7', 'wrap' => 'tpportfolio tpportfolio__ml tpportfolio__transform-down'],
+                        ['col' => 'col-lg-7', 'wrap' => 'tpportfolio tpportfolio__mr tpportfolio__transform-space-one'],
+                        ['col' => 'col-lg-5', 'wrap' => 'tpportfolio tpportfolio__transform tpportfolio__transform-space-two'],
+                    ];
+                @endphp
+
+                @foreach($homeProjects as $project)
+                    @php $layout = $portfolioLayouts[$loop->index % count($portfolioLayouts)]; @endphp
+                    <div class="{{ $layout['col'] }}">
+                      <div class="{{ $layout['wrap'] }}">
+                        <div class="tpportfolio__thumb tp-text-center p-relative mb-30">
+                          <img src="{{ $project->thumbnail_url }}" alt="{{ $project->name }}" />
+                        </div>
+                        <div class="tpportfolio__content tp-flex-center tp-justify-between mb-20 ml-30 mr-30">
+                          <div class="tpportfolio__content--wrap">
+                            <h3 class="tpportfolio__title">
+                              <a href="{{ route('frontend.projects', optional($project->category)->slug) }}">{{ $project->name }}</a>
+                            </h3>
+                            <span class="tpportfolio__date">{{ $project->location }}</span>
+                          </div>
+                          <a href="{{ route('frontend.projects', optional($project->category)->slug) }}" class="tp-btn">
+                          <span class="tp-btn-text">Explore More</span>
+
+                          <span class="tp-btn-icon">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                              <path
+                                d="M0.75 10.75L10.75 0.75"
+                                stroke="currentcolor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                              <path
+                                d="M0.75 0.75H10.75V10.75"
+                                stroke="currentcolor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        </a>
+                        </div>
                       </div>
-                      <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=rio-google" class="tp-btn">
-                      <span class="tp-btn-text">Explore More</span>
-
-                      <span class="tp-btn-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path
-                            d="M0.75 10.75L10.75 0.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M0.75 0.75H10.75V10.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-                    </a>
                     </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-5">
-                  <div class="tpportfolio tpportfolio__transform">
-                    <div class="tpportfolio__thumb tp-text-center p-relative mb-30">
-                      <img src="https://mbihosting.in/glasswall/demo/assets/images/projects/Commercial/the-capital.jpg" alt="Spark GTIC" />
-                    </div>
-                    <div class="tpportfolio__content tp-flex-center tp-justify-between mb-20 ml-30 mr-30">
-                      <div class="tpportfolio__content--wrap">
-                        <h3 class="tpportfolio__title">
-                          <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=the-capital">The Capital</a>
-                        </h3>
-                        <span class="tpportfolio__date">Mumbai, India</span>
-                      </div>
-                      <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=the-capital" class="tp-btn">
-                      <span class="tp-btn-text">Explore More</span>
-
-                      <span class="tp-btn-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path
-                            d="M0.75 10.75L10.75 0.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M0.75 0.75H10.75V10.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-                    </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-5">
-                  <div class="tpportfolio tpportfolio__transform-short">
-                    <div class="tpportfolio__thumb tp-text-center p-relative mb-30">
-                      <img src="https://mbihosting.in/glasswall/demo/assets/images/projects/Commercial/national-cancer-institute.jpg" alt="One World Center" />
-                    </div>
-                    <div class="tpportfolio__content tp-flex-center tp-justify-between mb-20 ml-30 mr-30">
-                      <div class="tpportfolio__content--wrap">
-                        <h3 class="tpportfolio__title">
-                          <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=national-cancer-institute">National Cancer Institute</a>
-                        </h3>
-                        <span class="tpportfolio__date">Nagpur, India</span>
-                      </div>
-                      <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=national-cancer-institute" class="tp-btn">
-                      <span class="tp-btn-text">Explore More</span>
-
-                      <span class="tp-btn-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path
-                            d="M0.75 10.75L10.75 0.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M0.75 0.75H10.75V10.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-                    </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-7">
-                  <div class="tpportfolio tpportfolio__ml tpportfolio__transform-down">
-                    <div class="tpportfolio__thumb tp-text-center p-relative mb-30">
-                      <img src="https://mbihosting.in/glasswall/demo/assets/images/projects/Commercial/kohinoor-square-tower.jpg" />
-                    </div>
-                    <div class="tpportfolio__content tp-flex-center tp-justify-between mb-20 ml-30 mr-30">
-                      <div class="tpportfolio__content--wrap">
-                        <h3 class="tpportfolio__title">
-                          <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=kohinoor-square-tower">Kohinoor Squaree</a>
-                        </h3>
-                        <span class="tpportfolio__date">Mumbai, India</span>
-                      </div>
-                      <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=kohinoor-square-tower" class="tp-btn">
-                      <span class="tp-btn-text">Explore More</span>
-
-                      <span class="tp-btn-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path
-                            d="M0.75 10.75L10.75 0.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M0.75 0.75H10.75V10.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-                    </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-7">
-                  <div class="tpportfolio tpportfolio__mr tpportfolio__transform-space-one">
-                    <div class="tpportfolio__thumb tp-text-center p-relative mb-30">
-                      <img src="https://mbihosting.in/glasswall/demo/assets/images/projects/International/26-32-jackson-ave.webp" alt="Phoenix Marketcity" />
-                    </div>
-                    <div class="tpportfolio__content tp-flex-center tp-justify-between mb-20 ml-30 mr-30">
-                      <div class="tpportfolio__content--wrap">
-                        <h3 class="tpportfolio__title">
-                          <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=26-32-jackson-ave">26-32 Jackson Ave</a>
-                        </h3>
-                        <span class="tpportfolio__date">New York, USA</span>
-                      </div>
-                      <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=26-32-jackson-ave" class="tp-btn">
-                      <span class="tp-btn-text">Explore More</span>
-
-                      <span class="tp-btn-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path
-                            d="M0.75 10.75L10.75 0.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M0.75 0.75H10.75V10.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-                    </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-5">
-                  <div class="tpportfolio tpportfolio__transform tpportfolio__transform-space-two">
-                    <div class="tpportfolio__thumb tp-text-center p-relative mb-30">
-                      <img src="https://mbihosting.in/glasswall/demo/assets/images/projects/International/albion-music-row.webp" alt="Cyber City" />
-                    </div>
-                    <div class="tpportfolio__content tp-flex-center tp-justify-between mb-20 ml-30 mr-30">
-                      <div class="tpportfolio__content--wrap">
-                        <h3 class="tpportfolio__title">
-                          <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=albion-music-row">Albion Music Row</a>
-                        </h3>
-                        <span class="tpportfolio__date">Nashville, TN, USA</span>
-                      </div>
-                      <a href="https://mbihosting.in/glasswall/demo/project-details.php?slug=albion-music-row" class="tp-btn">
-                      <span class="tp-btn-text">Explore More</span>
-
-                      <span class="tp-btn-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path
-                            d="M0.75 10.75L10.75 0.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M0.75 0.75H10.75V10.75"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-                    </a>
-                    </div>
-                  </div>
-                </div>
+                @endforeach
               </div>
             </div>
             </div>
