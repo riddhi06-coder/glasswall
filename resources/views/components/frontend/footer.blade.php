@@ -42,31 +42,37 @@
                                 <!-- Social -->
                                 <div class="tp-footer-social tp-footer-social-white">
                                     <ul>
+                                        @forelse(optional($footerContact)->socialLinks ?? [] as $social)
+                                            <li>
+                                                <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $social->platform_label }}">
+                                                    <i class="{{ $social->icon_class }}"></i>
+                                                </a>
+                                            </li>
+                                        @empty
+                                            <!-- Facebook -->
+                                            <li>
+                                                <a href="https://www.facebook.com/glasswallsystems/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                                    <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M8 0H5.81818C4.85376 0 3.92883 0.383116 3.24688 1.06507C2.56493 1.74702 2.18182 2.67194 2.18182 3.63636V5.81818H0V8.72727H2.18182V14.5455H5.09091V8.72727H7.27273L8 5.81818H5.09091V3.63636C5.09091 3.44348 5.16753 3.25849 5.30392 3.1221C5.44031 2.98571 5.6253 2.90909 5.81818 2.90909H8V0Z" fill="currentcolor"/> </svg>
+                                                </a>
+                                            </li>
 
-                                        <!-- Facebook -->
-                                        <li>
-                                            <a href="https://www.facebook.com/glasswallsystems/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                                                <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M8 0H5.81818C4.85376 0 3.92883 0.383116 3.24688 1.06507C2.56493 1.74702 2.18182 2.67194 2.18182 3.63636V5.81818H0V8.72727H2.18182V14.5455H5.09091V8.72727H7.27273L8 5.81818H5.09091V3.63636C5.09091 3.44348 5.16753 3.25849 5.30392 3.1221C5.44031 2.98571 5.6253 2.90909 5.81818 2.90909H8V0Z" fill="currentcolor"/> </svg>
-                                            </a>
-                                        </li>
+                                            <!-- Instagram -->
+                                            <li>
+                                                <a href="https://instagram.com/glasswallsystems/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"> <path d="M9.52217 6.77491L15.4785 0H14.0671L8.89516 5.88256L4.76437 0H0L6.24656 8.89547L0 16H1.41155L6.87321 9.78782L11.2356 16H16L9.52183 6.77491H9.52217ZM7.58887 8.97384L6.95596 8.08805L1.92015 1.03974H4.0882L8.15216 6.72795L8.78507 7.61374L14.0677 15.0075H11.8997L7.58887 8.97418V8.97384Z" fill="currentcolor"/> </svg>
+                                                </a>
+                                            </li>
 
-                                        <!-- Instagram -->
-                                        <li>
-                                            <a href="https://instagram.com/glasswallsystems/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"> <path d="M9.52217 6.77491L15.4785 0H14.0671L8.89516 5.88256L4.76437 0H0L6.24656 8.89547L0 16H1.41155L6.87321 9.78782L11.2356 16H16L9.52183 6.77491H9.52217ZM7.58887 8.97384L6.95596 8.08805L1.92015 1.03974H4.0882L8.15216 6.72795L8.78507 7.61374L14.0677 15.0075H11.8997L7.58887 8.97418V8.97384Z" fill="currentcolor"/> </svg>
-                                            </a>
-                                        </li>
-
-                                        <!-- LinkedIn -->
-                                        <li>
-                                            <a href="https://in.linkedin.com/company/glasss-wall-systems-india-pvt-ltd-"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                aria-label="LinkedIn">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M9.79961 4.2002C10.9135 4.2002 11.9818 4.64269 12.7695 5.43035C13.5571 6.218 13.9996 7.28629 13.9996 8.4002V13.3002H11.1996V8.4002C11.1996 8.02889 11.0521 7.6728 10.7896 7.41025C10.527 7.1477 10.1709 7.0002 9.79961 7.0002C9.42831 7.0002 9.07221 7.1477 8.80966 7.41025C8.54711 7.6728 8.39961 8.02889 8.39961 8.4002V13.3002H5.59961V8.4002C5.59961 7.28629 6.04211 6.218 6.82976 5.43035C7.61741 4.64269 8.6857 4.2002 9.79961 4.2002Z" fill="currentcolor"/> <path d="M2.8 4.90039H0V13.3004H2.8V4.90039Z" fill="currentcolor"/> <path d="M1.4 2.8C2.1732 2.8 2.8 2.1732 2.8 1.4C2.8 0.626801 2.1732 0 1.4 0C0.626801 0 0 0.626801 0 1.4C0 2.1732 0.626801 2.8 1.4 2.8Z" fill="currentcolor"/> </svg>
-                                            </a>
-                                        </li>
-
+                                            <!-- LinkedIn -->
+                                            <li>
+                                                <a href="https://in.linkedin.com/company/glasss-wall-systems-india-pvt-ltd-"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    aria-label="LinkedIn">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M9.79961 4.2002C10.9135 4.2002 11.9818 4.64269 12.7695 5.43035C13.5571 6.218 13.9996 7.28629 13.9996 8.4002V13.3002H11.1996V8.4002C11.1996 8.02889 11.0521 7.6728 10.7896 7.41025C10.527 7.1477 10.1709 7.0002 9.79961 7.0002C9.42831 7.0002 9.07221 7.1477 8.80966 7.41025C8.54711 7.6728 8.39961 8.02889 8.39961 8.4002V13.3002H5.59961V8.4002C5.59961 7.28629 6.04211 6.218 6.82976 5.43035C7.61741 4.64269 8.6857 4.2002 9.79961 4.2002Z" fill="currentcolor"/> <path d="M2.8 4.90039H0V13.3004H2.8V4.90039Z" fill="currentcolor"/> <path d="M1.4 2.8C2.1732 2.8 2.8 2.1732 2.8 1.4C2.8 0.626801 2.1732 0 1.4 0C0.626801 0 0 0.626801 0 1.4C0 2.1732 0.626801 2.8 1.4 2.8Z" fill="currentcolor"/> </svg>
+                                                </a>
+                                            </li>
+                                        @endforelse
                                     </ul>
                                 </div>
 

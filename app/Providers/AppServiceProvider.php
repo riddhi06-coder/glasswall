@@ -87,7 +87,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Share the latest contact details with the frontend footer (address / email / phone).
         View::composer('components.frontend.footer', function ($view) {
-            $view->with('footerContact', ContactDetail::latest()->first());
+            $view->with('footerContact', ContactDetail::with('socialLinks')->latest()->first());
         });
     }
 }

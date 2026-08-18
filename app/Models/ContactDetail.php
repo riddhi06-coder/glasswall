@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\TracksDeletedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContactDetail extends Model
@@ -25,6 +26,11 @@ class ContactDetail extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    public function socialLinks(): HasMany
+    {
+        return $this->hasMany(ContactSocialLink::class, 'contact_detail_id')->orderBy('sort_order')->orderBy('id');
+    }
 
     public function getBannerImageUrlAttribute(): ?string
     {

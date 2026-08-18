@@ -3,6 +3,10 @@
 
 <head>
     @include('components.backend.head')
+    <style>
+        form#contactForm.row > [class*="col-"] { margin-bottom: 40px !important; }
+        form#contactForm .form-label { margin-bottom: 10px !important; font-weight: 500; }
+    </style>
 </head>
 
     @include('components.backend.header')
@@ -41,7 +45,7 @@
                     <div class="col-12">
                       <div class="tab-content" id="wizard-tabContent">
                         <div class="tab-pane fade show active" id="wizard-contact" role="tabpanel">
-                          <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-contact-details.update', $contact->id) }}" method="POST" enctype="multipart/form-data">
+                          <form id="contactForm" class="row needs-validation custom-input" novalidate action="{{ route('manage-contact-details.update', $contact->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -115,6 +119,29 @@
                               @error('iframe_url')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                             </div>
 
+                            <!-- Social Media Links (repeatable rows) -->
+                            <div class="col-md-12">
+                              <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="form-label mb-0">Social Media Links</label>
+                                <button type="button" class="btn btn-sm btn-primary" id="addSocialRow">+ Add More</button>
+                              </div>
+                              <div class="table-responsive">
+                                <table class="table table-bordered align-middle mb-0" id="socialTable">
+                                  <thead>
+                                    <tr>
+                                      <th style="width:60px;">#</th>
+                                      <th style="width:240px;">Platform <span class="text-danger">*</span></th>
+                                      <th>URL <span class="text-danger">*</span></th>
+                                      <th style="width:90px;" class="text-center">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="socialBody">
+                                    <!-- rows injected by JS -->
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+
                             <!-- Form Actions -->
                             <div class="col-12 text-end mt-3">
                               <a href="{{ route('manage-contact-details.index') }}" class="btn btn-danger px-4">Cancel</a>
@@ -167,6 +194,60 @@
                 }
             }).catch(function (err) { console.error(err); });
         });
+    </script>
+
+    <script>
+        // ---- Social media links: repeatable rows ----
+        (function () {
+            var PLATFORMS = @json(\App\Models\ContactSocialLink::PLATFORMS);
+            var body = document.getElementById('socialBody');
+            var idx  = 0;
+
+            function options(selected) {
+                var html = '<option value="">-- Select platform --</option>';
+                Object.keys(PLATFORMS).forEach(function (key) {
+                    html += '<option value="' + key + '"' + (key === selected ? ' selected' : '') + '>' + PLATFORMS[key].label + '</option>';
+                });
+                return html;
+            }
+
+            function addRow(platform, url) {
+                var i = idx++;
+                var tr = document.createElement('tr');
+                tr.innerHTML =
+                    '<td class="row-index"></td>' +
+                    '<td><select name="social_links[' + i + '][platform]" class="form-control" required>' + options(platform) + '</select></td>' +
+                    '<td><input type="url" name="social_links[' + i + '][url]" class="form-control" placeholder="https://..." value="' + (url ? url.replace(/"/g, '&quot;') : '') + '" required></td>' +
+                    '<td class="text-center"><button type="button" class="btn btn-sm btn-danger removeSocialRow">Remove</button></td>';
+                body.appendChild(tr);
+                renumber();
+            }
+
+            function renumber() {
+                Array.prototype.forEach.call(body.querySelectorAll('tr'), function (tr, n) {
+                    tr.querySelector('.row-index').textContent = n + 1;
+                });
+            }
+
+            document.getElementById('addSocialRow').addEventListener('click', function () { addRow('', ''); });
+            body.addEventListener('click', function (e) {
+                if (e.target.classList.contains('removeSocialRow')) {
+                    e.target.closest('tr').remove();
+                    renumber();
+                }
+            });
+
+            // Seed rows: old input on validation error, else existing links.
+            @if(old('social_links'))
+                @foreach(old('social_links') as $row)
+                    addRow(@json($row['platform'] ?? ''), @json($row['url'] ?? ''));
+                @endforeach
+            @else
+                @foreach($contact->socialLinks as $link)
+                    addRow(@json($link->platform), @json($link->url));
+                @endforeach
+            @endif
+        })();
     </script>
 
 </body>
