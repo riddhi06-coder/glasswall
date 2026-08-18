@@ -9,6 +9,7 @@ use App\Models\HomeClientele;
 use App\Models\HomeBlog;
 use App\Models\ProjectCategory;
 use App\Models\ProjectListing;
+use App\Models\ContactDetail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,6 +64,14 @@ class HomeController extends Controller
         $detail = $project->detail()->first();
 
         return view('frontend.project-details', compact('category', 'project', 'detail'));
+    }
+
+    // Contact Us page
+    public function contact_us()
+    {
+        $contact = ContactDetail::latest()->first();
+
+        return view('frontend.contact_us', compact('contact'));
     }
 
 }

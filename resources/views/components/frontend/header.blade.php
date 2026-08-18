@@ -95,7 +95,7 @@
                       </ul>
                     </li>
                     <li><a href="#">Careers</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="{{ route('frontend.contact_us') }}">Contact Us</a></li>
                   </ul>
                 </nav>
               </div>

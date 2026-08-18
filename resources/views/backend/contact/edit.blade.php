@@ -41,7 +41,7 @@
                     <div class="col-12">
                       <div class="tab-content" id="wizard-tabContent">
                         <div class="tab-pane fade show active" id="wizard-contact" role="tabpanel">
-                          <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-contact-details.update', $contact->id) }}" method="POST">
+                          <form class="row g-3 needs-validation custom-input" novalidate action="{{ route('manage-contact-details.update', $contact->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -54,6 +54,24 @@
                                 </div>
                               </div>
                             @endif
+
+                            <!-- Banner Heading -->
+                            <div class="col-md-6">
+                              <label class="form-label" for="banner_heading">Banner Heading <span class="text-danger">*</span></label>
+                              <input class="form-control @error('banner_heading') is-invalid @enderror" id="banner_heading" type="text" name="banner_heading" value="{{ old('banner_heading', $contact->banner_heading) }}" placeholder="e.g. Contact Us" required>
+                              @error('banner_heading')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                            </div>
+
+                            <!-- Banner Image -->
+                            <div class="col-md-6">
+                              <label class="form-label" for="banner_image">Banner Image <span class="text-danger">*</span></label>
+                              <input class="form-control @error('banner_image') is-invalid @enderror" id="banner_image" type="file" name="banner_image" accept=".jpg,.jpeg,.png,.webp" onchange="previewBanner()">
+                              @error('banner_image')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                              <small class="text-secondary d-block mt-1"><b>Allowed:</b> jpg, jpeg, png, webp &nbsp;|&nbsp; <b>Max:</b> 2 MB &nbsp;|&nbsp; Leave empty to keep current.</small>
+                              <div class="mt-2">
+                                <img id="banner_preview" src="{{ $contact->banner_image_url }}" style="max-height:120px; border:1px solid #ddd; padding:4px; border-radius:6px;" alt="banner">
+                              </div>
+                            </div>
 
                             <!-- Email 1 -->
                             <div class="col-md-6">
@@ -123,6 +141,20 @@
     @include('components.backend.main-js')
 
     <script>
+        function previewBanner() {
+            var input = document.getElementById('banner_image');
+            var preview = document.getElementById('banner_preview');
+            var file = input.files[0];
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Banner image is too large. Maximum allowed is 2 MB.');
+                input.value = '';
+                return;
+            }
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        }
+
         document.querySelectorAll('textarea.editor').forEach(function (el) {
             ClassicEditor.create(el, {
                 heading: {

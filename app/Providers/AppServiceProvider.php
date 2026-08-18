@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\ProjectCategory;
+use App\Models\ContactDetail;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -82,6 +83,11 @@ class AppServiceProvider extends ServiceProvider
         // Share project categories with the frontend header & footer (dynamic Projects menu).
         View::composer(['components.frontend.header', 'components.frontend.footer'], function ($view) {
             $view->with('navCategories', ProjectCategory::orderBy('priority')->orderBy('name')->get());
+        });
+
+        // Share the latest contact details with the frontend footer (address / email / phone).
+        View::composer('components.frontend.footer', function ($view) {
+            $view->with('footerContact', ContactDetail::latest()->first());
         });
     }
 }

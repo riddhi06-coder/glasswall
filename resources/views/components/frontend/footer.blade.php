@@ -16,21 +16,25 @@
                                     </h3>
 
                                     <address class="tp-footer-info-deg white-rgba footer-address-normal">
-                                        503-504, 5th Floor, A Wing, Marathon Futurex,
-                                        Mafatlal Mills Compound, N.M. Joshi Marg,
-                                        Lower Parel (E), Mumbai 400 013
+                                        @if(optional($footerContact)->map_url)
+                                            <a href="{{ $footerContact->map_url }}" target="_blank" rel="noopener" class="text-reset">
+                                                {!! optional($footerContact)->address !!}
+                                            </a>
+                                        @elseif(optional($footerContact)->address)
+                                            {!! $footerContact->address !!}
+                                        @endif
                                     </address>
 
                                     <p class="tp-footer-info-deg mt-20">
                                         Email:
-                                        <a href="mailto:info@glasswallsystems.in">
-                                            info@glasswallsystems.in
+                                        <a href="mailto:{{ optional($footerContact)->email_1 ?: 'info@glasswallsystems.in' }}">
+                                            {{ optional($footerContact)->email_1 ?: 'info@glasswallsystems.in' }}
                                         </a>
                                         <br />
 
                                         Phone:
-                                        <a href="tel:+912261033456">
-                                            +91 22 6103 3456
+                                        <a href="tel:{{ preg_replace('/\s+/', '', optional($footerContact)->phone ?: '+912261033456') }}">
+                                            {{ optional($footerContact)->phone ?: '+91 22 6103 3456' }}
                                         </a>
                                     </p>
                                 </div>
@@ -145,8 +149,7 @@
 
                     <div class="col-md-6">
                         <div class="tp-footer-copyright">
-                            <p class="mb-0">
-&copy; 2026 Glass Wall Systems. All rights reserved.
+                            <p class="mb-0">&copy; {{ date('Y') }} Glass Wall Systems. All rights reserved.
                             </p>
                         </div>
                     </div>

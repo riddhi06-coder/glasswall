@@ -13,6 +13,8 @@ class ContactDetail extends Model
     protected $table = 'contact_details';
 
     protected $fillable = [
+        'banner_heading',
+        'banner_image',
         'email_1',
         'email_2',
         'phone',
@@ -23,4 +25,9 @@ class ContactDetail extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    public function getBannerImageUrlAttribute(): ?string
+    {
+        return $this->banner_image ? asset('contact/'.$this->banner_image) : null;
+    }
 }
