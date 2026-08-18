@@ -316,21 +316,22 @@
 
               <div class="tp-services" id="accordionExample">
 
+                @foreach($categories as $category)
                 <div class="tp-services-item tp_fade_anim" data-delay=".2" data-duration=".9">
-                  <div class="tp-services-header" id="headingOne">
+                  <div class="tp-services-header" id="heading{{ $loop->iteration }}">
                     <div
-                      class="tp-services-button tp-services-button-black"
+                      class="tp-services-button tp-services-button-black @unless($loop->first) collapsed @endunless"
                       role="button"
                       data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
+                      data-bs-target="#collapse{{ $loop->iteration }}"
+                      aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                      aria-controls="collapse{{ $loop->iteration }}"
                     >
                       <div class="tp-services-header">
                         <div class="row tp-align-center">
                           <div class="col-lg-12 col-md-12 col-12">
                             <div class="tp-services-heading-wrap tp-flex-center tp-justify-between">
-                              <h3 class="tp-services-title tp-fs-24">Residential Projects</h3>
+                              <h3 class="tp-services-title tp-fs-24">{{ $category->name }}</h3>
                               <svg
                                 width="14"
                                 height="14"
@@ -355,10 +356,10 @@
                   </div>
 
                   <div
-                    id="collapseOne"
-                    class="accordion-collapse collapse show"
+                    id="collapse{{ $loop->iteration }}"
+                    class="accordion-collapse collapse @if($loop->first) show @endif"
                     role="region"
-                    aria-labelledby="headingOne"
+                    aria-labelledby="heading{{ $loop->iteration }}"
                     data-bs-parent="#accordionExample"
                   >
                     <div class="tp-services-body">
@@ -366,7 +367,7 @@
 
                         <div class="col-xl-4 col-md-5 col-sm-12">
                           <div class="tp-services-img br-20">
-                            <img src="assets/images/home/eb1.jpg" alt="Residential Glass Solutions" />
+                            <img src="{{ $category->thumbnail_url ?? asset('frontend/assets/images/home/eb1.jpg') }}" alt="{{ $category->name }}" />
                           </div>
                         </div>
 
@@ -374,7 +375,7 @@
                           <div class="tp-services-content">
                             <div class="tp-services-title-wrap tp-flex tp-justify-between">
                               <h3 class="tp-services-title tp-services-title-larg tp-services-header mb-20">
-                                <a href="https://mbihosting.in/glasswall/demo/projects.php?category=residential">Residential Projects</a>
+                                <a href="{{ route('frontend.projects', $category->slug) }}">{{ $category->name }}</a>
                               </h3>
                               <svg
                                 width="14"
@@ -390,7 +391,7 @@
                               </svg>
                             </div>
 
-                            <a href="https://mbihosting.in/glasswall/demo/projects.php?category=residential" class="tp-btn tp-btn-white">
+                            <a href="{{ route('frontend.projects', $category->slug) }}" class="tp-btn tp-btn-white">
                                 <span class="tp-btn-text tp-btn-white">Know More</span>
                                 <span class="tp-btn-icon">
                                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -405,189 +406,8 @@
                     </div>
                   </div>
                 </div>
+                @endforeach
 
-                <div class="tp-services-item tp_fade_anim" data-delay=".2" data-duration=".9">
-                  <div class="tp-services-header" id="heading2">
-                    <div
-                      class="tp-services-button tp-services-button-black collapsed"
-                      role="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapse2"
-                      aria-expanded="false"
-                      aria-controls="collapse2"
-                    >
-                      <div class="tp-services-header">
-                        <div class="row tp-align-center">
-                          <div class="col-lg-12 col-12">
-                            <div class="tp-services-heading-wrap tp-flex-center tp-justify-between">
-                              <h3 class="tp-services-title tp-fs-24">Commercial and Hospitality</h3>
-                              <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 14 14"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.00002 14C6.47458 14 6.04883 13.5742 6.04883 13.0488V0.95119C6.04883 0.425753 6.47458 0 7.00002 0C7.52546 0 7.95121 0.425753 7.95121 0.95119V13.0488C7.95121 13.5742 7.52546 14 7.00002 14Z"
-                                  fill="#000"
-                                />
-                                <path
-                                  d="M13.0488 7.95121H0.95119C0.425753 7.95121 0 7.52546 0 7.00002C0 6.47458 0.425753 6.04883 0.95119 6.04883H13.0488C13.5742 6.04883 14 6.47458 14 7.00002C14 7.52546 13.5742 7.95121 13.0488 7.95121Z"
-                                  fill="#000"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    id="collapse2"
-                    class="accordion-collapse collapse"
-                    role="region"
-                    aria-labelledby="heading2"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div class="tp-services-body">
-                      <div class="row">
-
-                        <div class="col-xl-4 col-md-5 col-sm-12">
-                          <div class="tp-services-img br-20">
-                            <img src="assets/images/home/Dry-Dock.webp" alt="Commercial and Hospitality Glass" />
-                          </div>
-                        </div>
-
-                        <div class="col-xl-8 col-md-7 col-sm-12 align-content-center">
-                          <div class="tp-services-content">
-                            <div class="tp-services-title-wrap tp-flex tp-justify-between">
-                              <h3 class="tp-services-title tp-services-title-larg tp-services-header mb-20">
-                                <a href="https://mbihosting.in/glasswall/demo/projects.php?category=commercial">Commercial and Hospitality</a>
-                              </h3>
-                              <svg
-                                width="14"
-                                height="2"
-                                viewBox="0 0 14 2"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M13.0488 1.90238H0.95119C0.425753 1.90238 0 1.47663 0 0.95119C0 0.425753 0.425753 0 0.95119 0H13.0488C13.5742 0 14 0.425753 14 0.95119C14 1.47663 13.5742 1.90238 13.0488 1.90238Z"
-                                  fill="black"
-                                />
-                              </svg>
-                            </div>
-
-                            <a href="https://mbihosting.in/glasswall/demo/projects.php?category=commercial" class="tp-btn tp-btn-white">
-                                <span class="tp-btn-text tp-btn-white">Know More</span>
-                                <span class="tp-btn-icon">
-                                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.75 10.75L10.75 0.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M0.75 0.75H10.75V10.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                  </svg>
-                                </span>
-                              </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tp-services-item tp_fade_anim" data-delay=".2" data-duration=".9">
-                  <div class="tp-services-header" id="heading3">
-                    <div
-                      class="tp-services-button tp-services-button-black collapsed"
-                      role="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapse3"
-                      aria-expanded="false"
-                      aria-controls="collapse3"
-                    >
-                      <div class="tp-services-header">
-                        <div class="row tp-align-center">
-                          <div class="col-lg-12 col-12">
-                            <div class="tp-services-heading-wrap tp-flex-center tp-justify-between">
-                              <h3 class="tp-services-title tp-fs-24">International Projects</h3>
-                              <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 14 14"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M7.00002 14C6.47458 14 6.04883 13.5742 6.04883 13.0488V0.95119C6.04883 0.425753 6.47458 0 7.00002 0C7.52546 0 7.95121 0.425753 7.95121 0.95119V13.0488C7.95121 13.5742 7.52546 14 7.00002 14Z"
-                                  fill="#000"
-                                />
-                                <path
-                                  d="M13.0488 7.95121H0.95119C0.425753 7.95121 0 7.52546 0 7.00002C0 6.47458 0.425753 6.04883 0.95119 6.04883H13.0488C13.5742 6.04883 14 6.47458 14 7.00002C14 7.52546 13.5742 7.95121 13.0488 7.95121Z"
-                                  fill="#000"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    id="collapse3"
-                    class="accordion-collapse collapse"
-                    role="region"
-                    aria-labelledby="heading3"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div class="tp-services-body">
-                      <div class="row">
-
-                        <div class="col-xl-4 col-md-5 col-sm-12">
-                          <div class="tp-services-img br-20">
-                            <img
-                              src="assets/images/home/one-international-center-lower.webp"
-                              alt="International Projects"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="col-xl-8 col-md-7 col-sm-12 align-content-center">
-                          <div class="tp-services-content">
-                            <div class="tp-services-title-wrap tp-flex tp-justify-between">
-                              <h3 class="tp-services-title tp-services-title-larg tp-services-header mb-20">
-                                <a href="https://mbihosting.in/glasswall/demo/projects.php?category=international">International Projects</a>
-                              </h3>
-                              <svg
-                                width="14"
-                                height="2"
-                                viewBox="0 0 14 2"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M13.0488 1.90238H0.95119C0.425753 1.90238 0 1.47663 0 0.95119C0 0.425753 0.425753 0 0.95119 0H13.0488C13.5742 0 14 0.425753 14 0.95119C14 1.47663 13.5742 1.90238 13.0488 1.90238Z"
-                                  fill="black"
-                                />
-                              </svg>
-                            </div>
-
-                            <a href="https://mbihosting.in/glasswall/demo/projects.php?category=international" class="tp-btn tp-btn-white">
-                                <span class="tp-btn-text tp-btn-white">Know More</span>
-                                <span class="tp-btn-icon">
-                                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.75 10.75L10.75 0.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M0.75 0.75H10.75V10.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                  </svg>
-                                </span>
-                              </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </section>

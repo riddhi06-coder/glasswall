@@ -100,9 +100,9 @@
 
                             
                             <ul>
-                                <li><a href="projects.php?category=residential">Residential</a></li>
-                                <li><a href="projects.php?category=commercial">Commercial &amp; Hospitality</a></li>
-                                <li><a href="projects.php?category=international">International</a></li>
+                                @foreach(($navCategories ?? []) as $navCategory)
+                                    <li><a href="{{ route('frontend.projects', $navCategory->slug) }}">{{ $navCategory->name }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

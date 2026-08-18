@@ -9,7 +9,9 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Models\ProjectCategory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -74,6 +76,11 @@ class AppServiceProvider extends ServiceProvider
                 'user_name'   => $email,
                 'description' => 'Failed login attempt for '.$email,
             ]);
+        });
+
+        // Share project categories with the frontend header & footer (dynamic Projects menu).
+        View::composer(['components.frontend.header', 'components.frontend.footer'], function ($view) {
+            $view->with('navCategories', ProjectCategory::orderBy('priority')->orderBy('name')->get());
         });
     }
 }

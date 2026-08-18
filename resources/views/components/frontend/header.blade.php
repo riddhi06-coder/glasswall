@@ -56,15 +56,11 @@
                     <li>
                       <a href="#">Projects</a>
                       <ul class="sub-menu">
-                        <li>
-                          <a href="projects.php?category=residential"><span>Residential</span></a>
-                        </li>
-                        <li>
-                          <a href="projects.php?category=commercial"><span>Commercial and Hospitality</span></a>
-                        </li>
-                        <li>
-                          <a href="projects.php?category=international"><span>International</span></a>
-                        </li>
+                        @foreach(($navCategories ?? []) as $navCategory)
+                          <li>
+                            <a href="{{ route('frontend.projects', $navCategory->slug) }}"><span>{{ $navCategory->name }}</span></a>
+                          </li>
+                        @endforeach
                       </ul>
                     </li>
                      <li>
@@ -106,29 +102,7 @@
             </div>
             <div class="col-xl-1 col-lg-1 col-md-1 col-5">
               <div class="tp-header-cta tp-flex-center tp-justify-end">
-                <!--<div class="tp-header-cta-button d-none d-md-inline-block">-->
-                <!--  <a href="#" class="tp-btn">-->
-                <!--    <span class="tp-btn-text">Get in touch</span>-->
-                <!--    <span class="tp-btn-icon">-->
-                <!--      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-                <!--        <path-->
-                <!--          d="M0.75 10.75L10.75 0.75"-->
-                <!--          stroke="currentcolor"-->
-                <!--          stroke-width="1.5"-->
-                <!--          stroke-linecap="round"-->
-                <!--          stroke-linejoin="round"-->
-                <!--        />-->
-                <!--        <path-->
-                <!--          d="M0.75 0.75H10.75V10.75"-->
-                <!--          stroke="currentcolor"-->
-                <!--          stroke-width="1.5"-->
-                <!--          stroke-linecap="round"-->
-                <!--          stroke-linejoin="round"-->
-                <!--        />-->
-                <!--      </svg>-->
-                <!--    </span>-->
-                <!--  </a>-->
-                <!--</div>-->
+                
                 <div class="tp-cta-phone tp-header-cta-phone mr-30 d-none d-xl-inline-block">
                     <a class="tp-flex-center" href="#">
                         <span class="tp-cta-phone-icon mr-10">

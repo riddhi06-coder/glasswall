@@ -114,3 +114,4 @@ use App\Http\Controllers\Frontend\HomeController;
     // ----------------------
 
     Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
+    Route::get('/projects/{category:slug}', [HomeController::class, 'projects'])->name('frontend.projects');

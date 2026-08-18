@@ -7,6 +7,7 @@ use App\Models\HomeBanner;
 use App\Models\HomeAbout;
 use App\Models\HomeClientele;
 use App\Models\HomeBlog;
+use App\Models\ProjectCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,12 +25,25 @@ class HomeController extends Controller
     // Home Page
     public function index()
     {
-        $banners   = HomeBanner::orderBy('id')->get();
-        $about     = HomeAbout::with('milestones')->latest()->first();
-        $clientele = HomeClientele::latest()->first();
-        $blog      = HomeBlog::latest()->first();
+        $banners    = HomeBanner::orderBy('id')->get();
+        $about      = HomeAbout::with('milestones')->latest()->first();
+        $clientele  = HomeClientele::latest()->first();
+        $blog       = HomeBlog::latest()->first();
+        $categories = ProjectCategory::orderBy('priority')->orderBy('name')->get();
 
-        return view('frontend.index', compact('banners', 'about', 'clientele', 'blog'));
+        return view('frontend.index', compact('banners', 'about', 'clientele', 'blog', 'categories'));
+    }
+
+    // Projects listing by category (slug-bound)
+    public function projects(ProjectCategory $category)
+    {
+        $projects = $category->listings()
+            ->where('is_active', true)
+            ->orderBy('priority')
+            ->orderBy('id')
+            ->get();
+
+        return view('frontend.projects', compact('category', 'projects'));
     }
 
 }
