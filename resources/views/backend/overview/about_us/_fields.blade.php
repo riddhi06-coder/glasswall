@@ -23,7 +23,7 @@
   <label class="form-label" for="banner_video">Banner Video <span class="text-danger">*</span></label>
   <input class="form-control @error('banner_video') is-invalid @enderror" id="banner_video" type="file" name="banner_video" accept="video/mp4,video/webm,video/ogg,video/quicktime" {{ $a ? '' : 'required' }} onchange="previewVideo(this,'banner_video_preview')">
   @error('banner_video')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-  <small class="text-secondary d-block mt-1"><b>Allowed:</b> mp4, webm, ogg, mov &nbsp;|&nbsp; <b>Max:</b> 20 MB{{ $a ? ' | Leave empty to keep current.' : '' }}</small>
+  <small class="text-secondary d-block mt-1"><b>Allowed:</b> mp4, webm, ogg, mov &nbsp;|&nbsp; <b>Max:</b> 30 MB{{ $a ? ' | Leave empty to keep current.' : '' }}</small>
   <div class="mt-2">
     <video id="banner_video_preview" src="{{ $a ? $a->assetUrl($a->banner_video) : '' }}" style="max-height:140px; {{ optional($a)->banner_video ? '' : 'display:none;' }} border:1px solid #ddd; border-radius:6px;" controls></video>
   </div>

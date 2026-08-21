@@ -20,7 +20,7 @@
                       <a href="#">Overview</a>
                       <ul class="sub-menu">
                         <li>
-                          <a href="vision-mission-values.html"><span>About Us</span></a>
+                          <a href="{{ route('frontend.about_us') }}"><span>About Us</span></a>
                         </li>
                         <li>
                           <a href="board-of-directors.html"><span>Board of Directors</span></a>

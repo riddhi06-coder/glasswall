@@ -18,8 +18,8 @@
         var preview = document.getElementById(previewId);
         var file = input.files[0];
         if (!file) return;
-        if (file.size > 20 * 1024 * 1024) {
-            alert('Banner video is too large. Maximum allowed is 20 MB.');
+        if (file.size > 30 * 1024 * 1024) {
+            alert('Banner video is too large. Maximum allowed is 30 MB.');
             input.value = '';
             return;
         }

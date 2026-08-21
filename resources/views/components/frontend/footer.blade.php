@@ -45,7 +45,7 @@
                                         @forelse(optional($footerContact)->socialLinks ?? [] as $social)
                                             <li>
                                                 <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $social->platform_label }}">
-                                                    <i class="{{ $social->icon_class }}"></i>
+                                                    @include('components.frontend._social_icon', ['platform' => $social->platform])
                                                 </a>
                                             </li>
                                         @empty

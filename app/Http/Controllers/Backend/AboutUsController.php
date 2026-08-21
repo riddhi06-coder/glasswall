@@ -102,7 +102,7 @@ class AboutUsController extends Controller
         $rules = [
             // Banner / top section
             'banner_heading'  => 'required|string|max:255',
-            'banner_video'    => "{$req}|file|mimes:mp4,webm,ogg,mov|max:20480",
+            'banner_video'    => "{$req}|file|mimes:mp4,webm,ogg,mov|max:30720",
             'section_heading' => 'required|string|max:255',
             'section_image'   => "{$req}|file|mimes:jpg,jpeg,png,webp,svg|max:2048",
             'description'     => 'required|string',
@@ -138,7 +138,7 @@ class AboutUsController extends Controller
     {
         return [
             'banner_video.mimes' => 'Banner video must be mp4, webm, ogg or mov.',
-            'banner_video.max'   => 'Banner video may not be larger than 20 MB.',
+            'banner_video.max'   => 'Banner video may not be larger than 30 MB.',
             '*.image.mimes'      => 'Images must be jpg, jpeg, png, webp or svg.',
             '*.max'              => 'Images may not be larger than 2 MB.',
         ];
