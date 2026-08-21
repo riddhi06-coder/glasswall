@@ -31,7 +31,7 @@
                         <li>
                           <a href="esg.html"><span>ESG</span></a>
                         </li>
-                        <li><a href="media.html"><span>Media</span></a></li>
+                        <li><a href="{{ route('frontend.media') }}"><span>Media</span></a></li>
                         <li>
                           <a href="awards-recognition.html"><span>Awards and Certificates</span></a>
                         </li>

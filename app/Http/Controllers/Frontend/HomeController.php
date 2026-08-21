@@ -13,6 +13,7 @@ use App\Models\ContactDetail;
 use App\Models\AboutUs;
 use App\Models\BoardDirector;
 use App\Models\Innovation;
+use App\Models\Media;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -101,6 +102,15 @@ class HomeController extends Controller
         $banner      = $innovations->first(); // banner fields live on the first record
 
         return view('frontend.innovation', compact('innovations', 'banner'));
+    }
+
+    // Media page
+    public function media()
+    {
+        $media  = Media::orderBy('id')->get();
+        $banner = $media->first(); // banner fields live on the first record
+
+        return view('frontend.media', compact('media', 'banner'));
     }
 
 }
