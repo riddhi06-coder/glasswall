@@ -34,6 +34,6 @@ class AwardsRecognition extends Model
 
     public function assetUrl(?string $fileName): ?string
     {
-        return $fileName ? asset('awards-recognition/'.$fileName) : null;
+        return $fileName ? asset('awards-uploads/'.$fileName) : null;
     }
 }

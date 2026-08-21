@@ -137,3 +137,4 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/board-of-directors', [HomeController::class, 'board_of_directors'])->name('frontend.board_of_directors');
     Route::get('/innovation', [HomeController::class, 'innovation'])->name('frontend.innovation');
     Route::get('/media', [HomeController::class, 'media'])->name('frontend.media');
+    Route::get('/awards-recognition', [HomeController::class, 'awards_recognition'])->name('frontend.awards_recognition');

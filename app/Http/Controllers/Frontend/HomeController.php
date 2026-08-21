@@ -14,6 +14,8 @@ use App\Models\AboutUs;
 use App\Models\BoardDirector;
 use App\Models\Innovation;
 use App\Models\Media;
+use App\Models\AwardsCategory;
+use App\Models\AwardsRecognition;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -111,6 +113,16 @@ class HomeController extends Controller
         $banner = $media->first(); // banner fields live on the first record
 
         return view('frontend.media', compact('media', 'banner'));
+    }
+
+    // Awards & Recognition page
+    public function awards_recognition()
+    {
+        $categories  = AwardsCategory::orderBy('id')->get();
+        $awardsByCat = AwardsRecognition::with('category')->orderBy('id')->get()->groupBy('awards_category_id');
+        $banner      = AwardsRecognition::orderBy('id')->first(); // banner lives on the first record
+
+        return view('frontend.awards_recognition', compact('categories', 'awardsByCat', 'banner'));
     }
 
 }

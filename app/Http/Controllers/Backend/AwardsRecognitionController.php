@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AwardsRecognitionController extends Controller
 {
-    /** Upload directory under /public. */
-    private const DIR = 'awards-recognition';
+    /** Upload directory under /public (not "awards-recognition" — that collides with the /awards-recognition route). */
+    private const DIR = 'awards-uploads';
 
     /** Image file fields (excluding the first-record banner). */
     private const IMAGE_FIELDS = ['thumbnail_image', 'main_image'];
