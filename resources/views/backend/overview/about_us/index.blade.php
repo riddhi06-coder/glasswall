@@ -3,35 +3,9 @@
 <head>
     @include('components.backend.head')
     <style>
-        #basic-1 td { vertical-align: top; }
-        #basic-1 th, #basic-1 td { padding: 14px 12px; }
-
-        .about-desc-cell {
-            font-size: 14px;
-            line-height: 1.55;
-            color: #4a4f57;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .ms-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-        .ms-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #f6f7fb;
-            border: 1px solid #e6e8f0;
-            border-radius: 22px;
-            padding: 6px 14px;
-            font-size: 12.5px;
-            line-height: 1.3;
-            letter-spacing: normal;
-            color: #3a3f47;
-        }
-        .ms-chip img { height: 18px; width: 18px; object-fit: contain; flex: 0 0 auto; }
-        .ms-chip b { color: #1a4685; font-weight: 700; }
+        #basic-1 td { vertical-align: middle; }
+        #basic-1 th, #basic-1 td { padding: 12px; }
+        .au-thumb { height: 150px; width: 260px; object-fit: cover; border: 1px solid #e6e8f0; border-radius: 8px; background:#000; }
     </style>
 </head>
 <body>
@@ -65,26 +39,50 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb mb-0">
                                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                                        <li class="breadcrumb-item active">About Us Details</li>
+                                        <li class="breadcrumb-item active">About Us</li>
                                     </ol>
                                 </nav>
                                 <a href="{{ route('manage-about-us.create') }}" class="btn btn-primary px-5 radius-30">
-                                    + Add About Us Details
+                                    + Add About Us
                                 </a>
                             </div>
 
                             <div class="table-responsive custom-scrollbar">
-                                <table class="display" id="basic-1">
+                                <table class="display" id="basic-1" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th style="width:60px;">Sr No.</th>
-                                            <th style="width:300px;">Description</th>
-                                            <th>Milestones</th>
+                                            <th style="width:280px;">Banner Video</th>
+                                            <th>Banner Heading</th>
                                             <th style="width:150px;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      
+                                        @foreach($abouts as $key => $about)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>
+                                                    @if($about->banner_video)
+                                                        <video class="au-thumb" src="{{ $about->assetUrl($about->banner_video) }}" muted controls></video>
+                                                    @else
+                                                        <span class="text-muted">—</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $about->banner_heading }}</td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <a href="{{ route('manage-about-us.edit', $about->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                                        <form action="{{ route('manage-about-us.destroy', $about->id) }}"
+                                                              method="POST" class="m-0"
+                                                              onsubmit="return confirm('Are you sure you want to delete this About Us entry?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
