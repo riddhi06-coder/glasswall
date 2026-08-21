@@ -12,6 +12,7 @@ use App\Models\ProjectListing;
 use App\Models\ContactDetail;
 use App\Models\AboutUs;
 use App\Models\BoardDirector;
+use App\Models\Innovation;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,6 +92,15 @@ class HomeController extends Controller
         $banner    = $directors->first(); // banner fields live on the first record
 
         return view('frontend.board_of_directors', compact('directors', 'banner'));
+    }
+
+    // Innovation page
+    public function innovation()
+    {
+        $innovations = Innovation::orderBy('id')->get();
+        $banner      = $innovations->first(); // banner fields live on the first record
+
+        return view('frontend.innovation', compact('innovations', 'banner'));
     }
 
 }

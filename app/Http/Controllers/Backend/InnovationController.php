@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class InnovationController extends Controller
 {
-    /** Upload directory under /public. */
-    private const DIR = 'innovation';
+    /** Upload directory under /public (not "innovation" — that collides with the /innovation route). */
+    private const DIR = 'innovations';
 
     public function index()
     {

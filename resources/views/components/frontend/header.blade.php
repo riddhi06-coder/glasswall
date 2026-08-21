@@ -26,7 +26,7 @@
                           <a href="{{ route('frontend.board_of_directors') }}"><span>Board of Directors</span></a>
                         </li>
                         <li>
-                          <a href="innovation.html"><span>Innovation</span></a>
+                          <a href="{{ route('frontend.innovation') }}"><span>Innovation</span></a>
                         </li>
                         <li>
                           <a href="esg.html"><span>ESG</span></a>

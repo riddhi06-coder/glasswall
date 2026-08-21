@@ -25,6 +25,6 @@ class Innovation extends Model
 
     public function assetUrl(?string $fileName): ?string
     {
-        return $fileName ? asset('innovation/'.$fileName) : null;
+        return $fileName ? asset('innovations/'.$fileName) : null;
     }
 }
