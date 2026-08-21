@@ -58,28 +58,26 @@
                 <div class="tp-project-about-main">
                   <div class="row">
                     <div class="col-xl-12">
-                      <div class="tp-project-about-wrap tp-flex-center tp-justify-between flex-wrap">
+                      <div class="tp-project-about-wrap tp-flex-center flex-wrap">
 
                         @php
                           $info = [
-                              'Project Name' => $project->name,
                               'Location'     => $project->location,
                               'Client'       => optional($detail)->client,
                               'Architect'    => optional($detail)->architect,
                               'Consultant'   => optional($detail)->consultant,
                               'Project Type' => $category->name,
-                              'Project Area' => optional($detail)->project_area,
-                              'Floors'       => optional($detail)->floors,
+                              'Façade Area'  => optional($detail)->project_area,
+                              'Year'         => optional($detail)->year,
                           ];
                         @endphp
 
                         @foreach($info as $label => $value)
-                          @continue(blank($value) || $value === 'N/A')
                           <div class="tp-project-about">
                             <div class="tp-project-details-info-content">
                               <span class="d-inline-block fw-500 lh-1">{{ $label }}</span>
                               <h4 class="tp-project-details-info-title margin-0 lh-1">
-                                {{ $value }}
+                                {{ (blank($value) || $value === 'N/A') ? '-' : $value }}
                               </h4>
                             </div>
                           </div>
@@ -91,10 +89,10 @@
                 </div>
 
                 @if($detail && !empty($detail->scope_of_work) && $detail->scope_of_work !== ['N/A'])
-                  <div class="tp-project-feature pt-40">
-                    <h3 class="tp-project-details-title mb-35">Scope of Work</h3>
+                  <div class="tp-project-feature pt-40 border-top">
+                    <h3 class="tp-project-details-title mb-35 tp-text-center">Scope of Work</h3>
                     <div class="tp-project-feature-main tp-bg-gray br-20">
-                      <div class="tp-project-feature-wrap tp-flex-center">
+                      <div class="tp-project-feature-wrap tp-flex-center justify-content-center tp_fade_anim" data-dure=".9">
                         @foreach($detail->scope_of_work as $scope)
                           <div class="tp-project-feature-item">
                             <span class="d-inline-block tp-text-black"> {{ $scope }}</span>

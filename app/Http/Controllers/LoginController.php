@@ -12,6 +12,14 @@ use Illuminate\Validation\Rules\Password as PasswordRule;
 use Carbon\Carbon;
 
 use App\Models\User;
+use App\Models\Role;
+use App\Models\ProjectListing;
+use App\Models\ProjectCategory;
+use App\Models\ProjectDetail;
+use App\Models\HomeBanner;
+use App\Models\HomeBlog;
+use App\Models\ContactDetail;
+use App\Models\ActivityLog;
 
 class LoginController extends Controller
 {
@@ -20,9 +28,33 @@ class LoginController extends Controller
     // ----------------------------------------------------------------
     public function dashboard()
     {
+        $stats = [
+            'projects'     => ProjectListing::count(),
+            'activeProjects' => ProjectListing::where('is_active', true)->count(),
+            'showOnHome'   => ProjectListing::where('show_on_home', true)->count(),
+            'categories'   => ProjectCategory::count(),
+            'projectDetails' => ProjectDetail::count(),
+            'banners'      => HomeBanner::count(),
+            'blogs'        => HomeBlog::count(),
+            'contacts'     => ContactDetail::count(),
+            'users'        => User::count(),
+            'roles'        => Role::count(),
+            'activities'   => ActivityLog::count(),
+        ];
+
+        // Projects grouped by category (for the breakdown list).
+        $projectsByCategory = ProjectCategory::withCount('listings')
+            ->orderByDesc('listings_count')
+            ->get();
+
+        $recentActivities = ActivityLog::latest()->take(8)->get();
+
         return view('backend.dashboard', [
-            'today' => Carbon::today(),
-            'user'  => Auth::user(),
+            'today'              => Carbon::today(),
+            'user'               => Auth::user(),
+            'stats'              => $stats,
+            'projectsByCategory' => $projectsByCategory,
+            'recentActivities'   => $recentActivities,
         ]);
     }
 
