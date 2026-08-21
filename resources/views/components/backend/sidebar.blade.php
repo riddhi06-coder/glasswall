@@ -95,6 +95,30 @@
                 </li>
 
 
+
+
+                <li class="sidebar-list {{ request()->routeIs('manage-about-us.*','manage-project-listing.*','manage-project-details.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-table') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-table') }}"></use>
+                    </svg>
+                    <span>Overview</span>
+                  </a>
+                  
+                  <ul class="sidebar-submenu">
+                      <li><a href="{{ route('manage-about-us.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">About Us</a></li>
+                      <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Board of Directors</a></li>
+                      <li><a href="{{ route('manage-project-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Innovation</a></li>
+                  </ul>
+                </li>
+
+
+
                 <li class="sidebar-list {{ request()->routeIs('manage-project-category.*','manage-project-listing.*','manage-project-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 

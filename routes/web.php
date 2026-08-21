@@ -15,7 +15,7 @@ use App\Http\Controllers\Backend\ProjectCategoryController;
 use App\Http\Controllers\Backend\ProjectListingController;
 use App\Http\Controllers\Backend\ProjectDetailsController;
 use App\Http\Controllers\Backend\ContactDetailsController;
-
+use App\Http\Controllers\Backend\AboutUsController;
 
 
 //frontend controller
@@ -102,7 +102,9 @@ use App\Http\Controllers\Frontend\HomeController;
         // Contact
         Route::resource('manage-contact-details', ContactDetailsController::class);
   
-    
+        // Overview Pages
+        Route::resource('manage-about-us', AboutUsController::class);
+
     
     
     });
