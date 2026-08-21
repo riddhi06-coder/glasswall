@@ -17,6 +17,7 @@ class ActivityLogger
     /** Friendly module labels keyed by model class basename. */
     private const MODULES = [
         'AboutUs'       => 'About Us',
+        'BoardDirector' => 'Board of Directors',
         'ContactDetail' => 'Contact Details',
         'HomeAbout'     => 'Home About',
         'HomeBanner'    => 'Home Banner',

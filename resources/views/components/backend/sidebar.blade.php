@@ -97,7 +97,7 @@
 
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-about-us.*','manage-project-listing.*','manage-project-details.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-about-us.*','manage-board-of-directors.*','manage-project-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -112,7 +112,7 @@
                   
                   <ul class="sidebar-submenu">
                       <li><a href="{{ route('manage-about-us.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">About Us</a></li>
-                      <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Board of Directors</a></li>
+                      <li><a href="{{ route('manage-board-of-directors.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Board of Directors</a></li>
                       <li><a href="{{ route('manage-project-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Innovation</a></li>
                   </ul>
                 </li>

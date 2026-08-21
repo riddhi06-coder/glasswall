@@ -16,6 +16,10 @@ use App\Http\Controllers\Backend\ProjectListingController;
 use App\Http\Controllers\Backend\ProjectDetailsController;
 use App\Http\Controllers\Backend\ContactDetailsController;
 use App\Http\Controllers\Backend\AboutUsController;
+use App\Http\Controllers\Backend\BoardDirectorController;
+
+
+
 
 
 //frontend controller
@@ -104,6 +108,7 @@ use App\Http\Controllers\Frontend\HomeController;
   
         // Overview Pages
         Route::resource('manage-about-us', AboutUsController::class);
+        Route::resource('manage-board-of-directors', BoardDirectorController::class);
 
     
     
