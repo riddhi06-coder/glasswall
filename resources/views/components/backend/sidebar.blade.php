@@ -1,4 +1,43 @@
 <!-- Page Body Start-->
+<style>
+    /* Nested (level-2) sidebar branch — indented children with bullet dots. */
+    .sidebar-submenu .submenu-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .sidebar-submenu .submenu-content {
+        list-style: none;
+        padding-left: 16px;
+        margin: 4px 0 4px 6px;
+        border-left: 1px dashed rgba(255, 255, 255, 0.25);
+    }
+    .sidebar-submenu .submenu-content > li > a {
+        position: relative;
+        display: block;
+        padding: 7px 8px 7px 20px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.72);
+    }
+    .sidebar-submenu .submenu-content > li > a::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.55);
+    }
+    .sidebar-submenu .submenu-content > li > a:hover,
+    .sidebar-submenu .submenu-content > li > a.active {
+        color: #fff;
+    }
+    .sidebar-submenu .submenu-content > li > a.active::before {
+        background: #fff;
+    }
+</style>
  <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
         <div class="sidebar-wrapper" data-layout="stroke-svg">
@@ -97,7 +136,7 @@
 
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-about-us.*','manage-board-of-directors.*','manage-innovation.*','manage-media.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-about-us.*','manage-board-of-directors.*','manage-innovation.*','manage-media.*','manage-awards-category.*','manage-awards-recognition.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -116,7 +155,13 @@
                       <li><a href="{{ route('manage-innovation.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Innovation</a></li>
                       <li><a href="{{ route('manage-innovation.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">ESG</a></li>
                       <li><a href="{{ route('manage-media.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Media</a></li>
-                      <li><a href="{{ route('manage-innovation.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Awards & Recognition</a></li>
+                      <li>
+                        <a href="#" class="submenu-title">Awards &amp; Recognition</a>
+                        <ul class="submenu-content">
+                          <li><a href="{{ route('manage-awards-category.index') }}" class="{{ request()->routeIs('manage-awards-category.*') ? 'active' : '' }}">Category</a></li>
+                          <li><a href="{{ route('manage-awards-recognition.index') }}" class="{{ request()->routeIs('manage-awards-recognition.*') ? 'active' : '' }}">Listing</a></li>
+                        </ul>
+                      </li>
 
                     </ul>
                 </li>
