@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     private array $auditedModels = [
         \App\Models\AboutUs::class,
         \App\Models\BoardDirector::class,
+        \App\Models\Innovation::class,
         \App\Models\ContactDetail::class,
         \App\Models\HomeAbout::class,
         \App\Models\HomeBanner::class,

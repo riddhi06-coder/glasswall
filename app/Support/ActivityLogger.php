@@ -18,6 +18,7 @@ class ActivityLogger
     private const MODULES = [
         'AboutUs'       => 'About Us',
         'BoardDirector' => 'Board of Directors',
+        'Innovation'    => 'Innovation',
         'ContactDetail' => 'Contact Details',
         'HomeAbout'     => 'Home About',
         'HomeBanner'    => 'Home Banner',
