@@ -11,6 +11,7 @@ use App\Models\ProjectCategory;
 use App\Models\ProjectListing;
 use App\Models\ContactDetail;
 use App\Models\AboutUs;
+use App\Models\BoardDirector;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -81,6 +82,15 @@ class HomeController extends Controller
         $about = AboutUs::latest()->first();
 
         return view('frontend.about_us', compact('about'));
+    }
+
+    // Board of Directors page
+    public function board_of_directors()
+    {
+        $directors = BoardDirector::orderBy('id')->get();
+        $banner    = $directors->first(); // banner fields live on the first record
+
+        return view('frontend.board_of_directors', compact('directors', 'banner'));
     }
 
 }

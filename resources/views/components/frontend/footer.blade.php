@@ -90,10 +90,10 @@
                             </h4>
 
                             <ul>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="board-of-directors.html">Our Team</a></li>
+                                <li><a href="{{ route('frontend.about_us') }}">About Us</a></li>
+                                <li><a href="{{ route('frontend.board_of_directors') }}">Our Team</a></li>
                                 <li><a href="#">Solutions</a></li>
-                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="{{ route('frontend.contact_us') }}">Contact Us</a></li>
                             </ul>
 
                         </div>

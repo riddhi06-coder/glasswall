@@ -127,3 +127,4 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/{category:slug}/{project:slug}', [HomeController::class, 'projects_details'])->name('frontend.projects_details');
     Route::get('/contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact_us');
     Route::get('/about-us', [HomeController::class, 'about_us'])->name('frontend.about_us');
+    Route::get('/board-of-directors', [HomeController::class, 'board_of_directors'])->name('frontend.board_of_directors');
