@@ -97,7 +97,7 @@
 
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-about-us.*','manage-board-of-directors.*','manage-innovation.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-about-us.*','manage-board-of-directors.*','manage-innovation.*','manage-media.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -114,7 +114,11 @@
                       <li><a href="{{ route('manage-about-us.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">About Us</a></li>
                       <li><a href="{{ route('manage-board-of-directors.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Board of Directors</a></li>
                       <li><a href="{{ route('manage-innovation.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Innovation</a></li>
-                  </ul>
+                      <li><a href="{{ route('manage-innovation.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">ESG</a></li>
+                      <li><a href="{{ route('manage-media.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Media</a></li>
+                      <li><a href="{{ route('manage-innovation.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Awards & Recognition</a></li>
+
+                    </ul>
                 </li>
 
 

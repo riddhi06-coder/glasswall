@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\AboutUs::class,
         \App\Models\BoardDirector::class,
         \App\Models\Innovation::class,
+        \App\Models\Media::class,
         \App\Models\ContactDetail::class,
         \App\Models\HomeAbout::class,
         \App\Models\HomeBanner::class,

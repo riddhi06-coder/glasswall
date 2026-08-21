@@ -19,6 +19,7 @@ class ActivityLogger
         'AboutUs'       => 'About Us',
         'BoardDirector' => 'Board of Directors',
         'Innovation'    => 'Innovation',
+        'Media'         => 'Media',
         'ContactDetail' => 'Contact Details',
         'HomeAbout'     => 'Home About',
         'HomeBanner'    => 'Home Banner',
