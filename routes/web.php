@@ -21,7 +21,7 @@ use App\Http\Controllers\Backend\InnovationController;
 use App\Http\Controllers\Backend\MediaController;
 use App\Http\Controllers\Backend\AwardsCategoryController;
 use App\Http\Controllers\Backend\AwardsRecognitionController;
-
+use App\Http\Controllers\Backend\EsgController;
 
 
 
@@ -113,6 +113,7 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::resource('manage-about-us', AboutUsController::class);
         Route::resource('manage-board-of-directors', BoardDirectorController::class);
         Route::resource('manage-innovation', InnovationController::class);
+        Route::resource('manage-esg', EsgController::class);
         Route::resource('manage-media', MediaController::class);
         Route::resource('manage-awards-category', AwardsCategoryController::class);
         Route::resource('manage-awards-recognition', AwardsRecognitionController::class);

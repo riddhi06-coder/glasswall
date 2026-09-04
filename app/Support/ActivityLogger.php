@@ -18,6 +18,7 @@ class ActivityLogger
     private const MODULES = [
         'AboutUs'         => 'About Us',
         'AwardsCategory'    => 'Awards Category',
+        'Esg'               => 'ESG',
         'AwardsRecognition' => 'Awards & Recognition',
         'BoardDirector' => 'Board of Directors',
         'Innovation'    => 'Innovation',

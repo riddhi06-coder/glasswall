@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\AboutUs::class,
         \App\Models\AwardsCategory::class,
         \App\Models\AwardsRecognition::class,
+        \App\Models\Esg::class,
         \App\Models\BoardDirector::class,
         \App\Models\Innovation::class,
         \App\Models\Media::class,
