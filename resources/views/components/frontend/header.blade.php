@@ -29,7 +29,7 @@
                           <a href="{{ route('frontend.innovation') }}"><span>Innovation</span></a>
                         </li>
                         <li>
-                          <a href="esg.html"><span>ESG</span></a>
+                          <a href="{{ route('frontend.esg') }}"><span>ESG</span></a>
                         </li>
                         <li><a href="{{ route('frontend.media') }}"><span>Media</span></a></li>
                         <li>

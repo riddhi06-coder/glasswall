@@ -16,6 +16,7 @@ use App\Models\Innovation;
 use App\Models\Media;
 use App\Models\AwardsCategory;
 use App\Models\AwardsRecognition;
+use App\Models\Esg;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -113,6 +114,14 @@ class HomeController extends Controller
         $banner = $media->first(); // banner fields live on the first record
 
         return view('frontend.media', compact('media', 'banner'));
+    }
+
+    // ESG page
+    public function esg()
+    {
+        $esg = Esg::with(['innovationFeatures', 'drivingCounts', 'impacts', 'wasteFeatures'])->first();
+
+        return view('frontend.esg', compact('esg'));
     }
 
     // Awards & Recognition page
