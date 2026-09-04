@@ -128,6 +128,13 @@
                               @error('floors')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                             </div>
 
+                            <!-- Year -->
+                            <div class="col-md-6">
+                              <label class="form-label" for="year">Year</label>
+                              <input class="form-control @error('year') is-invalid @enderror" id="year" type="text" name="year" value="{{ old('year') }}" placeholder="e.g. 2023 or 2017-2018">
+                              @error('year')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                            </div>
+
                             <!-- Scope of Work (repeatable rows) -->
                             <div class="col-md-12">
                               <div class="d-flex justify-content-between align-items-center mb-2">

@@ -6,7 +6,7 @@
           <div class="row gx-0 tp-align-center">
             <div class="col-xl-3 col-lg-3 col-md-8 col-5">
               <div class="tp-header-logo">
-                <a href="index.html">
+                <a href="{{ route('frontend.index') }}">
                   <img data-width="275" src="{{ asset('frontend/assets/images/gws.png') }}" alt="Glass Wall Systems Logo" />
                 </a>
               </div>
@@ -164,7 +164,7 @@
       <div class="tp-offcanvas-wrapper">
         <div class="tp-offcanvas-header d-flex align-items-center justify-content-between mb-40">
           <div class="tp-offcanvas-logo">
-            <a href="index.html">
+            <a href="{{ route('frontend.index') }}">
               <img data-width="183" src="{{ asset('frontend/assets/images/logo.webp') }}" alt="Glass Wall Systems" />
             </a>
           </div>

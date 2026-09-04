@@ -22,6 +22,7 @@ class ProjectDetail extends Model
         'consultant',
         'project_area',
         'floors',
+        'year',
         'scope_of_work',
         'created_by',
         'updated_by',

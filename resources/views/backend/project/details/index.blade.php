@@ -95,6 +95,7 @@
                                             <th>Project</th>
                                             <th>Category</th>
                                             <th>Client</th>
+                                            <th style="width:90px;">Year</th>
                                             <th style="width:150px;">Actions</th>
                                         </tr>
                                     </thead>
@@ -106,6 +107,7 @@
                                                 <td>{{ optional($detail->listing)->name ?? '—' }}</td>
                                                 <td>{{ optional(optional($detail->listing)->category)->name ?? 'Uncategorized' }}</td>
                                                 <td>{{ $detail->client }}</td>
+                                                <td>{{ $detail->year ?: '—' }}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <a href="{{ route('manage-project-details.edit', $detail->id) }}" class="btn btn-sm btn-primary">Edit</a>

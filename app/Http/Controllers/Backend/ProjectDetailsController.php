@@ -52,6 +52,7 @@ class ProjectDetailsController extends Controller
             'consultant'         => $validated['consultant'],
             'project_area'       => $validated['project_area'],
             'floors'             => $validated['floors'],
+            'year'               => $validated['year'] ?? null,
             'scope_of_work'      => array_values(array_filter($validated['scope_of_work'])),
             'created_by'         => Auth::id(),
         ]);
@@ -91,6 +92,7 @@ class ProjectDetailsController extends Controller
         $detail->consultant         = $validated['consultant'];
         $detail->project_area       = $validated['project_area'];
         $detail->floors             = $validated['floors'];
+        $detail->year               = $validated['year'] ?? null;
         $detail->scope_of_work      = array_values(array_filter($validated['scope_of_work']));
         $detail->updated_by         = Auth::id();
         $detail->save();
@@ -139,6 +141,7 @@ class ProjectDetailsController extends Controller
             'consultant'      => 'required|string|max:255',
             'project_area'    => 'required|string|max:255',
             'floors'          => 'required|string|max:255',
+            'year'            => 'nullable|string|max:255',
             'scope_of_work'   => 'required|array|min:1',
             'scope_of_work.*' => 'required|string|max:255',
         ];
