@@ -168,6 +168,26 @@
 
 
 
+                <li class="sidebar-list {{ request()->routeIs('manage-product-category.*','manage-project-listing.*','manage-project-details.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-ui-kits') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-ui-kits') }}"></use>
+                    </svg>
+                    <span>Products</span>
+                  </a>
+                  
+                  <ul class="sidebar-submenu">
+                      <li><a href="{{ route('manage-product-category.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Category</a></li>
+                      <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Listing</a></li>
+                  </ul>
+                </li>
+
+
                 <li class="sidebar-list {{ request()->routeIs('manage-project-category.*','manage-project-listing.*','manage-project-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
@@ -187,6 +207,8 @@
                       <li><a href="{{ route('manage-project-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Details</a></li>
                   </ul>
                 </li>
+
+
 
                 {{-- Contact Details --}}
                 @if($authUser?->isSuperAdmin())

@@ -22,7 +22,7 @@ use App\Http\Controllers\Backend\MediaController;
 use App\Http\Controllers\Backend\AwardsCategoryController;
 use App\Http\Controllers\Backend\AwardsRecognitionController;
 use App\Http\Controllers\Backend\EsgController;
-
+use App\Http\Controllers\Backend\ProductCategoryController;
 
 
 //frontend controller
@@ -97,6 +97,9 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::resource('home-clientele', HomeClienteleController::class);
         Route::resource('home-blog-details', HomeBlogController::class);
 
+
+        // Products
+        Route::resource('manage-product-category', ProductCategoryController::class);
 
         // Projects
         Route::resource('manage-project-category', ProjectCategoryController::class);
