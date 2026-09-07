@@ -112,10 +112,9 @@
                           </div>
                           <div class="tp-contect-box-input mb-10 col-lg-6">
                             <label>Phone *</label>
-                            <div class="d-flex align-items-stretch">
-                              <span class="d-inline-flex align-items-center px-3"
-                                    style="border:1px solid #e5e5e5; border-right:0; background:#f7f7f7; white-space:nowrap;">+91</span>
-                              <input type="text" name="phone" placeholder="Enter phone number" style="flex:1; min-width:0;" />
+                            <div style="position: relative;">
+                              <span style="position:absolute; left:24px; top:50%; transform:translateY(-50%); color:#8a8a8a; pointer-events:none;">+91</span>
+                              <input type="text" name="phone" style="padding-left:58px;" />
                             </div>
                           </div>
                           <div class="tp-contect-box-input mb-20 col-lg-12">
