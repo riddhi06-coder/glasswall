@@ -210,6 +210,26 @@
 
 
 
+                <li class="sidebar-list {{ request()->routeIs('manage-design-engg.*','manage-jobs.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-builders') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-builders') }}"></use>
+                    </svg>
+                    <span>Infrastructure</span>
+                  </a>
+                  
+                  <ul class="sidebar-submenu">
+                      <li><a href="{{ route('manage-design-engg.index') }}" class="{{ request()->routeIs('manage-design-engg.*') ? 'active' : '' }}">Design and Engineering</a></li>
+                      <li><a href="{{ route('manage-jobs.index') }}" class="{{ request()->routeIs('manage-jobs.*') ? 'active' : '' }}">Job posting</a></li>
+                  </ul>
+                </li>
+
+
 
                 <li class="sidebar-list {{ request()->routeIs('manage-careers-details.*','manage-jobs.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
