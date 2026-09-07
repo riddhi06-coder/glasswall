@@ -94,7 +94,7 @@
                           <a href="{{ route('frontend.design_and_engineering') }}"><span>Design & Engineering</span></a>
                         </li>
                         <li>
-                          <a href="#"><span>Facility</span></a>
+                          <a href="{{ route('frontend.facility') }}"><span>Facility</span></a>
                         </li>
                         <li>
                           <a href="{{ route('frontend.project_management') }}"><span>Project Management</span></a>

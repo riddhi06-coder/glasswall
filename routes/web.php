@@ -170,5 +170,6 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/careers', [HomeController::class, 'careers'])->name('frontend.careers');
     Route::get('/design-and-engineering', [HomeController::class, 'design_and_engineering'])->name('frontend.design_and_engineering');
     Route::get('/project-management', [HomeController::class, 'project_management'])->name('frontend.project_management');
+    Route::get('/facility', [HomeController::class, 'facility'])->name('frontend.facility');
 
     

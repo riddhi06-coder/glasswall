@@ -131,7 +131,7 @@
                                         Design &amp; Engineering
                                     </a>
                                 </li>
-                                <li><a href="#">Facility</a></li>
+                                <li><a href="{{ route('frontend.facility') }}">Facility</a></li>
                                 <li>
                                     <a href="{{ route('frontend.project_management') }}">
                                         Project Management

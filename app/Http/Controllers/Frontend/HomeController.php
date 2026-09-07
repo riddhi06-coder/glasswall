@@ -23,6 +23,7 @@ use App\Models\CareerDetail;
 use App\Models\CareerJob;
 use App\Models\DesignEngineering;
 use App\Models\ProjectManagement;
+use App\Models\Facility;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -188,6 +189,14 @@ class HomeController extends Controller
         $pm = ProjectManagement::with('pointers')->first();
 
         return view('frontend.project_management', compact('pm'));
+    }
+
+    // Infrastructure — Facility page
+    public function facility()
+    {
+        $facility = Facility::with(['features', 'counters', 'galleries', 'strengths'])->first();
+
+        return view('frontend.facility', compact('facility'));
     }
 
     // Header search — Project & Product categories and listings (JSON)
