@@ -3,35 +3,9 @@
 <head>
     @include('components.backend.head')
     <style>
-        #basic-1 td { vertical-align: top; }
-        #basic-1 th, #basic-1 td { padding: 14px 12px; }
-
-        .about-desc-cell {
-            font-size: 14px;
-            line-height: 1.55;
-            color: #4a4f57;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .ms-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-        .ms-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #f6f7fb;
-            border: 1px solid #e6e8f0;
-            border-radius: 22px;
-            padding: 6px 14px;
-            font-size: 12.5px;
-            line-height: 1.3;
-            letter-spacing: normal;
-            color: #3a3f47;
-        }
-        .ms-chip img { height: 18px; width: 18px; object-fit: contain; flex: 0 0 auto; }
-        .ms-chip b { color: #1a4685; font-weight: 700; }
+        #basic-1 td { vertical-align: middle; }
+        #basic-1 th, #basic-1 td { padding: 12px; }
+        .pc-thumb { height: 80px; width: 110px; object-fit: contain; background: #fff; padding: 6px; border: 1px solid #e6e8f0; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -69,22 +43,49 @@
                                     </ol>
                                 </nav>
                                 <a href="{{ route('manage-product-category.create') }}" class="btn btn-primary px-5 radius-30">
-                                    + Add Product Category
+                                    + Add Category
                                 </a>
                             </div>
 
                             <div class="table-responsive custom-scrollbar">
-                                <table class="display" id="basic-1">
+                                <table class="display" id="basic-1" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th style="width:60px;">Sr No.</th>
-                                            <th style="width:300px;">Description</th>
-                                            <th>Milestones</th>
+                                            <th style="width:120px;">Image</th>
+                                            <th>Category Name</th>
+                                            <th style="width:110px;">Status</th>
                                             <th style="width:150px;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     
+                                        @forelse($categories as $key => $category)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td><img class="pc-thumb" src="{{ $category->image_url }}" alt="{{ $category->name }}"></td>
+                                                <td>{{ $category->name }}</td>
+                                                <td>
+                                                    @if($category->is_active)
+                                                        <span class="badge bg-success">Active</span>
+                                                    @else
+                                                        <span class="badge bg-danger">Inactive</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <a href="{{ route('manage-product-category.edit', $category->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                                        <form action="{{ route('manage-product-category.destroy', $category->id) }}" method="POST" class="m-0"
+                                                              onsubmit="return confirm('Are you sure you want to delete this category?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr><td colspan="5" class="text-center text-muted py-4">No categories added yet.</td></tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

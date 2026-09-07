@@ -182,7 +182,7 @@
                   </a>
                   
                   <ul class="sidebar-submenu">
-                      <li><a href="{{ route('manage-product-category.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Category</a></li>
+                      <li><a href="{{ route('manage-product-category.index') }}" class="{{ request()->routeIs('manage-product-category.*') ? 'active' : '' }}">Category</a></li>
                       <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Listing</a></li>
                   </ul>
                 </li>
