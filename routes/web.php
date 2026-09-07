@@ -25,6 +25,7 @@ use App\Http\Controllers\Backend\EsgController;
 use App\Http\Controllers\Backend\ProductCategoryController;
 use App\Http\Controllers\Backend\ProductListController;
 use App\Http\Controllers\Backend\CareersDetailsController;
+use App\Http\Controllers\Backend\JobController;
 
 
 
@@ -117,7 +118,8 @@ use App\Http\Controllers\Frontend\HomeController;
 
         // Careers
         Route::resource('manage-careers-details', CareersDetailsController::class);
-  
+        Route::resource('manage-jobs',JobController::class);
+
 
         // Contact
         Route::resource('manage-contact-details', ContactDetailsController::class);

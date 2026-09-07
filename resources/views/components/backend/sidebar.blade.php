@@ -211,7 +211,7 @@
 
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-careers-details.*','manage-project-listing.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-careers-details.*','manage-jobs.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -226,7 +226,7 @@
                   
                   <ul class="sidebar-submenu">
                       <li><a href="{{ route('manage-careers-details.index') }}" class="{{ request()->routeIs('manage-careers-details.*') ? 'active' : '' }}">Page Details</a></li>
-                      <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Job posting</a></li>
+                      <li><a href="{{ route('manage-jobs.index') }}" class="{{ request()->routeIs('manage-jobs.*') ? 'active' : '' }}">Job posting</a></li>
                   </ul>
                 </li>
 
