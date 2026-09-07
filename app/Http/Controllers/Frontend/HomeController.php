@@ -17,6 +17,7 @@ use App\Models\Media;
 use App\Models\AwardsCategory;
 use App\Models\AwardsRecognition;
 use App\Models\Esg;
+use App\Models\ProductCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -132,6 +133,31 @@ class HomeController extends Controller
         $banner      = AwardsRecognition::orderBy('id')->first(); // banner lives on the first record
 
         return view('frontend.awards_recognition', compact('categories', 'awardsByCat', 'banner'));
+    }
+
+    // Products landing — lists all active product categories
+    public function products_category_listing()
+    {
+        $categories = ProductCategory::where('is_active', true)
+            ->orderBy('priority')
+            ->orderBy('name')
+            ->get();
+
+        return view('frontend.products', compact('categories'));
+    }
+
+    // Products of a single category (slug-bound)
+    public function products_category(ProductCategory $category)
+    {
+        abort_if(! $category->is_active, 404);
+
+        $products = $category->productListings()
+            ->where('is_active', true)
+            ->orderBy('priority')
+            ->orderBy('name')
+            ->get();
+
+        return view('frontend.products_category', compact('category', 'products'));
     }
 
 }

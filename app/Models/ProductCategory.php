@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\TracksDeletedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductCategory extends Model
@@ -28,6 +29,11 @@ class ProductCategory extends Model
         'is_active' => 'boolean',
         'priority'  => 'integer',
     ];
+
+    public function productListings(): HasMany
+    {
+        return $this->hasMany(ProductListing::class, 'product_category_id');
+    }
 
     public function getImageUrlAttribute(): ?string
     {

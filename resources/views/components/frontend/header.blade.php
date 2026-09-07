@@ -38,19 +38,13 @@
                       </ul>
                     </li>
                     <li>
-                      <a href="#">Products</a>
+                      <a href="{{ route('frontend.products_category_listing') }}">Products</a>
                       <ul class="sub-menu">
-                        <li>
-                          <a href="facade-and-curtain-wall-systems.html"
-                            ><span>Facade and Curtain Wall Systems</span></a
-                          >
-                        </li>
-                        <li>
-                          <a href="louvers.html"><span>Louvers</span></a>
-                        </li>
-                        <li>
-                          <a href="rain-screen-cladding.html"><span>Rain Screen Cladding</span></a>
-                        </li>
+                        @foreach(($navProductCategories ?? []) as $navProductCategory)
+                          <li>
+                            <a href="{{ route('frontend.products_category', $navProductCategory->slug) }}"><span>{{ $navProductCategory->name }}</span></a>
+                          </li>
+                        @endforeach
                       </ul>
                     </li>
                     <li>

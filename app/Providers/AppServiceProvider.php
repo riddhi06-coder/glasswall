@@ -92,6 +92,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with('navCategories', ProjectCategory::orderBy('priority')->orderBy('name')->get());
         });
 
+        // Share active product categories with the frontend header (dynamic Products menu).
+        View::composer('components.frontend.header', function ($view) {
+            $view->with('navProductCategories', \App\Models\ProductCategory::where('is_active', true)
+                ->orderBy('priority')->orderBy('name')->get());
+        });
+
         // Share the latest contact details with the frontend footer (address / email / phone).
         View::composer('components.frontend.footer', function ($view) {
             $view->with('footerContact', ContactDetail::with('socialLinks')->latest()->first());
