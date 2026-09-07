@@ -140,11 +140,9 @@ use App\Http\Controllers\Frontend\HomeController;
 
     Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
     Route::get('/projects/{category:slug}', [HomeController::class, 'projects'])->name('frontend.projects');
-
     // Products — defined BEFORE the greedy /{category}/{project} route below so /products/{slug} isn't shadowed.
     Route::get('/products', [HomeController::class, 'products_category_listing'])->name('frontend.products_category_listing');
     Route::get('/products/{category:slug}', [HomeController::class, 'products_category'])->name('frontend.products_category');
-
     Route::get('/{category:slug}/{project:slug}', [HomeController::class, 'projects_details'])->name('frontend.projects_details');
     Route::get('/contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact_us');
     Route::get('/about-us', [HomeController::class, 'about_us'])->name('frontend.about_us');
