@@ -22,6 +22,7 @@ use App\Models\ProductListing;
 use App\Models\CareerDetail;
 use App\Models\CareerJob;
 use App\Models\DesignEngineering;
+use App\Models\ProjectManagement;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -179,6 +180,14 @@ class HomeController extends Controller
         $design = DesignEngineering::with('features')->first();
 
         return view('frontend.design_and_engineering', compact('design'));
+    }
+
+    // Infrastructure — Project Management page
+    public function project_management()
+    {
+        $pm = ProjectManagement::with('pointers')->first();
+
+        return view('frontend.project_management', compact('pm'));
     }
 
     // Header search — Project & Product categories and listings (JSON)

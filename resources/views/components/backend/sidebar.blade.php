@@ -210,7 +210,7 @@
 
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-design-engg.*','manage-jobs.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-design-engg.*','manage-project-management.*','manage-jobs.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -222,9 +222,10 @@
                     </svg>
                     <span>Infrastructure</span>
                   </a>
-                  
+
                   <ul class="sidebar-submenu">
                       <li><a href="{{ route('manage-design-engg.index') }}" class="{{ request()->routeIs('manage-design-engg.*') ? 'active' : '' }}">Design and Engineering</a></li>
+                      <li><a href="{{ route('manage-project-management.index') }}" class="{{ request()->routeIs('manage-project-management.*') ? 'active' : '' }}">Project Management</a></li>
                       <li><a href="{{ route('manage-jobs.index') }}" class="{{ request()->routeIs('manage-jobs.*') ? 'active' : '' }}">Job posting</a></li>
                   </ul>
                 </li>

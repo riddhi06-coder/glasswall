@@ -97,7 +97,7 @@
                           <a href="#"><span>Facility</span></a>
                         </li>
                         <li>
-                          <a href="project-management.html"><span>Project Management</span></a>
+                          <a href="{{ route('frontend.project_management') }}"><span>Project Management</span></a>
                         </li>
                       </ul>
                     </li>

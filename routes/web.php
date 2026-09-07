@@ -27,6 +27,7 @@ use App\Http\Controllers\Backend\ProductListController;
 use App\Http\Controllers\Backend\CareersDetailsController;
 use App\Http\Controllers\Backend\JobController;
 use App\Http\Controllers\Backend\DesignEnggController;
+use App\Http\Controllers\Backend\ProjectManagementController;
 
 
 
@@ -119,6 +120,7 @@ use App\Http\Controllers\Frontend\HomeController;
 
         // Infrastructure
         Route::resource('manage-design-engg', DesignEnggController::class);
+        Route::resource('manage-project-management', ProjectManagementController::class);
 
 
         // Careers
@@ -165,5 +167,6 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/awards-recognition', [HomeController::class, 'awards_recognition'])->name('frontend.awards_recognition');
     Route::get('/careers', [HomeController::class, 'careers'])->name('frontend.careers');
     Route::get('/design-and-engineering', [HomeController::class, 'design_and_engineering'])->name('frontend.design_and_engineering');
+    Route::get('/project-management', [HomeController::class, 'project_management'])->name('frontend.project_management');
 
     
