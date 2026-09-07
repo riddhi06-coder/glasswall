@@ -28,6 +28,7 @@ use App\Http\Controllers\Backend\CareersDetailsController;
 use App\Http\Controllers\Backend\JobController;
 use App\Http\Controllers\Backend\DesignEnggController;
 use App\Http\Controllers\Backend\ProjectManagementController;
+use App\Http\Controllers\Backend\FacilityController;
 
 
 
@@ -121,6 +122,7 @@ use App\Http\Controllers\Frontend\HomeController;
         // Infrastructure
         Route::resource('manage-design-engg', DesignEnggController::class);
         Route::resource('manage-project-management', ProjectManagementController::class);
+        Route::resource('manage-facility', FacilityController::class);
 
 
         // Careers
