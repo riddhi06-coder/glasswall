@@ -24,7 +24,7 @@ use App\Http\Controllers\Backend\AwardsRecognitionController;
 use App\Http\Controllers\Backend\EsgController;
 use App\Http\Controllers\Backend\ProductCategoryController;
 use App\Http\Controllers\Backend\ProductListController;
-
+use App\Http\Controllers\Backend\CareersDetailsController;
 
 
 
@@ -113,6 +113,11 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::get('manage-project-details/listings-by-category/{category}', [ProjectDetailsController::class, 'listingsByCategory'])->name('manage-project-details.listings-by-category');
         Route::resource('manage-project-details', ProjectDetailsController::class);
         Route::resource('manage-project-details', ProjectDetailsController::class);
+
+
+        // Careers
+        Route::resource('manage-careers-details', CareersDetailsController::class);
+  
 
         // Contact
         Route::resource('manage-contact-details', ContactDetailsController::class);
