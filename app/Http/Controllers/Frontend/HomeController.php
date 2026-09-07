@@ -18,6 +18,7 @@ use App\Models\AwardsCategory;
 use App\Models\AwardsRecognition;
 use App\Models\Esg;
 use App\Models\ProductCategory;
+use App\Models\ProductListing;
 use App\Models\CareerDetail;
 use App\Models\CareerJob;
 use Illuminate\Support\Str;
@@ -169,6 +170,67 @@ class HomeController extends Controller
         $jobs   = CareerJob::where('is_active', true)->orderBy('id')->get();
 
         return view('frontend.careers', compact('career', 'jobs'));
+    }
+
+    // Header search — Project & Product categories and listings (JSON)
+    public function search(Request $request)
+    {
+        $q = trim((string) $request->get('q', ''));
+
+        if (mb_strlen($q) < 2) {
+            return response()->json([]);
+        }
+
+        $like    = '%'.$q.'%';
+        $results = [];
+
+        // Project categories
+        foreach (ProjectCategory::where('name', 'like', $like)->orderBy('priority')->orderBy('name')->limit(6)->get() as $c) {
+            $results[] = [
+                'label' => $c->name,
+                'type'  => 'Project Category',
+                'group' => 'project',
+                'url'   => route('frontend.projects', $c->slug),
+            ];
+        }
+
+        // Project listings
+        foreach (ProjectListing::with('category')->where('is_active', true)->where('name', 'like', $like)->orderBy('name')->limit(8)->get() as $p) {
+            if (! $p->category) {
+                continue;
+            }
+            $results[] = [
+                'label' => $p->name,
+                'type'  => 'Project',
+                'group' => 'project',
+                'url'   => route('frontend.projects_details', [$p->category->slug, $p->slug]),
+            ];
+        }
+
+        // Product categories
+        foreach (ProductCategory::where('is_active', true)->where('name', 'like', $like)->orderBy('priority')->orderBy('name')->limit(6)->get() as $c) {
+            $results[] = [
+                'label' => $c->name,
+                'type'  => 'Product Category',
+                'group' => 'product',
+                'url'   => route('frontend.products_category', $c->slug),
+            ];
+        }
+
+        // Product listings (products have no detail page — link to their category page)
+        foreach (ProductListing::with('category')->where('is_active', true)->where('name', 'like', $like)->orderBy('name')->limit(8)->get() as $p) {
+            if (! $p->category) {
+                continue;
+            }
+            $results[] = [
+                'label' => $p->name,
+                'type'  => 'Product',
+                'group' => 'product',
+                'url'   => route('frontend.products_category', $p->category->slug),
+            ];
+        }
+
+        return response()->json($results);
     }
 
 }

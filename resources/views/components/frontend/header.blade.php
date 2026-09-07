@@ -1,3 +1,33 @@
+<style>
+  /* Header search widget */
+  .gws-search { position: relative; }
+  .gws-search-dropdown {
+    position: absolute; top: 100%; right: 0; margin-top: 14px;
+    width: 340px; max-width: 90vw; background: #fff; border-radius: 12px;
+    box-shadow: 0 12px 34px rgba(0,0,0,.18); padding: 14px; z-index: 9999;
+  }
+  .gws-search-dropdown[hidden] { display: none; }
+  #gwsSearchInput {
+    width: 100%; padding: 11px 14px; border: 1px solid #dcdcdc; border-radius: 8px;
+    font-size: 14px; outline: none; color: #111; background: #fff;
+  }
+  #gwsSearchInput:focus { border-color: #0a4bb3; }
+  #gwsSearchInput::placeholder { color: #9aa0a6; opacity: 1; }
+  #gwsSearchResults { list-style: none; margin: 10px 0 0; padding: 0; max-height: 340px; overflow-y: auto; }
+  #gwsSearchResults li { margin: 0; }
+  #gwsSearchResults li a {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 10px 11px; border-radius: 7px; text-decoration: none; color: #111; line-height: 1.3;
+  }
+  #gwsSearchResults li a:hover { background: #f3f4f6; }
+  #gwsSearchResults small { color: #888; font-size: 12px; }
+  #gwsSearchResults .gws-tag {
+    flex: none; font-size: 11px; color: #fff; background: #0a4bb3;
+    border-radius: 20px; padding: 3px 9px; white-space: nowrap;
+  }
+  #gwsSearchResults .gws-tag.product { background: #0a8a5f; }
+  .gws-search-empty { padding: 10px 4px; color: #777; font-size: 13px; }
+</style>
 <header>
   <div class="tp-header-area tp-header-transparent sticky-black" id="header-sticky">
     <div class="container">
@@ -97,12 +127,16 @@
             <div class="col-xl-1 col-lg-1 col-md-1 col-5">
               <div class="tp-header-cta tp-flex-center tp-justify-end">
                 
-                <div class="tp-cta-phone tp-header-cta-phone mr-30 d-none d-xl-inline-block">
-                    <a class="tp-flex-center" href="#">
+                <div class="tp-cta-phone tp-header-cta-phone mr-30 d-none d-xl-inline-block gws-search" id="gwsSearch">
+                    <a class="tp-flex-center gws-search-toggle" href="#" aria-label="Search">
                         <span class="tp-cta-phone-icon mr-10">
                             <img src="{{ asset('frontend/assets/images/icons/search.svg') }}"/>
                         </span>
                     </a>
+                    <div class="gws-search-dropdown" hidden>
+                        <input type="text" id="gwsSearchInput" placeholder="Search here.." autocomplete="off">
+                        <ul id="gwsSearchResults"></ul>
+                    </div>
                 </div>
                 <div class="tp-header-bar d-xl-none">
                   <button class="header-sidebar-btn tp-offcanvas-toogle ml-10" aria-label="Open menu">
@@ -175,3 +209,97 @@
     </aside>
     <div class="tp-offcanvas-overlay"></div>
     <!-- offcanvas end -->
+
+    <script>
+      (function () {
+        var wrap = document.getElementById('gwsSearch');
+        if (!wrap) return;
+        var toggle   = wrap.querySelector('.gws-search-toggle');
+        var dropdown = wrap.querySelector('.gws-search-dropdown');
+        var input    = document.getElementById('gwsSearchInput');
+        var results  = document.getElementById('gwsSearchResults');
+        var url      = "{{ route('frontend.search') }}";
+        var timer;
+
+        toggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (dropdown.hasAttribute('hidden')) {
+            dropdown.removeAttribute('hidden');
+            setTimeout(function () { input.focus(); }, 30);
+          } else {
+            dropdown.setAttribute('hidden', '');
+          }
+        });
+
+        // Close when clicking outside the widget.
+        document.addEventListener('click', function (e) {
+          if (!wrap.contains(e.target)) dropdown.setAttribute('hidden', '');
+        });
+
+        function render(items) {
+          results.innerHTML = '';
+          if (!items.length) {
+            var empty = document.createElement('li');
+            empty.className = 'gws-search-empty';
+            empty.textContent = 'No results found.';
+            results.appendChild(empty);
+            return;
+          }
+          items.forEach(function (it) {
+            var li = document.createElement('li');
+            var a  = document.createElement('a');
+            a.href = it.url;
+
+            var left  = document.createElement('span');
+            var name  = document.createElement('span');
+            name.textContent = it.label;
+            var small = document.createElement('small');
+            small.textContent = it.type;
+            left.appendChild(name);
+            left.appendChild(document.createElement('br'));
+            left.appendChild(small);
+
+            var tag = document.createElement('span');
+            tag.className = 'gws-tag' + (it.group === 'product' ? ' product' : '');
+            tag.textContent = (it.group === 'product' ? 'Product' : 'Project');
+
+            a.appendChild(left);
+            a.appendChild(tag);
+            li.appendChild(a);
+            results.appendChild(li);
+          });
+        }
+
+        function showLoading() {
+          results.innerHTML = '';
+          var li = document.createElement('li');
+          li.className = 'gws-search-empty';
+          li.textContent = 'Loading....';
+          results.appendChild(li);
+        }
+
+        input.addEventListener('input', function () {
+          var q = input.value.trim();
+          clearTimeout(timer);
+          if (q.length < 2) { results.innerHTML = ''; return; }
+          showLoading();
+          var current = q;
+          timer = setTimeout(function () {
+            fetch(url + '?q=' + encodeURIComponent(current), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+              .then(function (r) { return r.json(); })
+              .then(function (items) {
+                // Ignore stale responses if the query changed meanwhile.
+                if (input.value.trim() !== current) return;
+                render(items);
+              })
+              .catch(function () {
+                results.innerHTML = '';
+                var err = document.createElement('li');
+                err.className = 'gws-search-empty';
+                err.textContent = 'Search unavailable. Please try again.';
+                results.appendChild(err);
+              });
+          }, 250);
+        });
+      })();
+    </script>
