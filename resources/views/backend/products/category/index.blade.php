@@ -54,6 +54,7 @@
                                             <th style="width:60px;">Sr No.</th>
                                             <th style="width:120px;">Image</th>
                                             <th>Category Name</th>
+                                            <th style="width:80px;">Priority</th>
                                             <th style="width:110px;">Status</th>
                                             <th style="width:150px;">Actions</th>
                                         </tr>
@@ -64,6 +65,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="pc-thumb" src="{{ $category->image_url }}" alt="{{ $category->name }}"></td>
                                                 <td>{{ $category->name }}</td>
+                                                <td>{{ $category->priority }}</td>
                                                 <td>
                                                     @if($category->is_active)
                                                         <span class="badge bg-success">Active</span>
@@ -84,7 +86,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr><td colspan="5" class="text-center text-muted py-4">No categories added yet.</td></tr>
+                                            <tr><td colspan="6" class="text-center text-muted py-4">No categories added yet.</td></tr>
                                         @endforelse
                                     </tbody>
                                 </table>

@@ -12,11 +12,11 @@
       <div class="container-fluid">
         <div class="page-title">
           <div class="row">
-            <div class="col-6"><h4>Add Product Category</h4></div>
+            <div class="col-6"><h4>Add Product</h4></div>
             <div class="col-6">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('manage-product-category.index') }}">Home</a></li>
-                <li class="breadcrumb-item active">Add Product Category</li>
+                <li class="breadcrumb-item"><a href="{{ route('manage-product-list.index') }}">Home</a></li>
+                <li class="breadcrumb-item active">Add Product</li>
               </ol>
             </div>
           </div>
@@ -28,11 +28,11 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4>Product Category Form</h4>
+                <h4>Product Form</h4>
                 <p class="f-m-light mt-1">Fill up the details and submit the form.</p>
               </div>
               <div class="card-body">
-                <form class="row g-4 needs-validation custom-input" novalidate action="{{ route('manage-product-category.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="row g-4 needs-validation custom-input" novalidate action="{{ route('manage-product-list.store') }}" method="POST" enctype="multipart/form-data">
                   @csrf
 
                   @if($errors->any())
@@ -45,16 +45,28 @@
                     </div>
                   @endif
 
-                  <!-- Category Name -->
+                  <!-- Product Category -->
                   <div class="col-md-6">
-                    <label class="form-label" for="name">Category Name <span class="text-danger">*</span></label>
-                    <input class="form-control @error('name') is-invalid @enderror" id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Enter category name" required>
+                    <label class="form-label" for="product_category_id">Product Category <span class="text-danger">*</span></label>
+                    <select class="form-select @error('product_category_id') is-invalid @enderror" id="product_category_id" name="product_category_id" required>
+                      <option value="">-- Select Category --</option>
+                      @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('product_category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                      @endforeach
+                    </select>
+                    @error('product_category_id')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                  </div>
+
+                  <!-- Product Name -->
+                  <div class="col-md-6">
+                    <label class="form-label" for="name">Product Name <span class="text-danger">*</span></label>
+                    <input class="form-control @error('name') is-invalid @enderror" id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Enter product name" required>
                     @error('name')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                   </div>
 
-                  <!-- Thumbnail Image -->
+                  <!-- Image -->
                   <div class="col-md-6">
-                    <label class="form-label" for="image">Thumbnail Image <span class="text-danger">*</span></label>
+                    <label class="form-label" for="image">Image <span class="text-danger">*</span></label>
                     <input class="form-control @error('image') is-invalid @enderror" id="image" type="file" name="image" accept=".jpg,.jpeg,.png,.webp" required onchange="previewImage()">
                     @error('image')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                     <small class="text-secondary d-block mt-1"><b>Allowed:</b> jpg, jpeg, png, webp &nbsp;|&nbsp; <b>Max:</b> 2 MB</small>
@@ -76,18 +88,11 @@
                     <label class="form-label" for="priority">Priority</label>
                     <input class="form-control @error('priority') is-invalid @enderror" id="priority" type="number" min="0" name="priority" value="{{ old('priority', 0) }}" placeholder="e.g. 1">
                     @error('priority')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-                    <small class="text-secondary d-block mt-1">Lower numbers appear first.</small>
-                  </div>
-
-                  <!-- Short Description -->
-                  <div class="col-12">
-                    <label class="form-label" for="short_description">Short Description</label>
-                    <textarea class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description" rows="3" placeholder="Enter a short description">{{ old('short_description') }}</textarea>
-                    @error('short_description')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                    <small class="text-secondary d-block mt-1">Lower numbers appear first (within its category).</small>
                   </div>
 
                   <div class="col-12 text-end mt-3">
-                    <a href="{{ route('manage-product-category.index') }}" class="btn btn-danger px-4">Cancel</a>
+                    <a href="{{ route('manage-product-list.index') }}" class="btn btn-danger px-4">Cancel</a>
                     <button class="btn btn-primary" type="submit">Submit</button>
                   </div>
                 </form>

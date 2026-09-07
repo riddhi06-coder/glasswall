@@ -168,7 +168,7 @@
 
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-product-category.*','manage-project-listing.*','manage-project-details.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-product-category.*','manage-product-list.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -183,7 +183,7 @@
                   
                   <ul class="sidebar-submenu">
                       <li><a href="{{ route('manage-product-category.index') }}" class="{{ request()->routeIs('manage-product-category.*') ? 'active' : '' }}">Category</a></li>
-                      <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Listing</a></li>
+                      <li><a href="{{ route('manage-product-list.index') }}" class="{{ request()->routeIs('manage-product-list.*') ? 'active' : '' }}">Listing</a></li>
                   </ul>
                 </li>
 

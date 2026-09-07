@@ -4,19 +4,20 @@ namespace App\Models;
 
 use App\Models\Concerns\TracksDeletedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductCategory extends Model
+class ProductListing extends Model
 {
     use SoftDeletes, TracksDeletedBy;
 
-    protected $table = 'product_categories';
+    protected $table = 'product_listings';
 
     protected $fillable = [
+        'product_category_id',
         'name',
         'slug',
         'image',
-        'short_description',
         'is_active',
         'priority',
         'created_by',
@@ -29,8 +30,13 @@ class ProductCategory extends Model
         'priority'  => 'integer',
     ];
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
+
     public function getImageUrlAttribute(): ?string
     {
-        return $this->image ? asset('product-categories/'.$this->image) : null;
+        return $this->image ? asset('product-listings/'.$this->image) : null;
     }
 }

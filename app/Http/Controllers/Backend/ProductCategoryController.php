@@ -15,7 +15,7 @@ class ProductCategoryController extends Controller
 
     public function index()
     {
-        $categories = ProductCategory::orderBy('name')->get();
+        $categories = ProductCategory::orderBy('priority')->orderBy('name')->get();
 
         return view('backend.products.category.index', compact('categories'));
     }
@@ -28,17 +28,21 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'      => 'required|string|max:255',
-            'image'     => 'required|file|mimes:jpg,jpeg,png,webp|max:2048',
-            'is_active' => 'required|in:0,1',
+            'name'              => 'required|string|max:255',
+            'image'             => 'required|file|mimes:jpg,jpeg,png,webp|max:2048',
+            'short_description' => 'nullable|string|max:1000',
+            'is_active'         => 'required|in:0,1',
+            'priority'          => 'nullable|integer|min:0',
         ], $this->messages());
 
         ProductCategory::create([
-            'name'       => $validated['name'],
-            'slug'       => $this->generateUniqueSlug($validated['name']),
-            'image'      => $this->storeImage($request->file('image')),
-            'is_active'  => $validated['is_active'],
-            'created_by' => Auth::id(),
+            'name'              => $validated['name'],
+            'slug'              => $this->generateUniqueSlug($validated['name']),
+            'image'             => $this->storeImage($request->file('image')),
+            'short_description' => $validated['short_description'] ?? null,
+            'is_active'         => $validated['is_active'],
+            'priority'          => $validated['priority'] ?? 0,
+            'created_by'        => Auth::id(),
         ]);
 
         return redirect()->route('manage-product-category.index')->with('message', 'Product category added successfully.');
@@ -56,17 +60,21 @@ class ProductCategoryController extends Controller
         $category = ProductCategory::findOrFail($id);
 
         $validated = $request->validate([
-            'name'      => 'required|string|max:255',
-            'image'     => 'nullable|file|mimes:jpg,jpeg,png,webp|max:2048',
-            'is_active' => 'required|in:0,1',
+            'name'              => 'required|string|max:255',
+            'image'             => 'nullable|file|mimes:jpg,jpeg,png,webp|max:2048',
+            'short_description' => 'nullable|string|max:1000',
+            'is_active'         => 'required|in:0,1',
+            'priority'          => 'nullable|integer|min:0',
         ], $this->messages());
 
         if ($category->name !== $validated['name']) {
             $category->slug = $this->generateUniqueSlug($validated['name'], $category->id);
         }
 
-        $category->name      = $validated['name'];
-        $category->is_active = $validated['is_active'];
+        $category->name              = $validated['name'];
+        $category->short_description = $validated['short_description'] ?? null;
+        $category->is_active         = $validated['is_active'];
+        $category->priority          = $validated['priority'] ?? 0;
 
         if ($request->hasFile('image')) {
             $this->deleteImage($category->image);

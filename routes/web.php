@@ -23,6 +23,10 @@ use App\Http\Controllers\Backend\AwardsCategoryController;
 use App\Http\Controllers\Backend\AwardsRecognitionController;
 use App\Http\Controllers\Backend\EsgController;
 use App\Http\Controllers\Backend\ProductCategoryController;
+use App\Http\Controllers\Backend\ProductListController;
+
+
+
 
 
 //frontend controller
@@ -100,6 +104,7 @@ use App\Http\Controllers\Frontend\HomeController;
 
         // Products
         Route::resource('manage-product-category', ProductCategoryController::class);
+        Route::resource('manage-product-list', ProductListController::class);
 
         // Projects
         Route::resource('manage-project-category', ProjectCategoryController::class);
