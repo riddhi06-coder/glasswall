@@ -18,6 +18,8 @@ use App\Models\AwardsCategory;
 use App\Models\AwardsRecognition;
 use App\Models\Esg;
 use App\Models\ProductCategory;
+use App\Models\CareerDetail;
+use App\Models\CareerJob;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -158,6 +160,15 @@ class HomeController extends Controller
             ->get();
 
         return view('frontend.products_category', compact('category', 'products'));
+    }
+
+    // Careers page
+    public function careers()
+    {
+        $career = CareerDetail::first();
+        $jobs   = CareerJob::where('is_active', true)->orderBy('id')->get();
+
+        return view('frontend.careers', compact('career', 'jobs'));
     }
 
 }

@@ -158,5 +158,6 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/esg', [HomeController::class, 'esg'])->name('frontend.esg');
     Route::get('/media', [HomeController::class, 'media'])->name('frontend.media');
     Route::get('/awards-recognition', [HomeController::class, 'awards_recognition'])->name('frontend.awards_recognition');
+    Route::get('/careers', [HomeController::class, 'careers'])->name('frontend.careers');
 
     

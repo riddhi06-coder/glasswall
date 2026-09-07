@@ -88,7 +88,7 @@
                         </li>
                       </ul>
                     </li>
-                    <li><a href="#">Careers</a></li>
+                    <li><a href="{{ route('frontend.careers') }}">Careers</a></li>
                     <li><a href="{{ route('frontend.contact_us') }}">Contact Us</a></li>
                   </ul>
                 </nav>
