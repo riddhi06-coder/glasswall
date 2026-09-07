@@ -21,6 +21,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductListing;
 use App\Models\CareerDetail;
 use App\Models\CareerJob;
+use App\Models\DesignEngineering;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -170,6 +171,14 @@ class HomeController extends Controller
         $jobs   = CareerJob::where('is_active', true)->orderBy('id')->get();
 
         return view('frontend.careers', compact('career', 'jobs'));
+    }
+
+    // Infrastructure — Design & Engineering page
+    public function design_and_engineering()
+    {
+        $design = DesignEngineering::with('features')->first();
+
+        return view('frontend.design_and_engineering', compact('design'));
     }
 
     // Header search — Project & Product categories and listings (JSON)

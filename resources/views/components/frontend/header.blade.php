@@ -91,7 +91,7 @@
                       <a href="#">Infrastructure</a>
                       <ul class="sub-menu">
                         <li>
-                          <a href="#"><span>Design & Engineering</span></a>
+                          <a href="{{ route('frontend.design_and_engineering') }}"><span>Design & Engineering</span></a>
                         </li>
                         <li>
                           <a href="#"><span>Facility</span></a>
