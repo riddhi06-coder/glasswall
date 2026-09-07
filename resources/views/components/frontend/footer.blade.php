@@ -92,7 +92,6 @@
                             <ul>
                                 <li><a href="{{ route('frontend.about_us') }}">About Us</a></li>
                                 <li><a href="{{ route('frontend.board_of_directors') }}">Our Team</a></li>
-                                <li><a href="#">Solutions</a></li>
                                 <li><a href="{{ route('frontend.contact_us') }}">Contact Us</a></li>
                             </ul>
 
@@ -128,13 +127,13 @@
 
                             <ul>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('frontend.design_and_engineering') }}">
                                         Design &amp; Engineering
                                     </a>
                                 </li>
                                 <li><a href="#">Facility</a></li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('frontend.project_management') }}">
                                         Project Management
                                     </a>
                                 </li>
