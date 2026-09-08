@@ -31,7 +31,11 @@ class FormController extends Controller
         ], $this->messages());
 
         if ($validator->fails()) {
-            return response()->json(['ok' => false, 'errors' => $validator->errors()], 422);
+            if ($request->expectsJson()) {
+                return response()->json(['ok' => false, 'errors' => $validator->errors()], 422);
+            }
+
+            return back()->withErrors($validator, 'contact')->withInput();
         }
 
         $data          = $validator->validated();
@@ -88,7 +92,11 @@ class FormController extends Controller
         ], $this->messages());
 
         if ($validator->fails()) {
-            return response()->json(['ok' => false, 'errors' => $validator->errors()], 422);
+            if ($request->expectsJson()) {
+                return response()->json(['ok' => false, 'errors' => $validator->errors()], 422);
+            }
+
+            return back()->withErrors($validator, 'career')->withInput()->with('open_career_modal', true);
         }
 
         $data = $validator->validated();

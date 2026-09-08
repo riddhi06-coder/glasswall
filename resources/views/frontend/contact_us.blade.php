@@ -101,31 +101,31 @@
                         <div class="row">
                           <div class="tp-contect-box-input mb-10 col-lg-6">
                             <label>Full Name *</label>
-                            <input type="text" name="name" />
-                            <small class="form-error" data-for="name"></small>
+                            <input type="text" name="name" value="{{ old('name') }}" class="{{ $errors->contact->has('name') ? 'is-invalid' : '' }}" />
+                            <small class="form-error {{ $errors->contact->has('name') ? 'show' : '' }}" data-for="name">{{ $errors->contact->first('name') }}</small>
                           </div>
                           <div class="tp-contect-box-input mb-10 col-lg-6">
                             <label>Email *</label>
-                            <input type="email" name="email" />
-                            <small class="form-error" data-for="email"></small>
+                            <input type="email" name="email" value="{{ old('email') }}" class="{{ $errors->contact->has('email') ? 'is-invalid' : '' }}" />
+                            <small class="form-error {{ $errors->contact->has('email') ? 'show' : '' }}" data-for="email">{{ $errors->contact->first('email') }}</small>
                           </div>
                           <div class="tp-contect-box-input mb-10 col-lg-6">
                             <label>Company Name *</label>
-                            <input type="text" name="company" />
-                            <small class="form-error" data-for="company"></small>
+                            <input type="text" name="company" value="{{ old('company') }}" class="{{ $errors->contact->has('company') ? 'is-invalid' : '' }}" />
+                            <small class="form-error {{ $errors->contact->has('company') ? 'show' : '' }}" data-for="company">{{ $errors->contact->first('company') }}</small>
                           </div>
                           <div class="tp-contect-box-input mb-10 col-lg-6">
                             <label>Phone *</label>
                             <div style="position: relative;">
                               <span style="position:absolute; left:24px; top:50%; transform:translateY(-50%); color:#8a8a8a; pointer-events:none;">+91</span>
-                              <input type="text" name="phone" inputmode="numeric" maxlength="10" style="padding-left:58px;" />
+                              <input type="text" name="phone" value="{{ old('phone') }}" inputmode="numeric" maxlength="10" style="padding-left:58px;" class="{{ $errors->contact->has('phone') ? 'is-invalid' : '' }}" />
                             </div>
-                            <small class="form-error" data-for="phone"></small>
+                            <small class="form-error {{ $errors->contact->has('phone') ? 'show' : '' }}" data-for="phone">{{ $errors->contact->first('phone') }}</small>
                           </div>
                           <div class="tp-contect-box-input mb-20 col-lg-12">
                             <label>Message *</label>
-                            <textarea name="message" rows="8" style="min-height:200px; resize:vertical;"></textarea>
-                            <small class="form-error" data-for="message"></small>
+                            <textarea name="message" rows="8" style="min-height:200px; resize:vertical;" class="{{ $errors->contact->has('message') ? 'is-invalid' : '' }}">{{ old('message') }}</textarea>
+                            <small class="form-error {{ $errors->contact->has('message') ? 'show' : '' }}" data-for="message">{{ $errors->contact->first('message') }}</small>
                           </div>
                         </div>
                         <div class="tp-contect-box-input mb-10">
@@ -167,61 +167,57 @@
       .form-status.error { color:#e03131; }
     </style>
     <script>
+      // Client-side validation (mirrors the server rules). On success the form submits
+      // normally and the server redirects to the thank-you page.
       (function () {
         var form = document.getElementById('contactForm');
         if (!form) return;
-        var token = document.querySelector('meta[name="csrf-token"]');
-        var status = form.querySelector('[data-status]');
 
-        function clearErrors() {
-          form.querySelectorAll('.form-error').forEach(function (el) { el.textContent = ''; el.classList.remove('show'); });
-          form.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
-          if (status) { status.className = 'form-status'; status.textContent = ''; }
+        var nameRe  = /^[A-Za-z][A-Za-z .'\-]*$/;
+        var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var phoneRe = /^\d{10}$/;
+
+        function fieldEl(name) { return form.querySelector('[name="' + name + '"]'); }
+        function val(name) { var el = fieldEl(name); return el ? el.value.trim() : ''; }
+        function setErr(name, msg) {
+          var box = form.querySelector('.form-error[data-for="' + name + '"]');
+          var input = fieldEl(name);
+          if (box) { box.textContent = msg || ''; box.classList.toggle('show', !!msg); }
+          if (input) input.classList.toggle('is-invalid', !!msg);
+          return !msg;
         }
-        function showErrors(errors) {
-          Object.keys(errors).forEach(function (field) {
-            var box = form.querySelector('.form-error[data-for="' + field + '"]');
-            var input = form.querySelector('[name="' + field + '"]');
-            if (box) { box.textContent = errors[field][0]; box.classList.add('show'); }
-            if (input) input.classList.add('is-invalid');
-          });
+
+        function validate() {
+          var ok = true;
+          var name = val('name');
+          ok = setErr('name', (name.length >= 2 && nameRe.test(name)) ? '' : 'Please enter a valid name (letters only).') && ok;
+          ok = setErr('email', emailRe.test(val('email')) ? '' : 'Please enter a valid email address.') && ok;
+          ok = setErr('company', val('company') ? '' : 'Please enter your company.') && ok;
+          ok = setErr('phone', phoneRe.test(val('phone')) ? '' : 'Please enter a valid 10-digit phone number.') && ok;
+          ok = setErr('message', val('message').length >= 5 ? '' : 'Please enter your message.') && ok;
+          return ok;
         }
-        function setStatus(type, msg) {
-          if (!status) return;
-          status.className = 'form-status show ' + type;
-          status.textContent = msg;
-        }
+
+        // keep phone numeric only
+        var phone = fieldEl('phone');
+        if (phone) phone.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); });
+
+        // clear a field's error as the user corrects it
+        form.querySelectorAll('[name]').forEach(function (el) {
+          el.addEventListener('input', function () { setErr(el.getAttribute('name'), ''); });
+        });
 
         form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          clearErrors();
+          if (!validate()) {
+            e.preventDefault();
+            var firstBad = form.querySelector('.is-invalid');
+            if (firstBad) firstBad.focus();
+            return;
+          }
           var btn = form.querySelector('button[type="submit"]');
           var label = btn ? btn.querySelector('.tp-btn-text') : null;
-          var orig = label ? label.textContent : '';
           if (btn) { btn.disabled = true; btn.style.opacity = '.65'; }
           if (label) label.textContent = 'Sending...';
-
-          fetch(form.action, {
-            method: 'POST',
-            headers: { 'X-CSRF-TOKEN': token ? token.content : '', 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
-            body: new FormData(form)
-          }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
-            .then(function (res) {
-              if (res.data && res.data.ok) {
-                form.reset();
-                setStatus('success', res.data.message || 'Your message has been sent.');
-              } else if (res.data && res.data.errors) {
-                showErrors(res.data.errors);
-                setStatus('error', 'Please correct the highlighted fields.');
-              } else {
-                setStatus('error', (res.data && res.data.message) || 'Something went wrong. Please try again.');
-              }
-            }).catch(function () {
-              setStatus('error', 'Network error. Please try again.');
-            }).finally(function () {
-              if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-              if (label) label.textContent = orig;
-            });
         });
       })();
     </script>

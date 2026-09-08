@@ -232,6 +232,7 @@
                                 class="form-control"
                                 id="jobRole"
                                 name="job_role"
+                                value="{{ old('job_role') }}"
                                 readonly>
                       </div>
                       <div class="col-md-6 mb-3">
@@ -242,11 +243,12 @@
                           </span>
                         </label>
                         <input type="text"
-                                class="form-control"
+                                class="form-control {{ $errors->career->has('first_name') ? 'is-invalid' : '' }}"
                                 id="firstName"
                                 name="first_name"
+                                value="{{ old('first_name') }}"
                                 required>
-                        <small class="form-error" data-for="first_name"></small>
+                        <small class="form-error {{ $errors->career->has('first_name') ? 'show' : '' }}" data-for="first_name">{{ $errors->career->first('first_name') }}</small>
                       </div>
                       <div class="col-md-6 mb-3">
                         <label for="lastName" class="form-label">
@@ -256,11 +258,12 @@
                           </span>
                         </label>
                         <input type="text"
-                                class="form-control"
+                                class="form-control {{ $errors->career->has('last_name') ? 'is-invalid' : '' }}"
                                 id="lastName"
                                 name="last_name"
+                                value="{{ old('last_name') }}"
                                 required>
-                        <small class="form-error" data-for="last_name"></small>
+                        <small class="form-error {{ $errors->career->has('last_name') ? 'show' : '' }}" data-for="last_name">{{ $errors->career->first('last_name') }}</small>
                       </div>
                       <div class="col-md-6 mb-3">
                         <label for="emailAddress" class="form-label">
@@ -270,11 +273,12 @@
                           </span>
                         </label>
                         <input type="email"
-                                class="form-control"
+                                class="form-control {{ $errors->career->has('email') ? 'is-invalid' : '' }}"
                                 id="emailAddress"
                                 name="email"
+                                value="{{ old('email') }}"
                                 required>
-                        <small class="form-error" data-for="email"></small>
+                        <small class="form-error {{ $errors->career->has('email') ? 'show' : '' }}" data-for="email">{{ $errors->career->first('email') }}</small>
                       </div>
                       <div class="col-md-6 mb-3">
                         <label for="contactNo" class="form-label">
@@ -284,13 +288,14 @@
                           </span>
                         </label>
                         <input type="tel"
-                                class="form-control"
+                                class="form-control {{ $errors->career->has('contact_no') ? 'is-invalid' : '' }}"
                                 id="contactNo"
                                 name="contact_no"
+                                value="{{ old('contact_no') }}"
                                 inputmode="numeric"
                                 maxlength="10"
                                 required>
-                        <small class="form-error" data-for="contact_no"></small>
+                        <small class="form-error {{ $errors->career->has('contact_no') ? 'show' : '' }}" data-for="contact_no">{{ $errors->career->first('contact_no') }}</small>
                       </div>
                       <div class="col-12 mb-3">
                         <label for="resume" class="form-label">
@@ -300,7 +305,7 @@
                           </span>
                         </label>
                         <input type="file"
-                                class="form-control"
+                                class="form-control {{ $errors->career->has('resume') ? 'is-invalid' : '' }}"
                                 id="resume"
                                 name="resume"
                                 accept=".pdf,.doc,.docx"
@@ -308,7 +313,7 @@
                         <div class="form-text">
                           Accepted formats: PDF, DOC, DOCX (max 3 MB)
                         </div>
-                        <small class="form-error" data-for="resume"></small>
+                        <small class="form-error {{ $errors->career->has('resume') ? 'show' : '' }}" data-for="resume">{{ $errors->career->first('resume') }}</small>
                       </div>
                       <div class="col-12 mb-3">
                         <label for="message" class="form-label">
@@ -317,8 +322,7 @@
                         <textarea class="form-control"
                                 id="message"
                                 name="message"
-                                rows="5">
-                        </textarea>
+                                rows="5">{{ old('message') }}</textarea>
                       </div>
                       <div class="col-12">
                         <button type="submit" class="tp-btn tp-btn-white">
@@ -372,65 +376,75 @@
           if (input) input.value = role;
         });
 
-        // ---- AJAX submission ----
+        // Client-side validation (mirrors the server rules). On success the form submits
+        // normally and the server redirects to the thank-you page.
         var form = document.getElementById('jobApplicationForm');
-        if (!form) return;
-        var token = document.querySelector('meta[name="csrf-token"]');
-        var status = form.querySelector('[data-status]');
+        if (form) {
+          var nameRe  = /^[A-Za-z][A-Za-z .'\-]*$/;
+          var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          var phoneRe = /^\d{10}$/;
+          var okExt   = ['pdf', 'doc', 'docx'];
+          var MAX     = 3 * 1024 * 1024;
 
-        function clearErrors() {
-          form.querySelectorAll('.form-error').forEach(function (el) { el.textContent = ''; el.classList.remove('show'); });
-          form.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
-          if (status) { status.className = 'form-status'; status.textContent = ''; }
-        }
-        function showErrors(errors) {
-          Object.keys(errors).forEach(function (field) {
-            var box = form.querySelector('.form-error[data-for="' + field + '"]');
-            var input = form.querySelector('[name="' + field + '"]');
-            if (box) { box.textContent = errors[field][0]; box.classList.add('show'); }
-            if (input) input.classList.add('is-invalid');
+          function fieldEl(name) { return form.querySelector('[name="' + name + '"]'); }
+          function val(name) { var el = fieldEl(name); return el ? el.value.trim() : ''; }
+          function setErr(name, msg) {
+            var box = form.querySelector('.form-error[data-for="' + name + '"]');
+            var input = fieldEl(name);
+            if (box) { box.textContent = msg || ''; box.classList.toggle('show', !!msg); }
+            if (input) input.classList.toggle('is-invalid', !!msg);
+            return !msg;
+          }
+
+          function validate() {
+            var ok = true;
+            var fn = val('first_name'), ln = val('last_name');
+            ok = setErr('first_name', (fn.length >= 2 && nameRe.test(fn)) ? '' : 'Please enter a valid first name (letters only).') && ok;
+            ok = setErr('last_name',  (ln.length >= 2 && nameRe.test(ln)) ? '' : 'Please enter a valid last name (letters only).') && ok;
+            ok = setErr('email', emailRe.test(val('email')) ? '' : 'Please enter a valid email address.') && ok;
+            ok = setErr('contact_no', phoneRe.test(val('contact_no')) ? '' : 'Please enter a valid 10-digit contact number.') && ok;
+
+            var f = fieldEl('resume');
+            var file = f && f.files ? f.files[0] : null;
+            if (!file) {
+              ok = setErr('resume', 'Please upload your resume.') && ok;
+            } else {
+              var ext = file.name.split('.').pop().toLowerCase();
+              if (okExt.indexOf(ext) === -1) ok = setErr('resume', 'Resume must be a PDF, DOC or DOCX file.') && ok;
+              else if (file.size > MAX)      ok = setErr('resume', 'Resume is too large (max 3 MB).') && ok;
+              else ok = setErr('resume', '') && ok;
+            }
+            return ok;
+          }
+
+          var contact = fieldEl('contact_no');
+          if (contact) contact.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); });
+
+          form.querySelectorAll('[name]').forEach(function (el) {
+            var ev = el.type === 'file' ? 'change' : 'input';
+            el.addEventListener(ev, function () { setErr(el.getAttribute('name'), ''); });
+          });
+
+          form.addEventListener('submit', function (e) {
+            if (!validate()) {
+              e.preventDefault();
+              var firstBad = form.querySelector('.is-invalid');
+              if (firstBad) firstBad.focus();
+              return;
+            }
+            var btn = form.querySelector('button[type="submit"]');
+            var label = btn ? btn.querySelector('.tp-btn-text') : null;
+            if (btn) { btn.disabled = true; btn.style.opacity = '.65'; }
+            if (label) label.textContent = 'Submitting...';
           });
         }
-        function setStatus(type, msg) {
-          if (!status) return;
-          status.className = 'form-status show ' + type;
-          status.textContent = msg;
-        }
 
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          clearErrors();
-          var btn = form.querySelector('button[type="submit"]');
-          var label = btn ? btn.querySelector('.tp-btn-text') : null;
-          var orig = label ? label.textContent : '';
-          if (btn) { btn.disabled = true; btn.style.opacity = '.65'; }
-          if (label) label.textContent = 'Submitting...';
-
-          fetch(form.action, {
-            method: 'POST',
-            headers: { 'X-CSRF-TOKEN': token ? token.content : '', 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
-            body: new FormData(form)
-          }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
-            .then(function (res) {
-              if (res.data && res.data.ok) {
-                var role = form.querySelector('#jobRole');
-                var roleVal = role ? role.value : '';
-                form.reset();
-                if (role) role.value = roleVal;
-                setStatus('success', res.data.message || 'Your application has been submitted.');
-              } else if (res.data && res.data.errors) {
-                showErrors(res.data.errors);
-                setStatus('error', 'Please correct the highlighted fields.');
-              } else {
-                setStatus('error', (res.data && res.data.message) || 'Something went wrong. Please try again.');
-              }
-            }).catch(function () {
-              setStatus('error', 'Network error. Please try again.');
-            }).finally(function () {
-              if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-              if (label) label.textContent = orig;
-            });
-        });
+        // Re-open the modal after a validation error so the user sees the highlighted fields.
+        @if($errors->career->any())
+          if (window.bootstrap) {
+            bootstrap.Modal.getOrCreateInstance(modal).show();
+          }
+        @endif
       });
     </script>
 

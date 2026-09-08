@@ -1,5 +1,5 @@
 @php
-    $logo = public_path('frontend/assets/images/logo/gws.png');
+    $logo = public_path('frontend/assets/images/gws.png');
     $logoCid = is_file($logo) ? $message->embed($logo) : null;
 @endphp
 <!DOCTYPE html>
