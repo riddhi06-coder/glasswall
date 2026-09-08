@@ -221,7 +221,8 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form id="jobApplicationForm" action="#" method="post" enctype="multipart/form-data" novalidate>
+                  <form id="jobApplicationForm" action="{{ route('frontend.careers.apply') }}" method="post" enctype="multipart/form-data" novalidate>
+                    @csrf
                     <div class="row">
                       <div class="col-12 mb-3">
                         <label for="jobRole" class="form-label">
@@ -370,8 +371,78 @@
           var input = modal.querySelector('#jobRole');
           if (input) input.value = role;
         });
+
+        // ---- AJAX submission ----
+        var form = document.getElementById('jobApplicationForm');
+        if (!form) return;
+        var token = document.querySelector('meta[name="csrf-token"]');
+        var status = form.querySelector('[data-status]');
+
+        function clearErrors() {
+          form.querySelectorAll('.form-error').forEach(function (el) { el.textContent = ''; el.classList.remove('show'); });
+          form.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
+          if (status) { status.className = 'form-status'; status.textContent = ''; }
+        }
+        function showErrors(errors) {
+          Object.keys(errors).forEach(function (field) {
+            var box = form.querySelector('.form-error[data-for="' + field + '"]');
+            var input = form.querySelector('[name="' + field + '"]');
+            if (box) { box.textContent = errors[field][0]; box.classList.add('show'); }
+            if (input) input.classList.add('is-invalid');
+          });
+        }
+        function setStatus(type, msg) {
+          if (!status) return;
+          status.className = 'form-status show ' + type;
+          status.textContent = msg;
+        }
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          clearErrors();
+          var btn = form.querySelector('button[type="submit"]');
+          var label = btn ? btn.querySelector('.tp-btn-text') : null;
+          var orig = label ? label.textContent : '';
+          if (btn) { btn.disabled = true; btn.style.opacity = '.65'; }
+          if (label) label.textContent = 'Submitting...';
+
+          fetch(form.action, {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': token ? token.content : '', 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+            body: new FormData(form)
+          }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+            .then(function (res) {
+              if (res.data && res.data.ok) {
+                var role = form.querySelector('#jobRole');
+                var roleVal = role ? role.value : '';
+                form.reset();
+                if (role) role.value = roleVal;
+                setStatus('success', res.data.message || 'Your application has been submitted.');
+              } else if (res.data && res.data.errors) {
+                showErrors(res.data.errors);
+                setStatus('error', 'Please correct the highlighted fields.');
+              } else {
+                setStatus('error', (res.data && res.data.message) || 'Something went wrong. Please try again.');
+              }
+            }).catch(function () {
+              setStatus('error', 'Network error. Please try again.');
+            }).finally(function () {
+              if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+              if (label) label.textContent = orig;
+            });
+        });
       });
     </script>
+
+    <style>
+      #jobApplicationForm .form-error { display:none; color:#e03131; font-size:12px; margin-top:4px; }
+      #jobApplicationForm .form-error.show { display:block; }
+      #jobApplicationForm .is-invalid { border-color:#e03131 !important; }
+      #jobApplicationForm .form-status { margin-top:12px; font-size:14px; display:none; }
+      #jobApplicationForm .form-status.show { display:block; }
+      #jobApplicationForm .form-status.success { color:#2b8a3e; }
+      #jobApplicationForm .form-status.error { color:#e03131; }
+    </style>
 
   </body>
 </html>

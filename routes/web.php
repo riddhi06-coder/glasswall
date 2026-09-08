@@ -40,6 +40,7 @@ use App\Http\Controllers\Backend\IpoDrhpController;
 
 //frontend controller
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\FormController;
 
 
     // ----------------------
@@ -177,6 +178,8 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/ipo/disclaimer', [HomeController::class, 'ipo_disclaimer'])->name('frontend.ipo_disclaimer');
     Route::get('/{category:slug}/{project:slug}', [HomeController::class, 'projects_details'])->name('frontend.projects_details');
     Route::get('/contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact_us');
+    Route::post('/contact-us', [FormController::class, 'contact'])->name('frontend.contact.submit');
+    Route::post('/careers/apply', [FormController::class, 'careerApply'])->name('frontend.careers.apply');
     Route::get('/about-us', [HomeController::class, 'about_us'])->name('frontend.about_us');
     Route::get('/board-of-directors', [HomeController::class, 'board_of_directors'])->name('frontend.board_of_directors');
     Route::get('/innovation', [HomeController::class, 'innovation'])->name('frontend.innovation');
@@ -191,5 +194,6 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/investor-resources', [HomeController::class, 'investor_resources'])->name('frontend.investor_resources');
     Route::get('/corporate-governance', [HomeController::class, 'corporate_governance'])->name('frontend.corporate_governance');
     Route::get('/ipo', [HomeController::class, 'ipo'])->name('frontend.ipo');
-
+    Route::view('/contact-thank-you', 'frontend.contact_thank_you')->name('contact.thank-you');
+    Route::view('/career-thank-you', 'frontend.career_thank_you')->name('career.thank-you');
     

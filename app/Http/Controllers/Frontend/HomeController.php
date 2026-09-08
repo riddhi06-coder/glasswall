@@ -330,4 +330,16 @@ class HomeController extends Controller
         return response()->json($results);
     }
 
+
+    // Thankyou page
+    public function contact_thank_you()
+    {
+        return view('frontend.contact_thank_you',);
+    }
+
+    public function career_thank_you()
+    {
+        return view('frontend.career_thank_you',);
+    }
+
 }
