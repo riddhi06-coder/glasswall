@@ -225,8 +225,9 @@
 
                   <ul class="sidebar-submenu">
                       <li><a href="{{ route('manage-design-engg.index') }}" class="{{ request()->routeIs('manage-design-engg.*') ? 'active' : '' }}">Design and Engineering</a></li>
-                      <li><a href="{{ route('manage-project-management.index') }}" class="{{ request()->routeIs('manage-project-management.*') ? 'active' : '' }}">Project Management</a></li>
                       <li><a href="{{ route('manage-facility.index') }}" class="{{ request()->routeIs('manage-facility.*') ? 'active' : '' }}">Facility</a></li>
+                      <li><a href="{{ route('manage-project-management.index') }}" class="{{ request()->routeIs('manage-project-management.*') ? 'active' : '' }}">Project Management</a></li>
+
                   </ul>
                 </li>
 
