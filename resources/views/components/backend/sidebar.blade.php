@@ -303,10 +303,10 @@
                   <i class="fa fa-thumb-tack"></i>
                   <a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-contact') }}"></use>
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-email') }}"></use>
                     </svg>
                     <svg class="fill-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-contact') }}"></use>
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-email') }}"></use>
                     </svg>
                     <span>Enquiries</span>
                   </a>
@@ -342,10 +342,10 @@
                   <i class="fa fa-thumb-tack"></i>
                   <a class="sidebar-link" href="{{ route('admin.activity-logs.index') }}">
                     <svg class="stroke-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-task') }}"></use>
                     </svg>
                     <svg class="fill-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-task') }}"></use>
                     </svg>
                     <span>Activity Log</span>
                   </a>
