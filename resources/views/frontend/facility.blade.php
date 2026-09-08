@@ -108,14 +108,7 @@
                         @endif
 
                     </div>
-                    <!--<div class="facility-text-wrap">-->
-                    <!--      <div class="tp-text-center">-->
-                    <!--        <div class="col-lg-12">-->
-                    <!--     <p>At GWS, sustainability means pairing high-quality engineering with advanced CNC machinery to minimize errors and drastically reduce material waste.</p>-->
-                    <!--        </div>-->
-                    <!--      </div>-->
 
-                    <!--    </div>-->
                     <div class="tp-testi-card">
 
                         <div class="tp-testi-card-right">

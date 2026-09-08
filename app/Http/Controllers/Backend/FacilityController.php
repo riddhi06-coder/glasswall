@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class FacilityController extends Controller
 {
     /** Upload directory under /public. */
-    private const DIR = 'facility';
+    private const DIR = 'facility-uploads';
 
     public function index()
     {

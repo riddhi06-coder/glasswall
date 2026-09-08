@@ -49,6 +49,6 @@ class Facility extends Model
     /** URL to any stored image for this record. */
     public function assetUrl(?string $fileName): ?string
     {
-        return $fileName ? asset('facility/'.$fileName) : null;
+        return $fileName ? asset('facility-uploads/'.$fileName) : null;
     }
 }

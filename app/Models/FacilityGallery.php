@@ -23,6 +23,6 @@ class FacilityGallery extends Model
 
     public function getImageUrlAttribute(): ?string
     {
-        return $this->image ? asset('facility/'.$this->image) : null;
+        return $this->image ? asset('facility-uploads/'.$this->image) : null;
     }
 }
