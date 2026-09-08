@@ -20,6 +20,16 @@ use App\Models\HomeBanner;
 use App\Models\HomeBlog;
 use App\Models\ContactDetail;
 use App\Models\ActivityLog;
+use App\Models\ProductCategory;
+use App\Models\ProductListing;
+use App\Models\CareerJob;
+use App\Models\ContactSubmission;
+use App\Models\CareerApplication;
+use App\Models\IpoDocument;
+use App\Models\AnnualReport;
+use App\Models\GovernanceDocument;
+use App\Models\Media;
+use App\Models\AwardsRecognition;
 
 class LoginController extends Controller
 {
@@ -40,7 +50,27 @@ class LoginController extends Controller
             'users'        => User::count(),
             'roles'        => Role::count(),
             'activities'   => ActivityLog::count(),
+
+            // Products
+            'productCategories' => ProductCategory::count(),
+            'products'          => ProductListing::count(),
+
+            // Careers / Investors / Overview content
+            'jobs'           => CareerJob::count(),
+            'ipoDocs'        => IpoDocument::count(),
+            'annualReports'  => AnnualReport::count(),
+            'governanceDocs' => GovernanceDocument::count(),
+            'media'          => Media::count(),
+            'awards'         => AwardsRecognition::count(),
+
+            // Enquiries (form submissions)
+            'contactEnquiries'   => ContactSubmission::count(),
+            'careerApplications' => CareerApplication::count(),
         ];
+
+        // Latest enquiries for the dashboard panel.
+        $recentEnquiries   = ContactSubmission::latest()->take(6)->get();
+        $recentApplications = CareerApplication::latest()->take(6)->get();
 
         // Projects grouped by category (for the breakdown list).
         $projectsByCategory = ProjectCategory::withCount('listings')
@@ -55,6 +85,8 @@ class LoginController extends Controller
             'stats'              => $stats,
             'projectsByCategory' => $projectsByCategory,
             'recentActivities'   => $recentActivities,
+            'recentEnquiries'    => $recentEnquiries,
+            'recentApplications' => $recentApplications,
         ]);
     }
 

@@ -63,28 +63,86 @@
             {{-- ===== Stat cards ===== --}}
             @php
                 $cards = [
-                    ['label' => "Total Projects",   'value' => $stats['projects'],       'icon' => 'fa-th-large',    'tone' => 'primary'],
-                    ['label' => "Categories",       'value' => $stats['categories'],     'icon' => 'fa-tags',        'tone' => 'info'],
-                    ['label' => "Project Details",  'value' => $stats['projectDetails'], 'icon' => 'fa-file-text-o', 'tone' => 'success'],
-                    ['label' => "Shown on Home",    'value' => $stats['showOnHome'],     'icon' => 'fa-home',        'tone' => 'warning'],
-                    ['label' => "Home Banners",     'value' => $stats['banners'],        'icon' => 'fa-picture-o',   'tone' => 'info'],
-                    ['label' => "Blogs",            'value' => $stats['blogs'],          'icon' => 'fa-pencil',      'tone' => 'primary'],
-                    ['label' => "Users",            'value' => $stats['users'],          'icon' => 'fa-users',       'tone' => 'success'],
-                    ['label' => "Activity Logs",    'value' => $stats['activities'],     'icon' => 'fa-history',     'tone' => 'warning'],
+                    ['label' => "Total Projects",      'value' => $stats['projects'],           'icon' => 'fa-th-large',    'tone' => 'primary', 'url' => route('manage-project-listing.index')],
+                    ['label' => "Products",            'value' => $stats['products'],           'icon' => 'fa-cube',        'tone' => 'info',    'url' => route('manage-product-list.index')],
+                    ['label' => "Contact Enquiries",   'value' => $stats['contactEnquiries'],   'icon' => 'fa-envelope',    'tone' => 'warning', 'url' => route('manage-contact-enquiries.index')],
+                    ['label' => "Career Applications", 'value' => $stats['careerApplications'], 'icon' => 'fa-file-text-o', 'tone' => 'success', 'url' => route('manage-career-applications.index')],
                 ];
             @endphp
             <div class="row g-3 mb-1">
                 @foreach($cards as $c)
                     <div class="col-xl-3 col-sm-6">
-                        <div class="dash-stat dash-stat--{{ $c['tone'] }}">
-                            <div>
-                                <div class="dash-stat__num">{{ $c['value'] }}</div>
-                                <div class="dash-stat__label">{{ $c['label'] }}</div>
+                        <a href="{{ $c['url'] }}" class="text-decoration-none">
+                            <div class="dash-stat dash-stat--{{ $c['tone'] }}">
+                                <div>
+                                    <div class="dash-stat__num">{{ $c['value'] }}</div>
+                                    <div class="dash-stat__label">{{ $c['label'] }}</div>
+                                </div>
+                                <div class="dash-stat__icon"><i class="fa {{ $c['icon'] }}"></i></div>
                             </div>
-                            <div class="dash-stat__icon"><i class="fa {{ $c['icon'] }}"></i></div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
+            </div>
+
+            {{-- ===== Enquiries ===== --}}
+            <h6 class="text-muted mt-4 mb-2">Enquiries</h6>
+            <div class="row g-3 mb-4">
+                <div class="col-xl-8">
+                    <div class="card h-100">
+                        <div class="card-header dash-highlight-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Recent Contact Enquiries</h5>
+                            <a href="{{ route('manage-contact-enquiries.index') }}" class="dash-chip" style="text-decoration:none;">View all</a>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive custom-scrollbar">
+                                <table class="table table-hover dash-table">
+                                    <thead>
+                                        <tr><th>Name</th><th>Email</th><th>Phone</th><th class="text-end">When</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($recentEnquiries as $e)
+                                            <tr>
+                                                <td>{{ $e->name }}</td>
+                                                <td class="text-muted">{{ $e->email }}</td>
+                                                <td>{{ $e->phone }}</td>
+                                                <td class="text-end text-muted">{{ optional($e->created_at)->diffForHumans() }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr><td colspan="4" class="dash-empty">No enquiries yet.</td></tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <a href="{{ route('manage-contact-enquiries.index') }}" class="text-decoration-none">
+                                <div class="dash-stat dash-stat--primary">
+                                    <div>
+                                        <div class="dash-stat__num">{{ $stats['contactEnquiries'] }}</div>
+                                        <div class="dash-stat__label">Contact Enquiries</div>
+                                    </div>
+                                    <div class="dash-stat__icon"><i class="fa fa-envelope"></i></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12">
+                            <a href="{{ route('manage-career-applications.index') }}" class="text-decoration-none">
+                                <div class="dash-stat dash-stat--success">
+                                    <div>
+                                        <div class="dash-stat__num">{{ $stats['careerApplications'] }}</div>
+                                        <div class="dash-stat__label">Career Applications</div>
+                                    </div>
+                                    <div class="dash-stat__icon"><i class="fa fa-file-text-o"></i></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="row g-3 mt-1 mb-4">
