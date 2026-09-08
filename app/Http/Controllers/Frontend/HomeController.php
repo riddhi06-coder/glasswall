@@ -52,6 +52,11 @@ class HomeController extends Controller
         $blog       = HomeBlog::latest()->first();
         $categories = ProjectCategory::orderBy('priority')->orderBy('name')->get();
 
+        $productCategories = ProductCategory::where('is_active', true)
+            ->orderBy('priority')
+            ->orderBy('name')
+            ->get();
+
         $homeProjects = ProjectListing::with('category')
             ->where('is_active', true)
             ->where('show_on_home', true)
@@ -59,7 +64,7 @@ class HomeController extends Controller
             ->orderBy('id')
             ->get();
 
-        return view('frontend.index', compact('banners', 'about', 'clientele', 'blog', 'categories', 'homeProjects'));
+        return view('frontend.index', compact('banners', 'about', 'clientele', 'blog', 'categories', 'productCategories', 'homeProjects'));
     }
 
     // Projects listing by category (slug-bound)

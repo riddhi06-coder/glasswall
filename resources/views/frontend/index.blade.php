@@ -38,7 +38,7 @@
                                 </h1>
                                 <div class="tp-hero-slider-btn pt-25">
                                   <p class="margin-0 tp-text-white fw-500 pb-50">{{ $banner->banner_title }}</p>
-                                  <a href="#" class="tp-btn">
+                                  <a href="{{ route('frontend.products_category_listing') }}" class="tp-btn">
                                     <span class="tp-btn-text">Explore Our Work</span>
                                     <span class="tp-btn-icon">
                                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,179 +122,36 @@
                   </div>
                 </div>
               </div>
-              <div class="row tpservices2__up tp-justify-center tp-align-center">
-                <div class="col-lg-4 col-md-10 col-sm-10 tp_fade_anim" data-duration=".9" data-delay=".1">
-                  <div class="tpservices2 p-relative mb-30">
-                    <div class="tpservices2__thumb br-15 mb-40">
-                      <img src="assets/images/products/home-product/1.webp" alt="" />
-                    </div>
-                    <div class="tpservices2__main">
-                      <div class="tpservices2__icon mb-25">
-                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8 52V8H52V52" stroke="currentColor" stroke-width="2" />
-                          <path d="M8 20H52M8 32H52M8 44H52" stroke="currentColor" stroke-width="2" />
-                          <path d="M20 8V52M32 8V52M44 8V52" stroke="currentColor" stroke-width="2" />
-                          <path d="M4 56H56" stroke="currentColor" stroke-width="2" />
-                        </svg>
+                <div class="row tpservices2__up tp-justify-center tp-align-center">
+                  @php
+                    $productIcons = [
+                      '<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 52V8H52V52" stroke="currentColor" stroke-width="2" /><path d="M8 20H52M8 32H52M8 44H52" stroke="currentColor" stroke-width="2" /><path d="M20 8V52M32 8V52M44 8V52" stroke="currentColor" stroke-width="2" /><path d="M4 56H56" stroke="currentColor" stroke-width="2" /></svg>',
+                      '<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 12H52" stroke="currentColor" stroke-width="2" /><path d="M8 22H52" stroke="currentColor" stroke-width="2" /><path d="M8 32H52" stroke="currentColor" stroke-width="2" /><path d="M8 42H52" stroke="currentColor" stroke-width="2" /><path d="M8 52H52" stroke="currentColor" stroke-width="2" /><path d="M14 12L8 18M26 12L20 18M38 12L32 18M50 12L44 18" stroke="currentColor" stroke-width="2" /></svg>',
+                      '<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 52V8H50V52" stroke="currentColor" stroke-width="2" /><path d="M10 18H50M10 30H50M10 42H50" stroke="currentColor" stroke-width="2" /><path d="M20 8V18M40 8V18M20 30V42M40 30V42" stroke="currentColor" stroke-width="2" /><path d="M6 56H54" stroke="currentColor" stroke-width="2" /><path d="M16 2L12 8M30 2L26 8M44 2L40 8" stroke="currentColor" stroke-width="2" /></svg>',
+                    ];
+                    $arrowSvg = '<svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.000408173 7.39795H16.7596" stroke="currentcolor" stroke-width="1.5" stroke-miterlimit="10" /><path d="M10.1596 0C10.1596 4.08932 13.6667 7.39831 18.0008 7.39831" stroke="currentcolor" stroke-width="1.5" stroke-miterlimit="10" /><path d="M18.0008 7.39807C13.6667 7.39807 10.1596 10.7071 10.1596 14.7964" stroke="currentcolor" stroke-width="1.5" stroke-miterlimit="10" /></svg>';
+                  @endphp
+                  @foreach($productCategories as $cat)
+                    <div class="col-lg-4 col-md-10 col-sm-10 tp_fade_anim" data-duration=".9" data-delay=".{{ $loop->iteration }}">
+                      <div class="tpservices2 p-relative mb-30">
+                        <div class="tpservices2__thumb br-15 mb-40">
+                          <img src="{{ $cat->image_url ?? asset('frontend/assets/images/products/home-product/'.(($loop->index % 3) + 1).'.webp') }}" alt="{{ $cat->name }}" />
+                        </div>
+                        <div class="tpservices2__main">
+                          <div class="tpservices2__icon mb-25">
+                            {!! $productIcons[$loop->index % count($productIcons)] !!}
+                          </div>
+                          <div class="tpservices2__content">
+                            <h3 class="tpservices2__title tp-fs-20 mb-10"><a href="{{ route('frontend.products_category', $cat->slug) }}">{{ $cat->name }}</a></h3>
+                          </div>
+                        </div>
+                        <div class="tpservices2__link">
+                          <a href="{{ route('frontend.products_category', $cat->slug) }}" class="tpservices2__btn">{!! $arrowSvg !!}</a>
+                        </div>
                       </div>
-                      <div class="tpservices2__content">
-                        <h3 class="tpservices2__title tp-fs-20 mb-10">
-                          <a href="facade-and-curtain-wall-systems.html">Façade and Curtain Wall Systems</a>
-                        </h3>
-                      </div>
                     </div>
-                    <div class="tpservices2__link">
-                      <a href="facade-and-curtain-wall-systems.html" class="tpservices2__btn">
-                        <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M0.000408173 7.39795H16.7596"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                          />
-                          <path
-                            d="M10.1596 0C10.1596 4.08932 13.6667 7.39831 18.0008 7.39831"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                          />
-                          <path
-                            d="M18.0008 7.39807C13.6667 7.39807 10.1596 10.7071 10.1596 14.7964"
-                            stroke="currentcolor"
-                            stroke-width="1.5"
-                            stroke-miterlimit="10"
-                          />
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
+                  @endforeach
                 </div>
-                <div class="col-lg-4 col-md-10 col-sm-10">
-                  <div class="tp_fade_anim" data-duration=".9" data-delay=".2">
-                    <div class="tpservices2 p-relative mb-30">
-                      <div class="tpservices2__thumb br-15 mb-40">
-                        <img src="assets/images/products/home-product/2.webp" alt="" />
-                      </div>
-                      <div class="tpservices2__main">
-                        <div class="tpservices2__icon mb-25">
-                          <svg
-                            width="60"
-                            height="60"
-                            viewBox="0 0 60 60"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M8 12H52" stroke="currentColor" stroke-width="2" />
-                            <path d="M8 22H52" stroke="currentColor" stroke-width="2" />
-                            <path d="M8 32H52" stroke="currentColor" stroke-width="2" />
-                            <path d="M8 42H52" stroke="currentColor" stroke-width="2" />
-                            <path d="M8 52H52" stroke="currentColor" stroke-width="2" />
-                            <path
-                              d="M14 12L8 18M26 12L20 18M38 12L32 18M50 12L44 18"
-                              stroke="currentColor"
-                              stroke-width="2"
-                            />
-                          </svg>
-                        </div>
-                        <div class="tpservices2__content">
-                          <h3 class="tpservices2__title tp-fs-20 mb-10"><a href="louvers.html">Louvers</a></h3>
-                        </div>
-                      </div>
-                      <div class="tpservices2__link">
-                        <a href="louvers.html" class="tpservices2__btn">
-                          <svg
-                            width="18"
-                            height="15"
-                            viewBox="0 0 18 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M0.000408173 7.39795H16.7596"
-                              stroke="currentcolor"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                            />
-                            <path
-                              d="M10.1596 0C10.1596 4.08932 13.6667 7.39831 18.0008 7.39831"
-                              stroke="currentcolor"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                            />
-                            <path
-                              d="M18.0008 7.39807C13.6667 7.39807 10.1596 10.7071 10.1596 14.7964"
-                              stroke="currentcolor"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                            />
-                          </svg>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-10 col-sm-10">
-                  <div class="tp_fade_anim" data-duration=".9" data-delay=".2">
-                    <div class="tpservices2 p-relative mb-30">
-                      <div class="tpservices2__thumb br-15 mb-40">
-                        <img src="assets/images/products/home-product/3.webp" alt="" />
-                      </div>
-                      <div class="tpservices2__main">
-                        <div class="tpservices2__icon mb-25">
-                          <svg
-                            width="60"
-                            height="60"
-                            viewBox="0 0 60 60"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M10 52V8H50V52" stroke="currentColor" stroke-width="2" />
-                            <path d="M10 18H50M10 30H50M10 42H50" stroke="currentColor" stroke-width="2" />
-                            <path d="M20 8V18M40 8V18M20 30V42M40 30V42" stroke="currentColor" stroke-width="2" />
-                            <path d="M6 56H54" stroke="currentColor" stroke-width="2" />
-                            <path d="M16 2L12 8M30 2L26 8M44 2L40 8" stroke="currentColor" stroke-width="2" />
-                          </svg>
-                        </div>
-                        <div class="tpservices2__content">
-                          <h3 class="tpservices2__title tp-fs-20 mb-10">
-                            <a href="rain-screen-cladding.html">Rain Screen Cladding</a>
-                          </h3>
-                        </div>
-                      </div>
-                      <div class="tpservices2__link">
-                        <a href="rain-screen-cladding.html" class="tpservices2__btn">
-                          <svg
-                            width="18"
-                            height="15"
-                            viewBox="0 0 18 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M0.000408173 7.39795H16.7596"
-                              stroke="currentcolor"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                            />
-                            <path
-                              d="M10.1596 0C10.1596 4.08932 13.6667 7.39831 18.0008 7.39831"
-                              stroke="currentcolor"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                            />
-                            <path
-                              d="M18.0008 7.39807C13.6667 7.39807 10.1596 10.7071 10.1596 14.7964"
-                              stroke="currentcolor"
-                              stroke-width="1.5"
-                              stroke-miterlimit="10"
-                            />
-                          </svg>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </section>
 

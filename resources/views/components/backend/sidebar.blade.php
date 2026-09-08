@@ -298,6 +298,25 @@
                 @endif
 
 
+                {{-- Enquiries (form submissions stored in DB) --}}
+                <li class="sidebar-list {{ request()->routeIs('manage-contact-enquiries.*','manage-career-applications.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-contact') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-contact') }}"></use>
+                    </svg>
+                    <span>Enquiries</span>
+                  </a>
+                  <ul class="sidebar-submenu">
+                      <li><a href="{{ route('manage-contact-enquiries.index') }}" class="{{ request()->routeIs('manage-contact-enquiries.*') ? 'active' : '' }}">Contact Enquiries</a></li>
+                      <li><a href="{{ route('manage-career-applications.index') }}" class="{{ request()->routeIs('manage-career-applications.*') ? 'active' : '' }}">Career Applications</a></li>
+                  </ul>
+                </li>
+
+
 
 
 

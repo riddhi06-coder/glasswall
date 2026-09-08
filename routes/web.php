@@ -34,6 +34,8 @@ use App\Http\Controllers\Backend\InvestorResourceController;
 use App\Http\Controllers\Backend\CorporateGovernanceController;
 use App\Http\Controllers\Backend\IpoController;
 use App\Http\Controllers\Backend\IpoDrhpController;
+use App\Http\Controllers\Backend\ContactSubmissionController;
+use App\Http\Controllers\Backend\CareerApplicationController;
 
 
 
@@ -145,6 +147,10 @@ use App\Http\Controllers\Frontend\FormController;
         
         // Contact
         Route::resource('manage-contact-details', ContactDetailsController::class);
+
+        // Enquiries (form submissions stored in DB)
+        Route::resource('manage-contact-enquiries', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
+        Route::resource('manage-career-applications', CareerApplicationController::class)->only(['index', 'show', 'destroy']);
   
         // Overview Pages
         Route::resource('manage-about-us', AboutUsController::class);
