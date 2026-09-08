@@ -18,8 +18,6 @@ class CareerDetail extends Model
         'section_heading',
         'section_image',
         'description',
-        'join_heading',
-        'short_desc',
         'job_section_heading',
         'created_by',
         'updated_by',

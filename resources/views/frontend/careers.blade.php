@@ -56,12 +56,6 @@
                   {{ optional($career)->section_heading }}
                 </h2>
                 <div>{!! optional($career)->description !!}</div>
-                <h3>
-                  {{ optional($career)->join_heading }}
-                </h3>
-                <p>
-                  {{ optional($career)->short_desc }}
-                </p>
               </div>
                 </div>
                 </div>

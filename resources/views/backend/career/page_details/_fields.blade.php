@@ -40,21 +40,6 @@
   @error('description')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
 </div>
 
-{{-- Join --}}
-<div class="col-12"><div class="career-sec-title">Join Us</div></div>
-
-<div class="col-md-6">
-  <label class="form-label" for="join_heading">Join Heading <span class="text-danger">*</span></label>
-  <input class="form-control @error('join_heading') is-invalid @enderror" id="join_heading" type="text" name="join_heading" value="{{ old('join_heading', $c->join_heading ?? '') }}" placeholder="Enter join heading" required>
-  @error('join_heading')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-</div>
-
-<div class="col-md-6">
-  <label class="form-label" for="short_desc">Short Desc <span class="text-danger">*</span></label>
-  <textarea class="form-control @error('short_desc') is-invalid @enderror" id="short_desc" name="short_desc" rows="3" placeholder="Enter short description" required>{{ old('short_desc', $c->short_desc ?? '') }}</textarea>
-  @error('short_desc')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-</div>
-
 {{-- Job section --}}
 <div class="col-12"><div class="career-sec-title">Job Section</div></div>
 

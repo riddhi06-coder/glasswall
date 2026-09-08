@@ -104,8 +104,6 @@ class CareersDetailsController extends Controller
             'section_heading'     => 'required|string|max:255',
             'section_image'       => "{$req}|file|mimes:jpg,jpeg,png,webp,svg|max:2048",
             'description'         => 'required|string',
-            'join_heading'        => 'required|string|max:255',
-            'short_desc'          => 'required|string|max:1000',
             'job_section_heading' => 'required|string|max:255',
         ];
     }

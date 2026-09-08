@@ -174,11 +174,20 @@
                     <div class="container">
                         <div class="row g-4">
 
+                            @php
+                                $strengthIcons = [
+                                    public_path('facility-uploads/strength_icon1.svg'),
+                                    public_path('facility-uploads/strength_icon2.svg'),
+                                ];
+                            @endphp
                             @foreach(optional($facility)->strengths ?? [] as $strength)
+                                @php($iconFile = $strengthIcons[$loop->index % count($strengthIcons)])
                                 <div class="col-lg-6">
                                     <div class="equipment-card">
                                         <div class="equipment-card__heading">
-                                            <span class="equipment-card__number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                            <span class="equipment-card__icon">
+                                                @if(is_file($iconFile)){!! file_get_contents($iconFile) !!}@endif
+                                            </span>
                                             <h2>{{ $strength->title }}</h2>
                                         </div>
 

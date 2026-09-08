@@ -1731,7 +1731,7 @@ body.tp-magic-cursor #magic-cursor {
 
 .tp-services-img img {
   height: 250px;
-  object-fit: cover;
+  object-fit: fill;
   border-radius: 15px;
   width: 100%;
 }
@@ -2963,7 +2963,7 @@ keep only the individual stat blocks
 .home-service .tpservices2__thumb img{
     
     height: 300px;
-    object-fit: cover;
+    object-fit: fill;
     width: 100%;
 }
 .tpservices2__content p {
@@ -5795,10 +5795,25 @@ h4.tpwork__title.mb-15 {
     flex: 0 0 48px;
     width: 48px;
     height: 48px;
-    background: #1a4685;
+    /*background: #1a4685;*/
     color: #fff;
-    font-size: 16px;
-    border-radius: 50%;
+    /*font-size: 16px;*/
+    /*border-radius: 50%;*/
+}
+
+.equipment-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    color: #1a4685;
+}
+
+.equipment-card__icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .equipment-card h2 {
@@ -6574,7 +6589,4 @@ flex: 1 1 calc(19% - 15px);
         padding-left: 15px;
         margin-left: 10px;
     }
-
-
-    
 }
