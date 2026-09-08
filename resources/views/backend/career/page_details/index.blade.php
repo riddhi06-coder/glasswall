@@ -60,7 +60,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($careers as $key => $career)
+                                        @foreach($careers as $key => $career)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="cd-thumb" src="{{ $career->assetUrl($career->banner_image) }}" alt="banner"></td>
@@ -77,9 +77,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="4" class="text-center text-muted py-4">No career page details added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

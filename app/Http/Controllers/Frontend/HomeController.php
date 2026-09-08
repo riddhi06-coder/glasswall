@@ -27,6 +27,8 @@ use App\Models\Facility;
 use App\Models\AnnualReport;
 use App\Models\InvestorResource;
 use App\Models\GovernanceDocument;
+use App\Models\IpoDocument;
+use App\Models\IpoDrhp;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -229,6 +231,42 @@ class HomeController extends Controller
         $groups     = $docs->filter(fn ($d) => filled($d->group))->groupBy('group');
 
         return view('frontend.corporate_governance', compact('banner', 'standalone', 'groups'));
+    }
+
+    // Investors Relations — IPO page (documents + groups + DRHP disclaimer flow)
+    public function ipo()
+    {
+        $docs   = IpoDocument::where('is_active', true)->orderBy('priority')->orderBy('id')->get();
+        $banner = IpoDocument::orderBy('id')->first();
+        $drhp   = IpoDrhp::first();
+
+        // Standalone documents (no group, and not a group-header row)
+        $standalone = $docs->filter(fn ($d) => blank($d->group) && ! $d->is_group_header)->values();
+
+        // Grouped documents -> group -> subgroup -> docs; plus optional group-header PDF link
+        $grouped = $docs->filter(fn ($d) => filled($d->group) && ! $d->is_group_header)
+            ->groupBy('group')
+            ->map(fn ($items) => $items->groupBy(fn ($d) => $d->subgroup ?: ''));
+
+        $headers = $docs->filter(fn ($d) => $d->is_group_header)->keyBy('group');
+
+        return view('frontend.ipo', compact('banner', 'drhp', 'standalone', 'grouped', 'headers'));
+    }
+
+    // IPO — DRHP disclaimer page 1 ("Continue" -> page 2)
+    public function ipo_disclaimer()
+    {
+        $drhp = IpoDrhp::first();
+
+        return view('frontend.ipo_disclaimer', compact('drhp'));
+    }
+
+    // IPO — DRHP disclaimer page 2 ("I Confirm" -> DRHP.pdf)
+    public function ipo_disclaimer_confirm()
+    {
+        $drhp = IpoDrhp::first();
+
+        return view('frontend.ipo_disclaimer_confirm', compact('drhp'));
     }
 
     // Header search — Project & Product categories and listings (JSON)

@@ -341,35 +341,52 @@
     $(document).ready(function () {
         if ($("#pageWrapper").hasClass("compact-wrapper")) {
             $(".sidebar-wrapper nav").find("a, li").removeClass("active");
-   
-            var current = window.location.href; // Use full URL
-            var isAnyDropdownActive = false;
-   
+
+            // Match on the URL PATH and pick the LONGEST (most specific) matching link,
+            // so e.g. /manage-ipo does not win over /manage-ipo-drhp on a DRHP page.
+            var currentPath = window.location.pathname.replace(/\/+$/, "");
+            var bestLink = null;
+            var bestLen = -1;
+
             $(".sidebar-wrapper nav ul li a").each(function () {
-                var link = $(this).attr("href");
-   
-                if (link && (current.endsWith(link) || current.includes(link))) {
-                    $(this).addClass("active");
-                    $(this).closest("ul").css("display", "block"); // Keep parent menu open
-                    $(this).parents("li").children("a").addClass("active");
-   
-                    // Check if "according-menu" already exists before appending
-                    if ($(this).parents("li").children("a").find(".according-menu").length === 0) {
-                        $(this).parents("li").children("a").append(
-                            '<div class="according-menu"><i class="fa fa-angle-down"></i></div>'
-                        );
+                var href = $(this).attr("href");
+                if (!href || href === "#") return;
+
+                var linkPath;
+                try {
+                    linkPath = new URL(href, window.location.origin).pathname.replace(/\/+$/, "");
+                } catch (e) {
+                    return;
+                }
+                if (!linkPath) return; // skip root / empty
+
+                // current path equals the link, or is a sub-route of it (…/create, …/1/edit)
+                if (currentPath === linkPath || currentPath.indexOf(linkPath + "/") === 0) {
+                    if (linkPath.length > bestLen) {
+                        bestLen = linkPath.length;
+                        bestLink = $(this);
                     }
-   
-                    isAnyDropdownActive = true;
-                    return false; // Stop further iteration once match is found
                 }
             });
-   
-            // Hide all dropdowns if no tab is active
-            if (!isAnyDropdownActive) {
+
+            if (bestLink) {
+                bestLink.addClass("active");
+                bestLink.parents("ul").css("display", "block"); // open every ancestor menu
+                bestLink.parents("li").children("a").each(function () {
+                    $(this).addClass("active");
+                    // flip the accordion arrow to "open" for active ancestors
+                    var arrow = $(this).find(".according-menu");
+                    if (arrow.length === 0) {
+                        $(this).append('<div class="according-menu"><i class="fa fa-angle-down"></i></div>');
+                    } else {
+                        arrow.html('<i class="fa fa-angle-down"></i>');
+                    }
+                });
+            } else {
+                // Hide all dropdowns if no tab is active
                 $(".sidebar-wrapper nav ul").css("display", "none");
             }
         }
-    });    
+    });
    
   })($);

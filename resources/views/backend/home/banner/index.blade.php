@@ -78,7 +78,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($banners as $key => $banner)
+                                        @foreach($banners as $key => $banner)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><div class="banner-heading-cell">{!! $banner->banner_heading !!}</div></td>
@@ -105,9 +105,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="5" class="text-center text-muted py-4">No banners added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

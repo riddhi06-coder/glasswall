@@ -60,7 +60,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($records as $key => $record)
+                                        @foreach($records as $key => $record)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="fac-thumb" src="{{ $record->assetUrl($record->banner_image) }}" alt="banner"></td>
@@ -77,9 +77,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="4" class="text-center text-muted py-4">No details added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

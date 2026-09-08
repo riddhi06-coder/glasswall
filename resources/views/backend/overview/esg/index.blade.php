@@ -61,7 +61,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($esgs as $key => $esg)
+                                        @foreach($esgs as $key => $esg)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="esg-thumb" src="{{ $esg->assetUrl($esg->banner_image) }}" alt="banner"></td>
@@ -79,9 +79,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="5" class="text-center text-muted py-4">No ESG page added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

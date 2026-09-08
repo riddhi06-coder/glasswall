@@ -58,7 +58,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($blogs as $key => $blog)
+                                        @foreach($blogs as $key => $blog)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $blog->section_heading }}</td>
@@ -76,9 +76,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="4" class="text-center text-muted py-4">No blog sections added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

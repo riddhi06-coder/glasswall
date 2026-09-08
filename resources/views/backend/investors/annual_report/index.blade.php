@@ -60,7 +60,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($reports as $key => $report)
+                                        @foreach($reports as $key => $report)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $report->title }}</td>
@@ -89,9 +89,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="6" class="text-center text-muted py-4">No annual reports added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -84,22 +84,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($abouts as $key => $about)
+                                        @foreach($abouts as $key => $about)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><div class="about-desc-cell">{{ strip_tags($about->description) }}</div></td>
                                                 <td>
                                                     <div class="ms-wrap">
-                                                        @forelse($about->milestones as $m)
+                                                        @foreach($about->milestones as $m)
                                                             <span class="ms-chip">
                                                                 @if($m->icon)
                                                                     <img src="{{ asset('home/aboutmilestones/'.$m->icon) }}" alt="">
                                                                 @endif
                                                                 <span><b>{{ $m->count }}</b> — {{ $m->milestone }}</span>
                                                             </span>
-                                                        @empty
-                                                            <span class="text-muted">—</span>
-                                                        @endforelse
+                                                        @endforeach
                                                     </div>
                                                 </td>
                                                 <td>
@@ -115,9 +113,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="4" class="text-center text-muted py-4">No about sections added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

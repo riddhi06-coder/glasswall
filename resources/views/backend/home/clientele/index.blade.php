@@ -67,18 +67,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($clienteles as $key => $c)
+                                        @foreach($clienteles as $key => $c)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $c->clientele_section_heading }}</td>
                                                 <td><div class="cl-desc-cell">{{ strip_tags($c->clientele_section_desc) }}</div></td>
                                                 <td>
                                                     <div class="cl-logos">
-                                                        @forelse($c->images as $img)
+                                                        @foreach($c->images as $img)
                                                             <img src="{{ asset('home/clienteleimages/'.$img->image) }}" alt="client">
-                                                        @empty
-                                                            <span class="text-muted">—</span>
-                                                        @endforelse
+                                                        @endforeach
                                                     </div>
                                                 </td>
                                                 <td>
@@ -94,9 +92,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="5" class="text-center text-muted py-4">No clientele sections added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -32,6 +32,8 @@ use App\Http\Controllers\Backend\FacilityController;
 use App\Http\Controllers\Backend\AnnualReportController;
 use App\Http\Controllers\Backend\InvestorResourceController;
 use App\Http\Controllers\Backend\CorporateGovernanceController;
+use App\Http\Controllers\Backend\IpoController;
+use App\Http\Controllers\Backend\IpoDrhpController;
 
 
 
@@ -128,6 +130,8 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::resource('manage-facility', FacilityController::class);
 
         // Investors Relations
+        Route::resource('manage-ipo', IpoController::class);
+        Route::resource('manage-ipo-drhp', IpoDrhpController::class);
         Route::resource('manage-annual-report', AnnualReportController::class);
         Route::resource('manage-investor-resource', InvestorResourceController::class);
         Route::resource('manage-corporate-governance', CorporateGovernanceController::class);
@@ -137,6 +141,7 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::resource('manage-careers-details', CareersDetailsController::class);
         Route::resource('manage-jobs',JobController::class);
 
+        
         // Contact
         Route::resource('manage-contact-details', ContactDetailsController::class);
   
@@ -167,6 +172,9 @@ use App\Http\Controllers\Frontend\HomeController;
     // Products — defined BEFORE the greedy /{category}/{project} route below so /products/{slug} isn't shadowed.
     Route::get('/products', [HomeController::class, 'products_category_listing'])->name('frontend.products_category_listing');
     Route::get('/products/{category:slug}', [HomeController::class, 'products_category'])->name('frontend.products_category');
+    // IPO/DRHP — defined BEFORE the greedy /{category}/{project} route below so /ipo/disclaimer isn't shadowed.
+    Route::get('/ipo/disclaimer/confirm', [HomeController::class, 'ipo_disclaimer_confirm'])->name('frontend.ipo_disclaimer_confirm');
+    Route::get('/ipo/disclaimer', [HomeController::class, 'ipo_disclaimer'])->name('frontend.ipo_disclaimer');
     Route::get('/{category:slug}/{project:slug}', [HomeController::class, 'projects_details'])->name('frontend.projects_details');
     Route::get('/contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact_us');
     Route::get('/about-us', [HomeController::class, 'about_us'])->name('frontend.about_us');
@@ -182,5 +190,6 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/annual-report', [HomeController::class, 'annual_report'])->name('frontend.annual_report');
     Route::get('/investor-resources', [HomeController::class, 'investor_resources'])->name('frontend.investor_resources');
     Route::get('/corporate-governance', [HomeController::class, 'corporate_governance'])->name('frontend.corporate_governance');
+    Route::get('/ipo', [HomeController::class, 'ipo'])->name('frontend.ipo');
 
     

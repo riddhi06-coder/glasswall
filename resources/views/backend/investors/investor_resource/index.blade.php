@@ -62,7 +62,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($resources as $key => $resource)
+                                        @foreach($resources as $key => $resource)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="iv-thumb" src="{{ $resource->assetUrl($resource->banner_image) }}" alt="banner"></td>
@@ -81,9 +81,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="6" class="text-center text-muted py-4">No investor resource added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

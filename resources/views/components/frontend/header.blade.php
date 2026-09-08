@@ -105,7 +105,7 @@
                       <a href="#">Investors Relations</a>
                       <ul class="sub-menu">
                         <li>
-                          <a href="ipo.html"><span>IPO</span></a>
+                          <a href="{{ route('frontend.ipo') }}"><span>IPO</span></a>
                         </li>
                         <li>
                           <a href="{{ route('frontend.corporate_governance') }}"><span>Corporate Governance</span></a>

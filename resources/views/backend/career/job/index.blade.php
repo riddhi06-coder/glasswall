@@ -60,7 +60,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($jobs as $key => $job)
+                                        @foreach($jobs as $key => $job)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $job->job_role }}</td>
@@ -86,9 +86,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="7" class="text-center text-muted py-4">No jobs added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

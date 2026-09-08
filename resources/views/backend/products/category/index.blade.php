@@ -60,7 +60,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($categories as $key => $category)
+                                        @foreach($categories as $key => $category)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="pc-thumb" src="{{ $category->image_url }}" alt="{{ $category->name }}"></td>
@@ -85,9 +85,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="6" class="text-center text-muted py-4">No categories added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

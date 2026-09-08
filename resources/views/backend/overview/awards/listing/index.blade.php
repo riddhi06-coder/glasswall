@@ -61,7 +61,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($awards as $key => $award)
+                                        @foreach($awards as $key => $award)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td><img class="aw-thumb" src="{{ $award->assetUrl($award->thumbnail_image) }}" alt="{{ $award->title }}"></td>
@@ -81,9 +81,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr><td colspan="7" class="text-center text-muted py-4">No awards added yet.</td></tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
