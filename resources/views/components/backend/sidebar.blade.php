@@ -232,7 +232,7 @@
                 </li>
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-annual-report.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-annual-report.*','manage-investor-resource.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -247,6 +247,7 @@
 
                   <ul class="sidebar-submenu">
                       <li><a href="{{ route('manage-annual-report.index') }}" class="{{ request()->routeIs('manage-annual-report.*') ? 'active' : '' }}">Annual Reports</a></li>
+                      <li><a href="{{ route('manage-investor-resource.index') }}" class="{{ request()->routeIs('manage-investor-resource.*') ? 'active' : '' }}">Investor Resources</a></li>
                   </ul>
                 </li>
 

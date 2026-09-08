@@ -114,7 +114,7 @@
                           <a href="{{ route('frontend.annual_report') }}"><span>Annual Reports</span></a>
                         </li>
                         <li>
-                          <a href="#"><span>Investor Resources</span></a>
+                          <a href="{{ route('frontend.investor_resources') }}"><span>Investor Resources</span></a>
                         </li>
                       </ul>
                     </li>

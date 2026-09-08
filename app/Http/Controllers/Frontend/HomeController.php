@@ -25,6 +25,7 @@ use App\Models\DesignEngineering;
 use App\Models\ProjectManagement;
 use App\Models\Facility;
 use App\Models\AnnualReport;
+use App\Models\InvestorResource;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -207,6 +208,14 @@ class HomeController extends Controller
         $banner  = AnnualReport::orderBy('id')->first(); // banner fields live on the first record
 
         return view('frontend.annual_report', compact('reports', 'banner'));
+    }
+
+    // Investors Relations — Investor Resources page
+    public function investor_resources()
+    {
+        $resource = InvestorResource::first();
+
+        return view('frontend.investor_resources', compact('resource'));
     }
 
     // Header search — Project & Product categories and listings (JSON)
