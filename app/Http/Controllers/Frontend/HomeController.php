@@ -26,6 +26,7 @@ use App\Models\ProjectManagement;
 use App\Models\Facility;
 use App\Models\AnnualReport;
 use App\Models\InvestorResource;
+use App\Models\GovernanceDocument;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -216,6 +217,18 @@ class HomeController extends Controller
         $resource = InvestorResource::first();
 
         return view('frontend.investor_resources', compact('resource'));
+    }
+
+    // Investors Relations — Corporate Governance page
+    public function corporate_governance()
+    {
+        $docs   = GovernanceDocument::where('is_active', true)->orderBy('priority')->orderBy('id')->get();
+        $banner = GovernanceDocument::orderBy('id')->first();
+
+        $standalone = $docs->filter(fn ($d) => blank($d->group))->values();
+        $groups     = $docs->filter(fn ($d) => filled($d->group))->groupBy('group');
+
+        return view('frontend.corporate_governance', compact('banner', 'standalone', 'groups'));
     }
 
     // Header search — Project & Product categories and listings (JSON)

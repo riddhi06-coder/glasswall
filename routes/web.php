@@ -31,6 +31,7 @@ use App\Http\Controllers\Backend\ProjectManagementController;
 use App\Http\Controllers\Backend\FacilityController;
 use App\Http\Controllers\Backend\AnnualReportController;
 use App\Http\Controllers\Backend\InvestorResourceController;
+use App\Http\Controllers\Backend\CorporateGovernanceController;
 
 
 
@@ -129,6 +130,7 @@ use App\Http\Controllers\Frontend\HomeController;
         // Investors Relations
         Route::resource('manage-annual-report', AnnualReportController::class);
         Route::resource('manage-investor-resource', InvestorResourceController::class);
+        Route::resource('manage-corporate-governance', CorporateGovernanceController::class);
 
 
         // Careers
@@ -179,5 +181,6 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/facility', [HomeController::class, 'facility'])->name('frontend.facility');
     Route::get('/annual-report', [HomeController::class, 'annual_report'])->name('frontend.annual_report');
     Route::get('/investor-resources', [HomeController::class, 'investor_resources'])->name('frontend.investor_resources');
+    Route::get('/corporate-governance', [HomeController::class, 'corporate_governance'])->name('frontend.corporate_governance');
 
     

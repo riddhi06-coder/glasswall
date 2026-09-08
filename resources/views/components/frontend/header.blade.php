@@ -108,7 +108,7 @@
                           <a href="ipo.html"><span>IPO</span></a>
                         </li>
                         <li>
-                          <a href="corporate-governance.html"><span>Corporate Governance</span></a>
+                          <a href="{{ route('frontend.corporate_governance') }}"><span>Corporate Governance</span></a>
                         </li>
                         <li>
                           <a href="{{ route('frontend.annual_report') }}"><span>Annual Reports</span></a>

@@ -215,10 +215,10 @@
 
                   <a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-builders') }}"></use>
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-widget') }}"></use>
                     </svg>
                     <svg class="fill-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-builders') }}"></use>
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-widget') }}"></use>
                     </svg>
                     <span>Infrastructure</span>
                   </a>
@@ -232,20 +232,21 @@
                 </li>
 
 
-                <li class="sidebar-list {{ request()->routeIs('manage-annual-report.*','manage-investor-resource.*') ? 'active' : '' }}">
+                <li class="sidebar-list {{ request()->routeIs('manage-annual-report.*','manage-investor-resource.*','manage-corporate-governance.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
                     <svg class="stroke-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-chart') }}"></use>
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
                     </svg>
                     <svg class="fill-icon">
-                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-chart') }}"></use>
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-charts') }}"></use>
                     </svg>
                     <span>Investors Relations</span>
                   </a>
 
                   <ul class="sidebar-submenu">
+                      <li><a href="{{ route('manage-corporate-governance.index') }}" class="{{ request()->routeIs('manage-corporate-governance.*') ? 'active' : '' }}">Corporate Governance</a></li>
                       <li><a href="{{ route('manage-annual-report.index') }}" class="{{ request()->routeIs('manage-annual-report.*') ? 'active' : '' }}">Annual Reports</a></li>
                       <li><a href="{{ route('manage-investor-resource.index') }}" class="{{ request()->routeIs('manage-investor-resource.*') ? 'active' : '' }}">Investor Resources</a></li>
                   </ul>
