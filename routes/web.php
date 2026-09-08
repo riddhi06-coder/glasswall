@@ -29,6 +29,7 @@ use App\Http\Controllers\Backend\JobController;
 use App\Http\Controllers\Backend\DesignEnggController;
 use App\Http\Controllers\Backend\ProjectManagementController;
 use App\Http\Controllers\Backend\FacilityController;
+use App\Http\Controllers\Backend\AnnualReportController;
 
 
 
@@ -124,6 +125,9 @@ use App\Http\Controllers\Frontend\HomeController;
         Route::resource('manage-project-management', ProjectManagementController::class);
         Route::resource('manage-facility', FacilityController::class);
 
+        // Investors Relations
+        Route::resource('manage-annual-report', AnnualReportController::class);
+
 
         // Careers
         Route::resource('manage-careers-details', CareersDetailsController::class);
@@ -171,5 +175,6 @@ use App\Http\Controllers\Frontend\HomeController;
     Route::get('/design-and-engineering', [HomeController::class, 'design_and_engineering'])->name('frontend.design_and_engineering');
     Route::get('/project-management', [HomeController::class, 'project_management'])->name('frontend.project_management');
     Route::get('/facility', [HomeController::class, 'facility'])->name('frontend.facility');
+    Route::get('/annual-report', [HomeController::class, 'annual_report'])->name('frontend.annual_report');
 
     

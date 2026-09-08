@@ -111,7 +111,7 @@
                           <a href="corporate-governance.html"><span>Corporate Governance</span></a>
                         </li>
                         <li>
-                          <a href="annual-report.html"><span>Annual Reports</span></a>
+                          <a href="{{ route('frontend.annual_report') }}"><span>Annual Reports</span></a>
                         </li>
                         <li>
                           <a href="#"><span>Investor Resources</span></a>

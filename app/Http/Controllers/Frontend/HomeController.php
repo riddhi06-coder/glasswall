@@ -24,6 +24,7 @@ use App\Models\CareerJob;
 use App\Models\DesignEngineering;
 use App\Models\ProjectManagement;
 use App\Models\Facility;
+use App\Models\AnnualReport;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -197,6 +198,15 @@ class HomeController extends Controller
         $facility = Facility::with(['features', 'counters', 'galleries', 'strengths'])->first();
 
         return view('frontend.facility', compact('facility'));
+    }
+
+    // Investors Relations — Annual Reports page
+    public function annual_report()
+    {
+        $reports = AnnualReport::where('is_active', true)->orderBy('priority')->orderBy('id')->get();
+        $banner  = AnnualReport::orderBy('id')->first(); // banner fields live on the first record
+
+        return view('frontend.annual_report', compact('reports', 'banner'));
     }
 
     // Header search — Project & Product categories and listings (JSON)

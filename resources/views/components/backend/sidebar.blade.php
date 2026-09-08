@@ -232,6 +232,25 @@
                 </li>
 
 
+                <li class="sidebar-list {{ request()->routeIs('manage-annual-report.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+
+                  <a class="sidebar-link sidebar-title" href="#">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-chart') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-chart') }}"></use>
+                    </svg>
+                    <span>Investors Relations</span>
+                  </a>
+
+                  <ul class="sidebar-submenu">
+                      <li><a href="{{ route('manage-annual-report.index') }}" class="{{ request()->routeIs('manage-annual-report.*') ? 'active' : '' }}">Annual Reports</a></li>
+                  </ul>
+                </li>
+
+
 
                 <li class="sidebar-list {{ request()->routeIs('manage-careers-details.*','manage-jobs.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
