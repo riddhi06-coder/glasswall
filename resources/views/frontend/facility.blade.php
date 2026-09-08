@@ -114,13 +114,19 @@
                         <div class="tp-testi-card-right">
                             <div class="tp-fact-grid">
 
+                                @php
+                                    $factIcons = [
+                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M3 9h18M9 3v18"></path></svg>',
+                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V4h16v16"></path><path d="M8 20V8h8v12"></path><path d="M12 8v12"></path></svg>',
+                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>',
+                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M3 20c0-4 2.5-6 6-6s6 2 6 6"></path><path d="M14 14c3.5-.5 6 1.5 6 5"></path></svg>',
+                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M7 9h10M7 13h6"></path></svg>',
+                                    ];
+                                @endphp
                                 @foreach(optional($facility)->counters ?? [] as $counter)
                                     <div class="tpfact">
                                         <div class="tpfact__icon">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                                <path d="M3 9h18M9 3v18"></path>
-                                            </svg>
+                                            {!! $factIcons[$loop->index % count($factIcons)] !!}
                                         </div>
                                         <h3 class="tpfact__title">
                                             <span class="odometer" data-count="{{ (int) preg_replace('/[^0-9]/', '', $counter->count) }}">0</span>@if($counter->suffix)<span class="{{ trim($counter->suffix) === '+' ? 'tpfact__plus' : 'tpfact__text' }}">{{ $counter->suffix }}</span>@endif

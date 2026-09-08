@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(php -r ' *)",
-      "Bash(php verify_update.php)"
+      "Bash(php verify_update.php)",
+      "Bash(ls -la c:/xampp/htdocs/glasswall/*.html 2>/dev/null | head -50; echo \"---PROJECTS---\"; ls c:/xampp/htdocs/glasswall/ 2>/dev/null | head -80)",
+      "Read(//c/xampp/htdocs/glasswall/**)",
+      "Bash(python -c ' *)"
     ]
   }
 }

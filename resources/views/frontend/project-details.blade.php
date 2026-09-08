@@ -113,7 +113,8 @@
                               'Architect'    => optional($detail)->architect,
                               'Consultant'   => optional($detail)->consultant,
                               'Project Type' => $category->name,
-                              'Façade Area'  => optional($detail)->project_area,
+                              'Project Area' => optional($detail)->project_area,
+                              'Floors'       => optional($detail)->floors,
                               'Year'         => optional($detail)->year,
                           ];
                         @endphp

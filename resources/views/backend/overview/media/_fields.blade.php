@@ -41,3 +41,69 @@
     <video id="video_preview" src="{{ $m ? $m->assetUrl($m->video) : '' }}" style="max-height:160px; {{ optional($m)->video ? '' : 'display:none;' }} border:1px solid #ddd; border-radius:6px;" controls></video>
   </div>
 </div>
+
+{{-- ============ CORPORATE FILM SECTION ============ --}}
+<div class="col-12"><h5 class="media-sec-title">Corporate Film Section</h5></div>
+
+<div class="col-md-4">
+  <label class="form-label" for="section_subtitle">Section Eyebrow</label>
+  <input class="form-control" id="section_subtitle" type="text" name="section_subtitle" value="{{ old('section_subtitle', optional($m)->section_subtitle) }}" placeholder="e.g. Our Products">
+</div>
+<div class="col-md-8">
+  <label class="form-label" for="section_heading">Section Heading</label>
+  <input class="form-control" id="section_heading" type="text" name="section_heading" value="{{ old('section_heading', optional($m)->section_heading) }}" placeholder="e.g. Vision, Engineered: GWS Corporate Film">
+</div>
+<div class="col-12">
+  <label class="form-label" for="section_intro">Section Intro</label>
+  <textarea class="form-control" id="section_intro" name="section_intro" rows="3" placeholder="Short paragraph shown under the heading">{{ old('section_intro', optional($m)->section_intro) }}</textarea>
+</div>
+
+{{-- ============ DOCUMENTS (PDF cards) ============ --}}
+<div class="col-12">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h5 class="media-sec-title mb-0">Documents (PDF cards)</h5>
+    <button type="button" class="btn btn-sm btn-primary" id="doc-add-more" data-next-index="{{ $m ? $m->documents->count() : 0 }}">+ Add More</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle" id="docTable">
+      <thead>
+        <tr>
+          <th>Title / Caption</th>
+          <th style="width:28%;">PDF</th>
+          <th style="width:80px;" class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody id="docBody">
+        @php $docs = $m ? $m->documents : collect(); @endphp
+        @foreach($docs as $i => $doc)
+          <tr>
+            <td>
+              <input type="hidden" name="doc_id[{{ $i }}]" value="{{ $doc->id }}">
+              <textarea class="form-control" name="doc_title[{{ $i }}]" rows="2" placeholder="Document title / caption">{{ $doc->title }}</textarea>
+            </td>
+            <td>
+              <input class="form-control" type="file" name="doc_pdf[{{ $i }}]" accept=".pdf">
+              @if($doc->pdf)<small class="d-block mt-1"><a href="{{ $doc->pdf_url }}" target="_blank">View current</a> · leave empty to keep</small>@endif
+            </td>
+            <td class="text-center"><button type="button" class="btn btn-sm btn-danger doc-remove">&times;</button></td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  <small class="text-secondary d-block">Each row renders as a PDF card under the video. Max 20 MB per PDF.</small>
+</div>
+
+{{-- Template for a new document row (cloned by JS) --}}
+<template id="doc-row-template">
+  <tr>
+    <td>
+      <input type="hidden" name="doc_id[__IDX__]" value="">
+      <textarea class="form-control" name="doc_title[__IDX__]" rows="2" placeholder="e.g. Construction Week, October 2025 — Transforming Skylines…"></textarea>
+    </td>
+    <td>
+      <input class="form-control" type="file" name="doc_pdf[__IDX__]" accept=".pdf">
+    </td>
+    <td class="text-center"><button type="button" class="btn btn-sm btn-danger doc-remove">&times;</button></td>
+  </tr>
+</template>

@@ -42,6 +42,11 @@
                             <div class="col-xl-12 col-md-12 tp_fade_anim" data-delay=".5">
                                 <div class="document-grid">
 
+                                    @php
+                                        $audioSvg = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a7 7 0 0 1 0 14.14"></path></svg>';
+                                        $isAudio = fn ($d) => \Illuminate\Support\Str::endsWith(strtolower((string) ($d->pdf ?: $d->external_url ?: '')), ['.mp4', '.webm', '.ogg', '.mov', '.mp3']);
+                                    @endphp
+
                                     {{-- DRHP -> disclaimer flow --}}
                                     @if($drhp)
                                         <a href="{{ route('frontend.ipo_disclaimer') }}" class="document-box">
@@ -84,9 +89,13 @@
                                                     @endif
                                                     <div class="document-subgrid">
                                                         @foreach($subDocs as $doc)
-                                                            <a href="{{ $doc->link_url }}" target="_blank" rel="noopener" class="document-subbox">
+                                                            <a href="{{ $doc->link_url }}" target="_blank" rel="noopener" class="document-subbox {{ $isAudio($doc) ? 'is-audio' : '' }}">
                                                                 <span>{{ $doc->title }}</span>
-                                                                <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                                                                @if($isAudio($doc))
+                                                                    {!! $audioSvg !!}
+                                                                @else
+                                                                    <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                                                                @endif
                                                             </a>
                                                         @endforeach
                                                     </div>

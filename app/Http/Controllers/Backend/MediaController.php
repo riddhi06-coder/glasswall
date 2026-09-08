@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Media;
+use App\Models\MediaDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,8 +41,11 @@ class MediaController extends Controller
             unset($data['banner_image'], $data['banner_heading']);
         }
 
+        unset($data['doc_title'], $data['doc_pdf']);
         $data['created_by'] = Auth::id();
-        Media::create($data);
+        $media = Media::create($data);
+
+        $this->syncDocuments($request, $media);
 
         return redirect()->route('manage-media.index')->with('message', 'Media added successfully.');
     }
@@ -77,8 +81,11 @@ class MediaController extends Controller
             unset($data['banner_image'], $data['banner_heading']);
         }
 
+        unset($data['doc_title'], $data['doc_pdf']);
         $data['updated_by'] = Auth::id();
         $media->update($data);
+
+        $this->syncDocuments($request, $media);
 
         return redirect()->route('manage-media.index')->with('message', 'Media updated successfully.');
     }
@@ -86,6 +93,10 @@ class MediaController extends Controller
     public function destroy($id)
     {
         $media = Media::findOrFail($id);
+        foreach ($media->documents as $doc) {
+            $this->deleteUpload($doc->pdf);
+            $doc->delete();
+        }
         $this->deleteUpload($media->video);
         $this->deleteUpload($media->banner_image);
         $media->delete();
@@ -96,12 +107,66 @@ class MediaController extends Controller
     // ------------------------------------------------------------------
     // Helpers
     // ------------------------------------------------------------------
+
+    /** Create/update the repeatable Media document (PDF) rows; delete rows removed from the form. */
+    private function syncDocuments(Request $request, Media $media): void
+    {
+        $ids    = $request->input('doc_id', []);
+        $titles = $request->input('doc_title', []);
+        $files  = $request->file('doc_pdf', []);
+
+        // Delete existing documents whose row was removed from the form (id not submitted).
+        $keepIds = array_filter(array_map('intval', $ids));
+        foreach (MediaDocument::where('media_id', $media->id)->get() as $existing) {
+            if (! in_array($existing->id, $keepIds, true)) {
+                $this->deleteUpload($existing->pdf);
+                $existing->delete();
+            }
+        }
+
+        // Create / update submitted rows.
+        foreach ($titles as $i => $title) {
+            $title = trim((string) $title);
+            $id    = $ids[$i] ?? null;
+            $file  = $files[$i] ?? null;
+
+            if ($id) {
+                $doc = MediaDocument::find($id);
+                if (! $doc) {
+                    continue;
+                }
+                if ($title !== '') {
+                    $doc->title = $title;
+                }
+                $doc->priority = $i;
+                if ($file) {
+                    $this->deleteUpload($doc->pdf);
+                    $doc->pdf = $this->storeUpload($file);
+                }
+                $doc->save();
+            } elseif ($title !== '' || $file) {
+                MediaDocument::create([
+                    'media_id' => $media->id,
+                    'title'    => $title,
+                    'pdf'      => $file ? $this->storeUpload($file) : null,
+                    'priority' => $i,
+                ]);
+            }
+        }
+    }
+
     private function rules(bool $isFirst, ?int $ignoreId = null): array
     {
         $req = $ignoreId ? 'nullable' : 'required';
 
         $rules = [
-            'video' => "{$req}|file|mimes:mp4,webm,ogg,mov|max:30720",
+            'video'            => "{$req}|file|mimes:mp4,webm,ogg,mov|max:30720",
+            'section_subtitle' => 'nullable|string|max:255',
+            'section_heading'  => 'nullable|string|max:255',
+            'section_intro'    => 'nullable|string|max:2000',
+            'doc_title'        => 'nullable|array',
+            'doc_title.*'      => 'nullable|string|max:500',
+            'doc_pdf.*'        => 'nullable|file|mimes:pdf|max:20480',
         ];
 
         if ($isFirst) {

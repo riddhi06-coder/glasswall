@@ -25,4 +25,28 @@
         preview.style.display = 'block';
         preview.load();
     }
+
+    // ---- Media documents: Add More / Remove ----
+    (function () {
+        var addBtn = document.getElementById('doc-add-more');
+        var body   = document.getElementById('docBody');
+        var tpl    = document.getElementById('doc-row-template');
+        if (!addBtn || !body || !tpl) return;
+
+        addBtn.addEventListener('click', function () {
+            var idx = parseInt(addBtn.getAttribute('data-next-index'), 10) || 0;
+            var tmp = document.createElement('template');
+            tmp.innerHTML = tpl.innerHTML.replace(/__IDX__/g, idx).trim();
+            body.appendChild(tmp.content.firstElementChild);
+            addBtn.setAttribute('data-next-index', idx + 1);
+        });
+
+        // Remove any row (existing or newly added)
+        body.addEventListener('click', function (e) {
+            if (e.target && e.target.classList.contains('doc-remove')) {
+                var row = e.target.closest('tr');
+                if (row) row.remove();
+            }
+        });
+    })();
 </script>
