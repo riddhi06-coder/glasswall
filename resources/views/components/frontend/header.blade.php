@@ -78,7 +78,7 @@
                       </ul>
                     </li>
                     <li>
-                      <a href="#">Projects</a>
+                      <a href="{{ route('frontend.projects_category_listing') }}">Projects</a>
                       <ul class="sub-menu">
                         @foreach(($navCategories ?? []) as $navCategory)
                           <li>

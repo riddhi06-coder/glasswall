@@ -179,6 +179,7 @@ use App\Http\Controllers\Frontend\FormController;
 
     Route::get('/', [HomeController::class, 'index'])->name('frontend.index');
     Route::get('/search', [HomeController::class, 'search'])->name('frontend.search');
+    Route::get('/projects', [HomeController::class, 'projects_category_listing'])->name('frontend.projects_category_listing');
     Route::get('/projects/{category:slug}', [HomeController::class, 'projects'])->name('frontend.projects');
     // Products — defined BEFORE the greedy /{category}/{project} route below so /products/{slug} isn't shadowed.
     Route::get('/products', [HomeController::class, 'products_category_listing'])->name('frontend.products_category_listing');

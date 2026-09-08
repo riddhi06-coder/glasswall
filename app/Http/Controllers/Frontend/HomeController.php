@@ -68,6 +68,14 @@ class HomeController extends Controller
         return view('frontend.index', compact('banners', 'about', 'clientele', 'blog', 'categories', 'productCategories', 'homeProjects'));
     }
 
+    // Projects landing — lists all project categories (like the products landing)
+    public function projects_category_listing()
+    {
+        $categories = ProjectCategory::orderBy('priority')->orderBy('name')->get();
+
+        return view('frontend.projects_listing', compact('categories'));
+    }
+
     // Projects listing by category (slug-bound)
     public function projects(ProjectCategory $category)
     {
