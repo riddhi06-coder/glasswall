@@ -20,6 +20,7 @@ class IpoDocument extends Model
         'subgroup',
         'is_group_header',
         'pdf',
+        'external_url',
         'is_active',
         'priority',
         'created_by',
@@ -42,5 +43,11 @@ class IpoDocument extends Model
     public function getPdfUrlAttribute(): ?string
     {
         return $this->pdf ? asset('ipo-docs/'.$this->pdf) : null;
+    }
+
+    /** Resolved link for the document: an external URL takes precedence over the stored file. */
+    public function getLinkUrlAttribute(): ?string
+    {
+        return $this->external_url ?: $this->pdf_url;
     }
 }

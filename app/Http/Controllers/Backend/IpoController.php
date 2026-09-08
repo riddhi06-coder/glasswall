@@ -23,7 +23,10 @@ class IpoController extends Controller
     {
         $isFirst = IpoDocument::count() === 0;
 
-        return view('backend.investors.ipo.create', compact('isFirst'));
+        return view('backend.investors.ipo.create', array_merge(
+            compact('isFirst'),
+            $this->classificationOptions()
+        ));
     }
 
     public function store(Request $request)
@@ -32,7 +35,7 @@ class IpoController extends Controller
 
         $data = $request->validate($this->rules($isFirst), $this->messages());
 
-        $data['pdf'] = $this->storeUpload($request->file('pdf'));
+        $data['pdf'] = $request->hasFile('pdf') ? $this->storeUpload($request->file('pdf')) : null;
 
         if ($isFirst) {
             $data['banner_image'] = $this->storeUpload($request->file('banner_image'));
@@ -52,7 +55,10 @@ class IpoController extends Controller
         $report  = IpoDocument::findOrFail($id);
         $isFirst = $report->id === IpoDocument::orderBy('id')->value('id');
 
-        return view('backend.investors.ipo.edit', compact('report', 'isFirst'));
+        return view('backend.investors.ipo.edit', array_merge(
+            compact('report', 'isFirst'),
+            $this->classificationOptions()
+        ));
     }
 
     public function update(Request $request, $id)
@@ -100,14 +106,17 @@ class IpoController extends Controller
     // ------------------------------------------------------------------
     private function rules(bool $isFirst, ?int $ignoreId = null): array
     {
-        $req = $ignoreId ? 'nullable' : 'required';
+        // On create a source is required — either an uploaded file OR an external URL.
+        $pdfRule = $ignoreId ? 'nullable' : 'required_without:external_url';
 
         $rules = [
-            'title'     => 'required|string|max:255',
-            'group'     => 'nullable|string|max:255',
-            'pdf'       => "{$req}|file|mimes:pdf,mp4,webm|max:20480",
-            'is_active' => 'required|in:0,1',
-            'priority'  => 'nullable|integer|min:0',
+            'title'        => 'required|string|max:255',
+            'group'        => 'nullable|string|max:255',
+            'subgroup'     => 'nullable|string|max:255',
+            'pdf'          => "{$pdfRule}|file|mimes:pdf,mp4,webm|max:20480",
+            'external_url' => 'nullable|url|max:2048',
+            'is_active'    => 'required|in:0,1',
+            'priority'     => 'nullable|integer|min:0',
         ];
 
         if ($isFirst) {
@@ -122,12 +131,22 @@ class IpoController extends Controller
     {
         return [
             'title.required'          => 'The report title is required.',
-            'pdf.required'            => 'The PDF file is required.',
+            'pdf.required_without'    => 'Provide a PDF/MP4 file or an External URL.',
             'pdf.mimes'               => 'The file must be a PDF or MP4.',
-            'pdf.max'                 => 'The PDF may not be larger than 20 MB.',
+            'pdf.max'                 => 'The file may not be larger than 20 MB.',
+            'external_url.url'        => 'The external URL must be a valid link (https://…).',
             'banner_heading.required' => 'The banner heading is required.',
             'banner_image.required'   => 'The banner image is required.',
             'banner_image.max'        => 'Banner image may not be larger than 2 MB.',
+        ];
+    }
+
+    /** Distinct existing group / subgroup values for the form datalists. */
+    private function classificationOptions(): array
+    {
+        return [
+            'groupOptions'    => IpoDocument::whereNotNull('group')->distinct()->orderBy('group')->pluck('group'),
+            'subgroupOptions' => IpoDocument::whereNotNull('subgroup')->distinct()->orderBy('subgroup')->pluck('subgroup'),
         ];
     }
 

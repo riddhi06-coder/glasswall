@@ -54,7 +54,7 @@
 
                                     {{-- Standalone documents --}}
                                     @foreach($standalone as $doc)
-                                        <a href="{{ $doc->pdf_url }}" class="document-box" target="_blank" rel="noopener">
+                                        <a href="{{ $doc->link_url }}" class="document-box" target="_blank" rel="noopener">
                                             <span class="document-title">{{ $doc->title }}</span>
                                             <span class="document-icon">
                                                 <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
@@ -84,7 +84,7 @@
                                                     @endif
                                                     <div class="document-subgrid">
                                                         @foreach($subDocs as $doc)
-                                                            <a href="{{ $doc->pdf_url }}" target="_blank" rel="noopener" class="document-subbox">
+                                                            <a href="{{ $doc->link_url }}" target="_blank" rel="noopener" class="document-subbox">
                                                                 <span>{{ $doc->title }}</span>
                                                                 <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
                                                             </a>

@@ -69,20 +69,37 @@
                   <!-- Group -->
                   <div class="col-md-6">
                     <label class="form-label" for="group">Group</label>
-                    <input class="form-control @error('group') is-invalid @enderror" id="group" type="text" name="group" value="{{ old('group', $report->group) }}" placeholder="e.g. Policies" list="cg-groups">
-                    <datalist id="cg-groups"><option value="Policies"></datalist>
+                    <input class="form-control @error('group') is-invalid @enderror" id="group" type="text" name="group" value="{{ old('group', $report->group) }}" placeholder="e.g. Industry Report" list="ipo-groups">
+                    <datalist id="ipo-groups">@foreach($groupOptions as $g)<option value="{{ $g }}">@endforeach</datalist>
                     @error('group')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-                    <small class="text-secondary d-block mt-1">Leave empty for a standalone document; documents with the same group are shown together (e.g. "Policies").</small>
+                    <small class="text-secondary d-block mt-1">Leave empty for a standalone document; documents with the same group are shown together.</small>
+                  </div>
+
+                  <!-- Sub-category -->
+                  <div class="col-md-6">
+                    <label class="form-label" for="subgroup">Sub-category</label>
+                    <input class="form-control @error('subgroup') is-invalid @enderror" id="subgroup" type="text" name="subgroup" value="{{ old('subgroup', $report->subgroup) }}" placeholder="e.g. Audio Visuals" list="ipo-subgroups">
+                    <datalist id="ipo-subgroups">@foreach($subgroupOptions as $sg)<option value="{{ $sg }}">@endforeach</datalist>
+                    @error('subgroup')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                    <small class="text-secondary d-block mt-1">Optional heading within a group (e.g. "Audio Visuals" under Industry Report). Requires a Group.</small>
                   </div>
 
                   <!-- PDF -->
                   <div class="col-md-6">
-                    <label class="form-label" for="pdf">PDF File <span class="text-danger">*</span></label>
+                    <label class="form-label" for="pdf">PDF / Video File</label>
                     <input class="form-control @error('pdf') is-invalid @enderror" id="pdf" type="file" name="pdf" accept=".pdf,.mp4,.webm">
                     @error('pdf')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-                    <small class="text-secondary d-block mt-1"><b>Allowed:</b> pdf, mp4 &nbsp;|&nbsp; <b>Max:</b> 20 MB &nbsp;|&nbsp;
-                      @if($report->pdf)<a href="{{ $report->pdf_url }}" target="_blank">View current PDF</a> · Leave empty to keep current.@endif
+                    <small class="text-secondary d-block mt-1"><b>Allowed:</b> pdf, mp4, webm &nbsp;|&nbsp; <b>Max:</b> 20 MB &nbsp;|&nbsp;
+                      @if($report->pdf)<a href="{{ $report->pdf_url }}" target="_blank">View current file</a> · Leave empty to keep current.@else Provide a file or an External URL.@endif
                     </small>
+                  </div>
+
+                  <!-- External URL -->
+                  <div class="col-md-6">
+                    <label class="form-label" for="external_url">External URL</label>
+                    <input class="form-control @error('external_url') is-invalid @enderror" id="external_url" type="url" name="external_url" value="{{ old('external_url', $report->external_url) }}" placeholder="https://youtu.be/…">
+                    @error('external_url')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                    <small class="text-secondary d-block mt-1">Use for large videos or files hosted elsewhere (YouTube, Vimeo, CDN). Takes precedence over the uploaded file.</small>
                   </div>
 
                   <!-- Status -->
