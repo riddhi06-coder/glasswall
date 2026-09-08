@@ -317,6 +317,21 @@
                 </li>
 
 
+                {{-- Legal Pages (Privacy Policy / Terms & Conditions) --}}
+                <li class="sidebar-list {{ request()->routeIs('manage-legal-pages.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+                  <a class="sidebar-link" href="{{ route('manage-legal-pages.index') }}">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
+                    </svg>
+                    <span>Legal Pages</span>
+                  </a>
+                </li>
+
+
 
 
 

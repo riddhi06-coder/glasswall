@@ -29,6 +29,7 @@ use App\Models\InvestorResource;
 use App\Models\GovernanceDocument;
 use App\Models\IpoDocument;
 use App\Models\IpoDrhp;
+use App\Models\LegalPage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -256,6 +257,14 @@ class HomeController extends Controller
         $headers = $docs->filter(fn ($d) => $d->is_group_header)->keyBy('group');
 
         return view('frontend.ipo', compact('banner', 'drhp', 'standalone', 'grouped', 'headers'));
+    }
+
+    // Legal pages (Privacy Policy / Terms & Conditions) — slug-driven singleton content
+    public function legal_page(string $slug)
+    {
+        $page = LegalPage::where('slug', $slug)->firstOrFail();
+
+        return view('frontend.legal_page', compact('page'));
     }
 
     // IPO — DRHP disclaimer page 1 ("Continue" -> page 2)

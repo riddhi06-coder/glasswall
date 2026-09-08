@@ -161,12 +161,12 @@
 
                     <div class="col-md-6 text-md-end">
                         <div class="tp-footer-links">
-                            <a href="#"
+                            <a href="{{ route('frontend.privacy_policy') }}"
                                 class=" me-3">
                                 Privacy Policy
                             </a>
 
-                            <a href="#" class="">
+                            <a href="{{ route('frontend.terms_conditions') }}" class="">
                                 Terms &amp; Conditions
                             </a>
                         </div>

@@ -36,6 +36,7 @@ use App\Http\Controllers\Backend\IpoController;
 use App\Http\Controllers\Backend\IpoDrhpController;
 use App\Http\Controllers\Backend\ContactSubmissionController;
 use App\Http\Controllers\Backend\CareerApplicationController;
+use App\Http\Controllers\Backend\LegalPageController;
 
 
 
@@ -151,6 +152,9 @@ use App\Http\Controllers\Frontend\FormController;
         // Enquiries (form submissions stored in DB)
         Route::resource('manage-contact-enquiries', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
         Route::resource('manage-career-applications', CareerApplicationController::class)->only(['index', 'show', 'destroy']);
+
+        // Legal pages (Privacy Policy / Terms & Conditions)
+        Route::resource('manage-legal-pages', LegalPageController::class)->only(['index', 'edit', 'update']);
   
         // Overview Pages
         Route::resource('manage-about-us', AboutUsController::class);
@@ -182,6 +186,9 @@ use App\Http\Controllers\Frontend\FormController;
     // IPO/DRHP — defined BEFORE the greedy /{category}/{project} route below so /ipo/disclaimer isn't shadowed.
     Route::get('/ipo/disclaimer/confirm', [HomeController::class, 'ipo_disclaimer_confirm'])->name('frontend.ipo_disclaimer_confirm');
     Route::get('/ipo/disclaimer', [HomeController::class, 'ipo_disclaimer'])->name('frontend.ipo_disclaimer');
+    // Legal pages — literal routes BEFORE the greedy /{category}/{project} route below.
+    Route::get('/privacy-policy', [HomeController::class, 'legal_page'])->defaults('slug', 'privacy-policy')->name('frontend.privacy_policy');
+    Route::get('/terms-conditions', [HomeController::class, 'legal_page'])->defaults('slug', 'terms-conditions')->name('frontend.terms_conditions');
     Route::get('/{category:slug}/{project:slug}', [HomeController::class, 'projects_details'])->name('frontend.projects_details');
     Route::get('/contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact_us');
     Route::post('/contact-us', [FormController::class, 'contact'])->name('frontend.contact.submit');
