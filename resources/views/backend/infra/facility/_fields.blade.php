@@ -155,3 +155,84 @@
     </table>
   </div>
 </div>
+
+{{-- ============ FAÇADE TESTING FACILITY ============ --}}
+<div class="col-12"><div class="fac-sec-title">Façade Testing Facility</div></div>
+
+{{-- Block 1 --}}
+<div class="col-12"><small class="text-secondary fw-bold">Block 1 — Intro (heading + text + 2 images)</small></div>
+<div class="col-md-12">
+  <label class="form-label" for="testing_heading">Heading</label>
+  <input class="form-control" id="testing_heading" type="text" name="testing_heading" value="{{ old('testing_heading', $r->testing_heading ?? '') }}" placeholder="e.g. In-House Façade Testing Facility">
+</div>
+<div class="col-12">
+  <label class="form-label" for="testing_content">Content</label>
+  <textarea class="form-control editor" id="testing_content" name="testing_content" rows="4">{{ old('testing_content', $r->testing_content ?? '') }}</textarea>
+</div>
+<div class="col-md-6">
+  <label class="form-label" for="testing_image1">Image 1</label>
+  <input class="form-control" id="testing_image1" type="file" name="testing_image1" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'testing_image1_preview')">
+  <div class="mt-2"><img id="testing_image1_preview" src="{{ $r ? $r->assetUrl($r->testing_image1) : '' }}" style="max-height:100px; {{ $r && $r->testing_image1 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+</div>
+<div class="col-md-6">
+  <label class="form-label" for="testing_image2">Image 2</label>
+  <input class="form-control" id="testing_image2" type="file" name="testing_image2" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'testing_image2_preview')">
+  <div class="mt-2"><img id="testing_image2_preview" src="{{ $r ? $r->assetUrl($r->testing_image2) : '' }}" style="max-height:100px; {{ $r && $r->testing_image2 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+</div>
+
+{{-- Block 2 --}}
+<div class="col-12"><small class="text-secondary fw-bold">Block 2 — Calibration (2 images + text)</small></div>
+<div class="col-12">
+  <label class="form-label" for="testing2_content">Content</label>
+  <textarea class="form-control editor" id="testing2_content" name="testing2_content" rows="3">{{ old('testing2_content', $r->testing2_content ?? '') }}</textarea>
+</div>
+<div class="col-md-6">
+  <label class="form-label" for="testing2_image1">Image 1 (large)</label>
+  <input class="form-control" id="testing2_image1" type="file" name="testing2_image1" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'testing2_image1_preview')">
+  <div class="mt-2"><img id="testing2_image1_preview" src="{{ $r ? $r->assetUrl($r->testing2_image1) : '' }}" style="max-height:100px; {{ $r && $r->testing2_image1 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+</div>
+<div class="col-md-6">
+  <label class="form-label" for="testing2_image2">Image 2</label>
+  <input class="form-control" id="testing2_image2" type="file" name="testing2_image2" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'testing2_image2_preview')">
+  <div class="mt-2"><img id="testing2_image2_preview" src="{{ $r ? $r->assetUrl($r->testing2_image2) : '' }}" style="max-height:100px; {{ $r && $r->testing2_image2 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+</div>
+
+{{-- Block 3 --}}
+<div class="col-12"><small class="text-secondary fw-bold">Block 3 — Certification (heading + certificate image)</small></div>
+<div class="col-md-8">
+  <label class="form-label" for="nabl_heading">Heading</label>
+  <textarea class="form-control" id="nabl_heading" name="nabl_heading" rows="2" placeholder="e.g. …is NABL Certified.">{{ old('nabl_heading', $r->nabl_heading ?? '') }}</textarea>
+</div>
+<div class="col-md-4">
+  <label class="form-label" for="nabl_image">Certificate Image</label>
+  <input class="form-control" id="nabl_image" type="file" name="nabl_image" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'nabl_image_preview')">
+  <div class="mt-2"><img id="nabl_image_preview" src="{{ $r ? $r->assetUrl($r->nabl_image) : '' }}" style="max-height:100px; {{ $r && $r->nabl_image ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+</div>
+
+{{-- Block 4 --}}
+<div class="col-12"><small class="text-secondary fw-bold">Block 4 — Precision Engineering (heading + text)</small></div>
+<div class="col-md-12">
+  <label class="form-label" for="precision_heading">Heading</label>
+  <input class="form-control" id="precision_heading" type="text" name="precision_heading" value="{{ old('precision_heading', $r->precision_heading ?? '') }}" placeholder="e.g. Precision Engineering and Advanced Instrumentation">
+</div>
+<div class="col-12">
+  <label class="form-label" for="precision_content">Content</label>
+  <textarea class="form-control editor" id="precision_content" name="precision_content" rows="4">{{ old('precision_content', $r->precision_content ?? '') }}</textarea>
+</div>
+
+{{-- Block 5 --}}
+<div class="col-12"><small class="text-secondary fw-bold">Block 5 — Project Mock-ups (caption + 2 images)</small></div>
+<div class="col-12">
+  <label class="form-label" for="mockup_caption">Caption</label>
+  <input class="form-control" id="mockup_caption" type="text" name="mockup_caption" value="{{ old('mockup_caption', $r->mockup_caption ?? '') }}" placeholder="e.g. Some of our project testing mock-ups are as shown below:">
+</div>
+<div class="col-md-6">
+  <label class="form-label" for="mockup_image1">Image 1</label>
+  <input class="form-control" id="mockup_image1" type="file" name="mockup_image1" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'mockup_image1_preview')">
+  <div class="mt-2"><img id="mockup_image1_preview" src="{{ $r ? $r->assetUrl($r->mockup_image1) : '' }}" style="max-height:100px; {{ $r && $r->mockup_image1 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+</div>
+<div class="col-md-6">
+  <label class="form-label" for="mockup_image2">Image 2 (wide)</label>
+  <input class="form-control" id="mockup_image2" type="file" name="mockup_image2" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'mockup_image2_preview')">
+  <div class="mt-2"><img id="mockup_image2_preview" src="{{ $r ? $r->assetUrl($r->mockup_image2) : '' }}" style="max-height:100px; {{ $r && $r->mockup_image2 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+</div>

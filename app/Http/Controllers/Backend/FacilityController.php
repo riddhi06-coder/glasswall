@@ -48,6 +48,7 @@ class FacilityController extends Controller
             'created_by'          => Auth::id(),
         ]);
 
+        $this->applyTestingSection($facility, $request, $data);
         $this->syncFeatures($facility, $request);
         $this->syncCounters($facility, $request);
         $this->syncGalleries($facility, $request);
@@ -86,6 +87,7 @@ class FacilityController extends Controller
         $facility->updated_by          = Auth::id();
         $facility->save();
 
+        $this->applyTestingSection($facility, $request, $data);
         $this->syncFeatures($facility, $request);
         $this->syncCounters($facility, $request);
         $this->syncGalleries($facility, $request);
@@ -99,6 +101,9 @@ class FacilityController extends Controller
         $facility = Facility::with(['features', 'galleries'])->findOrFail($id);
         $this->deleteUpload($facility->banner_image);
         $this->deleteUpload($facility->counter_image);
+        foreach (['testing_image1', 'testing_image2', 'testing2_image1', 'testing2_image2', 'nabl_image', 'mockup_image1', 'mockup_image2'] as $img) {
+            $this->deleteUpload($facility->$img);
+        }
         foreach ($facility->features as $f) { $this->deleteUpload($f->image); }
         foreach ($facility->galleries as $g) { $this->deleteUpload($g->image); }
         $facility->features()->delete();
@@ -108,6 +113,25 @@ class FacilityController extends Controller
         $facility->delete();
 
         return redirect()->route('manage-facility.index')->with('message', 'Facility details deleted successfully.');
+    }
+
+    // ------------------------------------------------------------------
+    // Façade Testing Facility section (text + 7 images on the parent record)
+    // ------------------------------------------------------------------
+    private function applyTestingSection(Facility $facility, Request $request, array $data): void
+    {
+        foreach (['testing_heading', 'testing_content', 'testing2_content', 'nabl_heading', 'precision_heading', 'precision_content', 'mockup_caption'] as $field) {
+            $facility->$field = $data[$field] ?? null;
+        }
+
+        foreach (['testing_image1', 'testing_image2', 'testing2_image1', 'testing2_image2', 'nabl_image', 'mockup_image1', 'mockup_image2'] as $img) {
+            if ($request->hasFile($img)) {
+                $this->deleteUpload($facility->$img);
+                $facility->$img = $this->storeUpload($request->file($img));
+            }
+        }
+
+        $facility->save();
     }
 
     // ------------------------------------------------------------------
@@ -198,6 +222,22 @@ class FacilityController extends Controller
             'counter_image'          => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'process_heading'        => 'required|string|max:255',
             'process_description'    => 'required|string',
+
+            // Façade Testing Facility section (all optional)
+            'testing_heading'        => 'nullable|string|max:255',
+            'testing_content'        => 'nullable|string',
+            'testing2_content'       => 'nullable|string',
+            'nabl_heading'           => 'nullable|string',
+            'precision_heading'      => 'nullable|string|max:255',
+            'precision_content'      => 'nullable|string',
+            'mockup_caption'         => 'nullable|string|max:500',
+            'testing_image1'         => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'testing_image2'         => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'testing2_image1'        => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'testing2_image2'        => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'nabl_image'             => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'mockup_image1'          => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'mockup_image2'          => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
 
             'features'               => 'required|array|min:1',
             'features.*.title'       => 'required|string|max:255',

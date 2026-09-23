@@ -200,202 +200,101 @@
                     </div>
                 </section>
                 
+                @php($f = $facility)
+                @if($f && ($f->testing_heading || $f->testing_content || $f->nabl_heading || $f->precision_heading || $f->mockup_caption))
                 <section class="gws-facade-testing-section">
     <div class="container">
 
-        <!-- ==============================
-             SECTION 01
-             IN-HOUSE FAÇADE TESTING FACILITY
-        =============================== -->
+        <!-- SECTION 01 — In-House Façade Testing Facility -->
+        @if($f->testing_heading || $f->testing_content || $f->testing_image1 || $f->testing_image2)
         <div class="row align-items-center">
             <div class="col-md-6">
-
-                <h2>In-House Façade Testing Facility</h2>
-
-                <p>
-                    Our in-house PMU and VMU testing rigs enable early-stage validation of façade
-                    systems before large-scale production and site execution. This reduces rework
-                    and site risk by ensuring performance, operability, and repeatable quality are
-                    verified in a controlled environment.
-                </p>
-                <p>
-                    Our laboratory deploys cutting-edge measurement systems and advanced data
-                    acquisition equipment, precisely capturing façade performance with unparalleled
-                    accuracy. We utilize high-precision pressure transducers, calibrated flow
-                    meters, and digital displacement sensors, providing real-time, dynamic
-                    monitoring throughout every test sequence.
-                </p>
-
-                <p>
-                    Our instrumentation rigorously adheres to, and often surpasses, the stringent
-                    calibration requirements of ISO/IEC 17025, guaranteeing direct traceability to
-                    international standards. This strategic investment in state-of-the-art
-                    equipment ensures your test data is unequivocally reliable and robustly defensible
-                    for all certification purposes.
-                </p>
-
+                @if($f->testing_heading)<h2>{{ $f->testing_heading }}</h2>@endif
+                {!! $f->testing_content !!}
             </div>
-            
-             <div class="col-md-3">
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a1.png"
-                        alt="">
-                </div>
-            </div>
-
+            @if($f->testing_image1)
             <div class="col-md-3">
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a2.png"
-                        alt="">
-                </div>
+                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing_image1) }}" alt=""></div>
             </div>
+            @endif
+            @if($f->testing_image2)
+            <div class="col-md-3">
+                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing_image2) }}" alt=""></div>
+            </div>
+            @endif
         </div>
+        @endif
 
-
-
-
-        <!-- ==============================
-             SECTION 02
-        =============================== -->
+        <!-- SECTION 02 — calibration text + images -->
+        @if($f->testing2_content || $f->testing2_image1 || $f->testing2_image2)
         <div class="row gws-content-section align-items-center">
-             <div class="col-md-6">
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a3.png"
-                        alt="">
-                </div>
+            @if($f->testing2_image1)
+            <div class="col-md-6">
+                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing2_image1) }}" alt=""></div>
             </div>
-
+            @endif
+            @if($f->testing2_image2)
             <div class="col-md-3">
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a4.png"
-                        alt="">
-                </div>
+                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing2_image2) }}" alt=""></div>
             </div>
+            @endif
             <div class="col-md-3">
-
-                <p>
-                    Every instrument is meticulously calibrated by accredited service providers.
-                    We maintain comprehensive documentation, strictly adhering to our rigorous
-                    laboratory quality management protocols. This unwavering dedication to measurement
-                    science forms the bedrock of our test reports' impeccable credibility, providing
-                    you with absolute confidence.
-                </p>
-
+                {!! $f->testing2_content !!}
             </div>
-
-
         </div>
+        @endif
 
-
-  
-
-
-        <!-- ==============================
-             SECTION 03
-        =============================== -->
+        <!-- SECTION 03 — NABL certification -->
+        @if($f->nabl_heading || $f->nabl_image)
         <div class="row gws-nabl-section">
-
             <div class="col-md-6">
-
-                <h3>
-                    In-House Façade Testing Facility is National Accreditation Board for Testing and
-                    Calibration Laboratories (NABL) Certified.
-                </h3>
-
+                @if($f->nabl_heading)<h3>{{ $f->nabl_heading }}</h3>@endif
             </div>
-
+            @if($f->nabl_image)
             <div class="col-md-6">
-
-                <div class="gws-nabl-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/certi.png"
-                        alt="">
-                </div>
-
+                <div class="gws-nabl-image"><img src="{{ $f->assetUrl($f->nabl_image) }}" alt=""></div>
             </div>
-
+            @endif
         </div>
+        @endif
 
-
-        <!-- ==============================
-             SECTION 04
-        =============================== -->
+        <!-- SECTION 04 — Precision Engineering -->
+        @if($f->precision_heading || $f->precision_content)
         <div class="row gws-content-section">
-
             <div class="col-12">
-
-                <h2>Precision Engineering and Advanced Instrumentation</h2>
-
-                <p>
-                    Our laboratory deploys cutting-edge measurement systems and advanced data
-                    acquisition equipment, precisely capturing façade performance with unparalleled
-                    accuracy. We utilize high-precision pressure transducers, calibrated flow
-                    meters, and digital displacement sensors, providing real-time, dynamic
-                    monitoring throughout every test sequence.
-                </p>
-
-                <p>
-                    Our instrumentation rigorously adheres to, and often surpasses, the stringent
-                    calibration requirements of ISO/IEC 17025, guaranteeing direct traceability to
-                    international standards. This strategic investment in state-of-the-art
-                    equipment ensures your test data is unequivocally reliable and robustly defensible
-                    for all certification purposes.
-                </p>
-
-                <p>
-                    Every instrument is meticulously calibrated by accredited service providers.
-                    We maintain comprehensive documentation, strictly adhering to our rigorous
-                    laboratory quality management protocols. This unwavering dedication to measurement
-                    science forms the bedrock of our test reports' impeccable credibility, providing
-                    you with absolute confidence.
-                </p>
-
+                @if($f->precision_heading)<h2>{{ $f->precision_heading }}</h2>@endif
+                {!! $f->precision_content !!}
             </div>
-
         </div>
+        @endif
 
-
-        <!-- ==============================
-             SECTION 05
-             PROJECT TESTING MOCK-UPS
-        =============================== -->
+        <!-- SECTION 05 — Project testing mock-ups -->
+        @if($f->mockup_caption)
         <div class="row gws-project-testing-section">
-
             <div class="col-12">
-
-                <p class="gws-project-testing-title">
-                    Some of our project testing mock-ups are as shown below:
-                </p>
-
+                <p class="gws-project-testing-title">{{ $f->mockup_caption }}</p>
             </div>
-
         </div>
+        @endif
 
-
-        <!-- Project Testing Images -->
+        @if($f->mockup_image1 || $f->mockup_image2)
         <div class="row gws-testing-images-row align-items-center">
-
+            @if($f->mockup_image1)
             <div class="col-md-4">
-
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a5.png"
-                        alt="">
-                </div>
-
+                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->mockup_image1) }}" alt=""></div>
             </div>
-
+            @endif
+            @if($f->mockup_image2)
             <div class="col-md-8">
-
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a6.png"
-                        alt="">
-                </div>
-
+                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->mockup_image2) }}" alt=""></div>
             </div>
-
+            @endif
         </div>
+        @endif
 
     </div>
 </section>
+                @endif
 
 
 
