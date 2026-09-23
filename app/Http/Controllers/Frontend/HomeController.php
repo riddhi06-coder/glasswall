@@ -154,7 +154,8 @@ class HomeController extends Controller
     public function awards_recognition()
     {
         $categories  = AwardsCategory::orderBy('id')->get();
-        $awardsByCat = AwardsRecognition::with('category')->orderBy('id')->get()->groupBy('awards_category_id');
+        // Newest awards first (match the reference ordering) instead of import order.
+        $awardsByCat = AwardsRecognition::with('category')->orderByDesc('year')->orderByDesc('id')->get()->groupBy('awards_category_id');
         $banner      = AwardsRecognition::orderBy('id')->first(); // banner lives on the first record
 
         return view('frontend.awards_recognition', compact('categories', 'awardsByCat', 'banner'));
