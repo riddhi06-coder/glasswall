@@ -34,7 +34,7 @@
                             <div class="tp-hero-slider-main">
                               <div class="tp-hero-slider-content">
                                 <h1 class="tp-hero-slider-title tp-section-title tp-section-title-larg tp-text-white">
-                                  {!! $banner->banner_heading !!}
+                                  {{ trim(strip_tags($banner->banner_heading)) }}
                                 </h1>
                                 <div class="tp-hero-slider-btn pt-25">
                                   <p class="margin-0 tp-text-white fw-500 pb-50">{{ $banner->banner_title }}</p>
