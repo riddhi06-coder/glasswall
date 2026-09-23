@@ -2695,11 +2695,14 @@ keep only the individual stat blocks
 }
 
 .product-section p{
-  max-width:650px;
+  /*max-width:650px;*/
   color:var(--text);
   font-size:17px;
   line-height:1.8;
     margin: auto;
+}
+.seo-text p {
+    font-size: 13px;
 }
 
 .share-btn{
@@ -5445,6 +5448,7 @@ h4.tpwork__title.mb-15 {
 }
 .team-images img{
     border-radius:15px;
+    width: 100%;
 }
 .design-highlight {
     margin-top: 60px !important;
@@ -6465,7 +6469,7 @@ flex: 1 1 calc(19% - 15px);
   font-size: 16px;
   line-height: 1.65;
   color: #444;
-    text-align: justify;
+    text-align: left;
 }
 
 .pointer-card strong {
@@ -6589,4 +6593,246 @@ flex: 1 1 calc(19% - 15px);
         padding-left: 15px;
         margin-left: 10px;
     }
+}
+
+
+
+
+
+
+/* ==========================================================
+   GWS FAÇADE TESTING FACILITY
+   All styles are scoped to the parent section
+   ========================================================== */
+
+.gws-facade-testing-section {
+    width: 100%;
+    padding: 80px 0;
+    background: #ffffff;
+    color: #1c2522;
+}
+
+
+/* ==========================================================
+   CONTAINER
+   ========================================================== */
+
+.gws-facade-testing-section .container {
+    
+}
+
+
+/* ==========================================================
+   HEADINGS
+   ========================================================== */
+
+.gws-facade-testing-section h2 {
+    margin: 0 0 25px;
+    font-size: 38px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #17201d;
+}
+
+.gws-facade-testing-section h3 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.45;
+    font-weight: 600;
+    color: #17201d;
+}
+
+
+/* ==========================================================
+   PARAGRAPHS
+   ========================================================== */
+
+.gws-facade-testing-section p {
+    margin: 0 0 25px;
+    font-size: 17px;
+    line-height: 1.8;
+    font-weight: 400;
+    color: #56615d;
+}
+
+
+/* ==========================================================
+   GENERAL CONTENT SPACING
+   ========================================================== */
+
+.gws-facade-testing-section .gws-content-section {
+    margin-top: 60px;
+}
+
+
+/* ==========================================================
+   IMAGE ROW
+   ========================================================== */
+
+.gws-facade-testing-section .gws-testing-images-row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================================
+   IMAGE WRAPPER
+   ========================================================== */
+
+.gws-facade-testing-section .gws-testing-image {
+    width: 100%;
+    overflow: hidden;
+    background: #f4f6f5;
+}
+
+.gws-facade-testing-section .gws-testing-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+
+/* ==========================================================
+   NABL SECTION
+   ========================================================== */
+
+.gws-facade-testing-section .gws-nabl-section {
+    display: flex;
+    align-items: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+    padding: 45px;
+    background: #ebf8ff;
+    border-left: 0;
+    width: 60%;
+    margin: auto;
+    margin-top: 60px;
+    border-radius: 40px;
+}
+
+.gws-facade-testing-section .gws-nabl-section h3 {
+    padding-right: 30px;
+}
+
+.gws-facade-testing-section .gws-nabl-image {
+    width: 100%;
+    margin-left: auto;
+}
+
+.gws-facade-testing-section .gws-nabl-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/* ==========================================================
+   PROJECT TESTING SECTION
+   ========================================================== */
+
+.gws-facade-testing-section .gws-project-testing-section {
+    margin-top: 20px;
+}
+
+.gws-facade-testing-section .gws-project-testing-title {
+    margin-bottom: 25px;
+    font-size: 20px;
+    line-height: 1.6;
+    font-weight: 500;
+    color: #1c2522;
+}
+
+
+/* ==========================================================
+   IMAGE HOVER
+   ========================================================== */
+
+.gws-facade-testing-section .gws-testing-image img {
+    transition: transform 0.4s ease;
+}
+
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 991.98px) {
+
+    .gws-facade-testing-section {
+        padding: 60px 0;
+    }
+
+    .gws-facade-testing-section h2 {
+        font-size: 32px;
+    }
+
+    .gws-facade-testing-section h3 {
+        font-size: 22px;
+    }
+
+    .gws-facade-testing-section p {
+        font-size: 16px;
+        line-height: 1.75;
+    }
+
+    .gws-facade-testing-section .gws-nabl-section {
+        padding: 35px;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 767.98px) {
+
+    .gws-facade-testing-section {
+        padding: 45px 0;
+    }
+
+    .gws-facade-testing-section h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .gws-facade-testing-section h3 {
+        font-size: 20px;
+    }
+
+    .gws-facade-testing-section p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .gws-facade-testing-section .gws-testing-images-row {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .gws-facade-testing-section .gws-testing-images-row > [class*="col-"] {
+        margin-bottom: 20px;
+    }
+
+    .gws-facade-testing-section .gws-nabl-section {
+        display: block;
+        padding: 25px 20px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .gws-facade-testing-section .gws-nabl-section h3 {
+        padding-right: 0;
+        margin-bottom: 25px;
+    }
+
+    .gws-facade-testing-section .gws-nabl-image {
+        margin-left: 0;
+        max-width: 190px;
+    }
+
 }

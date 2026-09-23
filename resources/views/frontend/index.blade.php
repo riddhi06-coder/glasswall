@@ -343,7 +343,7 @@
               <div class="tp-brand-text pb-45">
 
                 <div class="col-lg-12 text-center">
-                  <h2 class="fw-bold mb-3">{{ optional($clientele)->clientele_section_heading ?? 'We’re privileged to work with leading innovators.' }}</h2>
+                  <h2 class="fw-bold mb-3">{{ optional($clientele)->clientele_section_heading ?? 'We’re privileged to work with leading industry pioneers.' }}</h2>
 
                   @if(optional($clientele)->clientele_section_desc)
                     {!! $clientele->clientele_section_desc !!}

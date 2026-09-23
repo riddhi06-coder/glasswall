@@ -199,6 +199,203 @@
                         </div>
                     </div>
                 </section>
+                
+                <section class="gws-facade-testing-section">
+    <div class="container">
+
+        <!-- ==============================
+             SECTION 01
+             IN-HOUSE FAÇADE TESTING FACILITY
+        =============================== -->
+        <div class="row align-items-center">
+            <div class="col-md-6">
+
+                <h2>In-House Façade Testing Facility</h2>
+
+                <p>
+                    Our in-house PMU and VMU testing rigs enable early-stage validation of façade
+                    systems before large-scale production and site execution. This reduces rework
+                    and site risk by ensuring performance, operability, and repeatable quality are
+                    verified in a controlled environment.
+                </p>
+                <p>
+                    Our laboratory deploys cutting-edge measurement systems and advanced data
+                    acquisition equipment, precisely capturing façade performance with unparalleled
+                    accuracy. We utilize high-precision pressure transducers, calibrated flow
+                    meters, and digital displacement sensors, providing real-time, dynamic
+                    monitoring throughout every test sequence.
+                </p>
+
+                <p>
+                    Our instrumentation rigorously adheres to, and often surpasses, the stringent
+                    calibration requirements of ISO/IEC 17025, guaranteeing direct traceability to
+                    international standards. This strategic investment in state-of-the-art
+                    equipment ensures your test data is unequivocally reliable and robustly defensible
+                    for all certification purposes.
+                </p>
+
+            </div>
+            
+             <div class="col-md-3">
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a1.png"
+                        alt="">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a2.png"
+                        alt="">
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- ==============================
+             SECTION 02
+        =============================== -->
+        <div class="row gws-content-section align-items-center">
+             <div class="col-md-6">
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a3.png"
+                        alt="">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a4.png"
+                        alt="">
+                </div>
+            </div>
+            <div class="col-md-3">
+
+                <p>
+                    Every instrument is meticulously calibrated by accredited service providers.
+                    We maintain comprehensive documentation, strictly adhering to our rigorous
+                    laboratory quality management protocols. This unwavering dedication to measurement
+                    science forms the bedrock of our test reports' impeccable credibility, providing
+                    you with absolute confidence.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+  
+
+
+        <!-- ==============================
+             SECTION 03
+        =============================== -->
+        <div class="row gws-nabl-section">
+
+            <div class="col-md-6">
+
+                <h3>
+                    In-House Façade Testing Facility is National Accreditation Board for Testing and
+                    Calibration Laboratories (NABL) Certified.
+                </h3>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="gws-nabl-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/certi.png"
+                        alt="">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==============================
+             SECTION 04
+        =============================== -->
+        <div class="row gws-content-section">
+
+            <div class="col-12">
+
+                <h2>Precision Engineering and Advanced Instrumentation</h2>
+
+                <p>
+                    Our laboratory deploys cutting-edge measurement systems and advanced data
+                    acquisition equipment, precisely capturing façade performance with unparalleled
+                    accuracy. We utilize high-precision pressure transducers, calibrated flow
+                    meters, and digital displacement sensors, providing real-time, dynamic
+                    monitoring throughout every test sequence.
+                </p>
+
+                <p>
+                    Our instrumentation rigorously adheres to, and often surpasses, the stringent
+                    calibration requirements of ISO/IEC 17025, guaranteeing direct traceability to
+                    international standards. This strategic investment in state-of-the-art
+                    equipment ensures your test data is unequivocally reliable and robustly defensible
+                    for all certification purposes.
+                </p>
+
+                <p>
+                    Every instrument is meticulously calibrated by accredited service providers.
+                    We maintain comprehensive documentation, strictly adhering to our rigorous
+                    laboratory quality management protocols. This unwavering dedication to measurement
+                    science forms the bedrock of our test reports' impeccable credibility, providing
+                    you with absolute confidence.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==============================
+             SECTION 05
+             PROJECT TESTING MOCK-UPS
+        =============================== -->
+        <div class="row gws-project-testing-section">
+
+            <div class="col-12">
+
+                <p class="gws-project-testing-title">
+                    Some of our project testing mock-ups are as shown below:
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Project Testing Images -->
+        <div class="row gws-testing-images-row align-items-center">
+
+            <div class="col-md-4">
+
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a5.png"
+                        alt="">
+                </div>
+
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/a6.png"
+                        alt="">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
 
 
 
