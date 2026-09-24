@@ -34,14 +34,14 @@
       <div class="tp-header-border-white tp-header-spacing">
         <div class="tp-header-wrap">
           <div class="row gx-0 tp-align-center">
-            <div class="col-xl-3 col-lg-3 col-md-8 col-5">
+            <div class="col-xl-3 col-lg-3 col-md-5 col-5">
               <div class="tp-header-logo">
                 <a href="{{ route('frontend.index') }}">
                   <img data-width="275" src="{{ asset('frontend/assets/images/gws.png') }}" alt="Glass Wall Systems Logo" />
                 </a>
               </div>
             </div>
-            <div class="col-xl-8 col-lg-8 col-md-8 col-2 tp-text-center">
+            <div class="col-xl-8 col-lg-8 col-md-2 col-2 tp-text-center">
               <div class="tp-header-menu tp-header-menu-white tp-bluer-bg tp-text-center d-none d-xl-inline-block">
                 <nav class="tp-mobile-menu-active">
                   <ul>
@@ -124,7 +124,7 @@
                 </nav>
               </div>
             </div>
-            <div class="col-xl-1 col-lg-1 col-md-1 col-5">
+            <div class="col-xl-1 col-lg-1 col-md-5 col-5">
               <div class="tp-header-cta tp-flex-center tp-justify-end">
                 
                 <div class="tp-cta-phone tp-header-cta-phone mr-30 d-none d-xl-inline-block gws-search" id="gwsSearch">

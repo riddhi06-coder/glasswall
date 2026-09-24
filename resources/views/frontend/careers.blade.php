@@ -44,7 +44,7 @@
           <!-- hero area end -->
           <section class="gws-careers">
             <div class="container">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-md-5">
                     <div class="career-img">
                         <img src="{{ $career && $career->section_image ? $career->assetUrl($career->section_image) : asset('frontend/assets/images/home/careerimg.webp') }}" class="br-20"/>
@@ -64,11 +64,21 @@
           </section>
           <section class="tp-career-area tp-services-area tp-bg-gray tp-career-spacing-2 pb-150 fix">
             <div class="container">
+                <div class="gws-careers-intro tp-text-center">
+                <h3>
+                  Join us and help build something that matters.
+                </h3>
+                <p>
+                  Find your dream job fit in a few simple steps.
+                </p>
+                </div>
               <div class="tp-career-heading tp-text-center mb-55 reval-line">
                 <h2 class="tp-section-title">
                   {{ optional($career)->job_section_heading ?: 'Openings at GWS' }}
                 </h2>
               </div>
+              
+              
               <div class="tp-career-jobs">
                 <div class="row">
                   <div class="col-md-12">

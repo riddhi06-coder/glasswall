@@ -10,7 +10,7 @@ Body text:        #404038
 White:            #FFFFFF
 Gray bg:          #F5F5F5
 Blue (btn/sticky):#1a4685
-Light blue:       #a2d9f5
+Light blue:       #a2d9f5 
 Fonts: Manrope, Playfair Display, Poppins, Sora
 ========================================================= */
 
@@ -5160,15 +5160,20 @@ h4.tpwork__title.mb-15 {
 .document-box:hover .document-title {
   color: #1A4685;
 }
-
+.mt-.section-heading.seo-text {
+    margin-bottom: 30px;
+}
+.gws-facade-testing-section img{
+    border-radius:15px;
+}
 @media (max-width: 1199px) {
   .document-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .document-box-parent {
-    grid-column: span 2;
-  }
+  /*.document-box-parent {*/
+  /*  grid-column: span 2;*/
+  /*}*/
 }
 
 @media (max-width: 767px) {
@@ -6042,6 +6047,7 @@ h4.tpwork__title.mb-15 {
   font-weight: 600;
 }
 
+
 .gws-scroll {
   margin-bottom: 45px !important;
   color: #003b91 !important;
@@ -6682,7 +6688,6 @@ flex: 1 1 calc(19% - 15px);
 .gws-facade-testing-section .gws-testing-image {
     width: 100%;
     overflow: hidden;
-    background: #f4f6f5;
 }
 
 .gws-facade-testing-section .gws-testing-image img {
@@ -6693,7 +6698,12 @@ flex: 1 1 calc(19% - 15px);
     object-fit: cover;
 }
 
-
+.gws-facade-testing-section .gws-testing-image h6{
+    
+    font-size: 18px;
+    text-align: center;
+    margin-top: 15px;
+}
 /* ==========================================================
    NABL SECTION
    ========================================================== */
@@ -6751,6 +6761,8 @@ flex: 1 1 calc(19% - 15px);
 
 .gws-facade-testing-section .gws-testing-image img {
     transition: transform 0.4s ease;
+    height: 300px;
+    object-fit: cover;
 }
 
 
@@ -6835,4 +6847,26 @@ flex: 1 1 calc(19% - 15px);
         max-width: 190px;
     }
 
+}
+
+
+
+
+
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.image-item {
+    width: calc(50% - 10px);
+    overflow: hidden;
+}
+
+.image-item img {
+    width: 100%;
+    height: 250px;
+    display: block;
+    object-fit: cover;
 }

@@ -255,9 +255,9 @@
     width: 100%;
     left: 0;
   }
-  .tp-breadcrumb-title {
-    font-size: 70px;
-  }
+  /*.tp-breadcrumb-title {*/
+  /*  font-size: 70px;*/
+  /*}*/
   .tpservices2__icon {
     margin-bottom: 15px;
   }
@@ -332,6 +332,7 @@
     width: 250px;
     height: 250px;
     margin: 0;
+        margin: auto;
   }
   .tpfact__title {
       
@@ -449,9 +450,9 @@
     width: 100%;
     left: 0;
   }
-  .tp-breadcrumb-title {
-    font-size: 60px;
-  }
+  /*.tp-breadcrumb-title {*/
+  /*  font-size: 60px;*/
+  /*}*/
   .tpservices2 {
     margin-bottom: 20px;
   }
@@ -668,12 +669,12 @@
     width: 100%;
     left: 0;
   }
-  .tp-breadcrumb-title {
-    font-size: 50px;
-  }
-  transform: scale(2) {
-    transform: scale(2)
-  }
+  /*.tp-breadcrumb-title {*/
+  /*  font-size: 50px;*/
+  /*}*/
+  /*transform: scale(2) {*/
+  /*  transform: scale(2)*/
+  /*}*/
   .tpservices2 {
     margin-bottom: 20px;
   }
@@ -1079,4 +1080,224 @@
     height: 60px;
     font-size: 16px;
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1200px) {
+ .tp-breadcrumb {
+        padding-bottom: 0;
+    }
+    .tpwork__content p {
+    height: 230px;
+}
+.facility-area .tp-fact-grid {
+    flex-wrap: wrap;
+}
+.facility-area .tpfact {
+    width: 45%;
+        height: auto;
+}
+
+}
+
+@media (max-width: 992px) {
+    .tpwork__content p {
+    height: auto;
+}
+       .document-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .document-subgrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .document-box-parent {
+        grid-column: span 2;
+    }
+.tp-value-heading {
+    padding-top: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.row.clear-row {
+    padding: 0 !important;
+    gap: 0 !important;
+    margin: auto;
+    align-items: center !important;
+    justify-content: center !important;
+}
+}
+
+@media (max-width: 768px) {
+.document-grid-two {
+    grid-template-columns: unset;
+}
+.gws-careers-intro h2 {
+    margin-top: 30px;
+}
+.design-info-left {
+    padding-right: 0;
+    border-right: 0;
+}
+.design-info-header {
+    justify-content: center;
+    text-align: center;
+        flex-direction: column;
+}
+.design-info {
+    padding: 55px 20px;
+}
+.design-info-item {
+    flex-direction: column;
+}
+.tp-work-wrap {
+    flex-direction: column;
+}
+.team-images img{
+    margin-bottom:20px;
+}
+.tpwork {
+    width: 100%;
+}
+h4.tpwork__title.mb-15 {
+    height: auto;
+}
+    .tp-services-content {
+        margin-top: 20px;
+    }
+        .tp-services-title-larg {
+        margin-bottom: 15px;
+    }
+    .tp-services-title-wrap.tp-flex.tp-justify-between {
+    align-items: center;
+    gap:10px;
+}
+    .tp-services-body {
+        margin-top: 20px;
+    }
+    .page-heading {
+    margin-bottom: 40px;
+}
+    
+}
+
+@media (max-width: 576px) {
+.tp-breadcrumb-menu {
+        padding-top: 0;
+        margin-bottom: 10px !important;
+        flex-direction: row;
+        text-align: left;
+        position: relative !important;
+        bottom: unset !important;
+        left: unset !important;
+        row-gap: 3px;
+        column-gap: 7px;
+        flex-wrap: wrap;
+    }
+    .tp-breadcrumb-menu span {
+        line-height: 1;
+    }
+    .facility-area .tpfact {
+        width: 100%;
+    }
+.tp-portfolio-area .tpportfolio__content.tp-flex-center{
+    margin: 15px 15px;
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+}
+.tp-portfolio-area .tpportfolio__thumb {
+    margin-bottom: 0;
+}
+.tp-portfolio-area .tpportfolio__content--wrap {
+    margin-bottom: 10px;
+}
+.tp-brand-black .tp-brand-item img {
+    margin: 0;
+    height: 100px;
+        transform: scale(1.5);
+}
+.tp-footer-widgets-title {
+    margin-bottom: 10px;
+}
+.tp-footer-widgets ul li {
+        margin-bottom: 0;
+    }
+    .value-img {
+    width: 100%;
+}
+.gws-facade-testing-section .gws-nabl-section {
+    width: 100%;
+}
+.gws-facade-testing-section .gws-nabl-image {
+        max-width: 100%;
+        margin: auto;
+    }
+    .facade-feature-section .facade-feature-box {
+    flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+.gws-careers-intro h2 {
+    font-size: 20px;
+}
+.vmv-tabs {
+    gap: 0;
+}
+.page-heading {
+        margin-bottom: 80px;
+    }
+.vmv-section .tab-icon{
+    display:none;
+}
+.tp-breadcrumb-title {
+        font-size: 30px;
+    }
+   
+}
+
+@media (max-width: 375px) {
 }

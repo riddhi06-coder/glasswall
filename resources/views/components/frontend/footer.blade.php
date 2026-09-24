@@ -12,7 +12,7 @@
 
                                 <div class="tp-footer-content mb-25">
                                     <h3 class="tp-footer-info-title mb-20">
-                                        Have Questions?
+                                        Explore Solutions
                                     </h3>
 
                                     <address class="tp-footer-info-deg white-rgba footer-address-normal">
@@ -100,7 +100,7 @@
 
                     <!-- Projects -->
                     <div class="col-lg-3 col-md-7 col-sm-8">
-                        <div class="tp-footer-widgets tp-footer-widgets-white tp_fade_anim"
+                        <div class="tp-footer-widgets tp-footer-widgets-white mb-30 tp_fade_anim"
                             data-delay=".3">
 
                             <h4 class="tp-footer-widgets-title white-rgba mb-25">
@@ -118,7 +118,7 @@
 
                     <!-- Infrastructure -->
                     <div class="col-lg-2 col-md-5 col-sm-4">
-                        <div class="tp-footer-widgets tp-footer-widgets-white tp_fade_anim"
+                        <div class="tp-footer-widgets tp-footer-widgets-white mb-30 tp_fade_anim"
                             data-delay=".4">
 
                             <h4 class="tp-footer-widgets-title white-rgba mb-25">

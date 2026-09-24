@@ -228,16 +228,34 @@
         <!-- SECTION 02 — calibration text + images -->
         @if($f->testing2_content || $f->testing2_image1 || $f->testing2_image2)
         <div class="row gws-content-section align-items-center">
-            @if($f->testing2_image1)
-            <div class="col-md-6">
-                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing2_image1) }}" alt=""></div>
+            <!--@if($f->testing2_image1)-->
+            <!--<div class="col-md-6">-->
+            <!--    <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing2_image1) }}" alt=""></div>-->
+            <!--</div>-->
+            <!--@endif-->
+            <!--@if($f->testing2_image2)-->
+            <!--<div class="col-md-3">-->
+            <!--    <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing2_image2) }}" alt=""></div>-->
+            <!--</div>-->
+            <!--@endif-->
+            
+            <div class="col-md-9">
+                <div class="image-grid">
+    <div class="image-item">
+        <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/1.png" alt="">
+    </div>
+    <div class="image-item">
+        <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/2.png" alt="">
+    </div>
+    <div class="image-item">
+        <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/3.png" alt="">
+    </div>
+    <div class="image-item">
+        <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/4.png" alt="">
+    </div>
+</div>
             </div>
-            @endif
-            @if($f->testing2_image2)
-            <div class="col-md-3">
-                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing2_image2) }}" alt=""></div>
-            </div>
-            @endif
+            
             <div class="col-md-3">
                 {!! $f->testing2_content !!}
             </div>
@@ -277,20 +295,41 @@
         </div>
         @endif
 
-        @if($f->mockup_image1 || $f->mockup_image2)
+        <!--@if($f->mockup_image1 || $f->mockup_image2)-->
+        <!--<div class="row gws-testing-images-row align-items-center">-->
+        <!--    @if($f->mockup_image1)-->
+        <!--    <div class="col-md-4">-->
+        <!--        <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->mockup_image1) }}" alt=""></div>-->
+        <!--    </div>-->
+        <!--    @endif-->
+        <!--    @if($f->mockup_image2)-->
+        <!--    <div class="col-md-8">-->
+        <!--        <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->mockup_image2) }}" alt=""></div>-->
+        <!--    </div>-->
+        <!--    @endif-->
+        <!--</div>-->
+        <!--@endif-->
+        
         <div class="row gws-testing-images-row align-items-center">
-            @if($f->mockup_image1)
             <div class="col-md-4">
-                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->mockup_image1) }}" alt=""></div>
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/5.png" alt="">
+                    <h6>St. Lucy’s, USA</h6>
+                    </div>
             </div>
-            @endif
-            @if($f->mockup_image2)
-            <div class="col-md-8">
-                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->mockup_image2) }}" alt=""></div>
+            <div class="col-md-4">
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/6.png" alt="">
+                    <h6>Google HGU, Hyderabad - VMU</h6>
+                    </div>
             </div>
-            @endif
+            <div class="col-md-4">
+                <div class="gws-testing-image">
+                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/7.png" alt="">
+                    <h6>Google HGU, Hyderabad - VMU</h6>
+                    </div>
+            </div>
         </div>
-        @endif
 
     </div>
 </section>

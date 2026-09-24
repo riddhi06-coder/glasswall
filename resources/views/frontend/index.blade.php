@@ -271,8 +271,8 @@
 
           <section class="tp-portfolio-area tp-portfolio-spacing tp-portfolio-spacing-2 portfolio-area fix">
             <div class="container p-relative">
-              <div class="row">
-                  <div class="row tp-align-end">
+              <div class="row clear-row">
+                  <div class="tp-align-end row">
                   <div class="col-md-12">
                     <div class="tp-section-title-wrap tp_fade_anim tp-text-center" data-dure=".9">
                       <h2 class="tp-section-title mb-50">
@@ -376,7 +376,7 @@
                   <p class="mb-4">{{ optional($clientele)->collaboration_section_title ?? 'Let’s work together to bring your next project to life.' }}</p>
 
                   <div class="tp-about-btn tp_fade_anim d-flex justify-content-center" data-delay=".3">
-                    <a href="/contact-us/" class="tp-btn">
+                    <a href="/contact-us" class="tp-btn">
                       <span class="tp-btn-text">Get in Touch</span>
 
                       <span class="tp-btn-icon">
