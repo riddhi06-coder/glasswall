@@ -23,6 +23,8 @@
                 <div class="tp-breadcrumb-menu tp-flex-center mb-15 pt-35">
                   <span><a href="{{ route('frontend.index') }}">Home</a></span>
                   <span class="tp-breadcrumb-dvdr">-</span>
+                  <span><a href="{{ route('frontend.projects_category_listing') }}">Our Projects</a></span>
+                  <span class="tp-breadcrumb-dvdr">-</span>
                   <span>{{ $category->name }}</span>
                 </div>
               </div>

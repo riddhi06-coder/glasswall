@@ -43,7 +43,7 @@
 
           <!-- hero area start -->
           <section class="tp-breadcrumb-area tp-bg tp-overlay p-relative"
-                   data-background="{{ optional($detail)->banner_image_url ?? asset('frontend/assets/images/banner/5650.webp') }}">
+                   data-background="{{ asset('frontend/assets/images/banner/5650.webp') }}">
             <div class="container h-100">
               <div class="tp-breadcrumb pb-50" style="min-height:520px; position:relative;">
 
