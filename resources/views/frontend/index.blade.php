@@ -376,7 +376,7 @@
                   <p class="mb-4">{{ optional($clientele)->collaboration_section_title ?? 'Let’s work together to bring your next project to life.' }}</p>
 
                   <div class="tp-about-btn tp_fade_anim d-flex justify-content-center" data-delay=".3">
-                    <a href="/contact-us" class="tp-btn">
+                    <a href="{{ route('frontend.contact_us') }}" class="tp-btn">
                       <span class="tp-btn-text">Get in Touch</span>
 
                       <span class="tp-btn-icon">
