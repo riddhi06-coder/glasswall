@@ -78,20 +78,20 @@
                         <div class="row g-5 align-items-stretch">
 
                             @foreach(optional($facility)->features ?? [] as $feature)
-                                <div class="col-md-6">
-                                    <div class="facade-feature-box h-100">
-                                        <div class="facade-feature-icon">
-                                            @if($feature->image)
-                                                <img src="{{ $feature->image_url }}" alt="{{ $feature->title }}">
-                                            @endif
-                                        </div>
+                            <div class="col-md-6">
+                                <div class="facade-feature-box h-100">
+                                    <div class="facade-feature-icon">
+                                        @if($feature->image)
+                                        <img src="{{ $feature->image_url }}" alt="{{ $feature->title }}">
+                                        @endif
+                                    </div>
 
-                                        <div class="facade-feature-content">
-                                            <h3 class="facade-feature-title">{{ $feature->title }}</h3>
-                                            <p class="facade-feature-text">{{ $feature->description }}</p>
-                                        </div>
+                                    <div class="facade-feature-content">
+                                        <h3 class="facade-feature-title">{{ $feature->title }}</h3>
+                                        <p class="facade-feature-text">{{ $feature->description }}</p>
                                     </div>
                                 </div>
+                            </div>
                             @endforeach
 
                         </div>
@@ -104,7 +104,7 @@
                         <!--<div class="tp-solid-bg tp-bg br-20 p-relative jarallax" data-background="assets/images/home/facility.webp">-->
                         <!--</div>-->
                         @if($facility && $facility->counter_image)
-                            <img src="{{ $facility->assetUrl($facility->counter_image) }}" />
+                        <img src="{{ $facility->assetUrl($facility->counter_image) }}" />
                         @endif
 
                     </div>
@@ -115,24 +115,44 @@
                             <div class="tp-fact-grid">
 
                                 @php
-                                    $factIcons = [
-                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M3 9h18M9 3v18"></path></svg>',
-                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V4h16v16"></path><path d="M8 20V8h8v12"></path><path d="M12 8v12"></path></svg>',
-                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>',
-                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M3 20c0-4 2.5-6 6-6s6 2 6 6"></path><path d="M14 14c3.5-.5 6 1.5 6 5"></path></svg>',
-                                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M7 9h10M7 13h6"></path></svg>',
-                                    ];
+                                $factIcons = [
+                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <path d="M3 9h18M9 3v18"></path>
+                                </svg>',
+                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 20V4h16v16"></path>
+                                    <path d="M8 20V8h8v12"></path>
+                                    <path d="M12 8v12"></path>
+                                </svg>',
+                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="3" width="7" height="7"></rect>
+                                    <rect x="3" y="14" width="7" height="7"></rect>
+                                    <rect x="14" y="14" width="7" height="7"></rect>
+                                </svg>',
+                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="9" cy="8" r="3"></circle>
+                                    <circle cx="17" cy="9" r="2.5"></circle>
+                                    <path d="M3 20c0-4 2.5-6 6-6s6 2 6 6"></path>
+                                    <path d="M14 14c3.5-.5 6 1.5 6 5"></path>
+                                </svg>',
+                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                                    <path d="M7 9h10M7 13h6"></path>
+                                </svg>',
+                                ];
                                 @endphp
                                 @foreach(optional($facility)->counters ?? [] as $counter)
-                                    <div class="tpfact">
-                                        <div class="tpfact__icon">
-                                            {!! $factIcons[$loop->index % count($factIcons)] !!}
-                                        </div>
-                                        <h3 class="tpfact__title">
-                                            <span class="odometer" data-count="{{ (int) preg_replace('/[^0-9]/', '', $counter->count) }}">0</span>@if($counter->suffix)<span class="{{ trim($counter->suffix) === '+' ? 'tpfact__plus' : 'tpfact__text' }}">{{ $counter->suffix }}</span>@endif
-                                        </h3>
-                                        <p class="tpfact__label">{{ $counter->label }}</p>
+                                <div class="tpfact">
+                                    <div class="tpfact__icon">
+                                        {!! $factIcons[$loop->index % count($factIcons)] !!}
                                     </div>
+                                    <h3 class="tpfact__title">
+                                        <span class="odometer" data-count="{{ (int) preg_replace('/[^0-9]/', '', $counter->count) }}">0</span>@if($counter->suffix)<span class="{{ trim($counter->suffix) === '+' ? 'tpfact__plus' : 'tpfact__text' }}">{{ $counter->suffix }}</span>@endif
+                                    </h3>
+                                    <p class="tpfact__label">{{ $counter->label }}</p>
+                                </div>
                                 @endforeach
 
                             </div>
@@ -155,16 +175,16 @@
                         </div>
                         <div class="row unit-section">
                             @foreach(optional($facility)->galleries ?? [] as $gallery)
-                                <div class="col-md-4">
-                                    <div class="unit-item">
-                                        <img src="{{ $gallery->image_url }}" class="br-20" alt="{{ $gallery->heading ?: 'image' }}">
-                                        @if($gallery->heading)
-                                            <div class="unit-title tp_fade_anim" data-duration=".9" data-delay=".3">
-                                                {{ $gallery->heading }}
-                                            </div>
-                                        @endif
+                            <div class="col-md-4">
+                                <div class="unit-item">
+                                    <img src="{{ $gallery->image_url }}" class="br-20" alt="{{ $gallery->heading ?: 'image' }}">
+                                    @if($gallery->heading)
+                                    <div class="unit-title tp_fade_anim" data-duration=".9" data-delay=".3">
+                                        {{ $gallery->heading }}
                                     </div>
+                                    @endif
                                 </div>
+                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -175,164 +195,125 @@
                         <div class="row g-4">
 
                             @php
-                                $strengthIcons = [
-                                    public_path('facility-uploads/strength_icon1.svg'),
-                                    public_path('facility-uploads/strength_icon2.svg'),
-                                ];
+                            $strengthIcons = [
+                            public_path('facility-uploads/strength_icon1.svg'),
+                            public_path('facility-uploads/strength_icon2.svg'),
+                            ];
                             @endphp
                             @foreach(optional($facility)->strengths ?? [] as $strength)
-                                @php($iconFile = $strengthIcons[$loop->index % count($strengthIcons)])
-                                <div class="col-lg-6">
-                                    <div class="equipment-card">
-                                        <div class="equipment-card__heading">
-                                            <span class="equipment-card__icon">
-                                                @if(is_file($iconFile)){!! file_get_contents($iconFile) !!}@endif
-                                            </span>
-                                            <h2>{{ $strength->title }}</h2>
-                                        </div>
-
-                                        {!! str_replace('<ul>', '<ul class="equipment-list">', $strength->description) !!}
+                            @php($iconFile = $strengthIcons[$loop->index % count($strengthIcons)])
+                            <div class="col-lg-6">
+                                <div class="equipment-card">
+                                    <div class="equipment-card__heading">
+                                        <span class="equipment-card__icon">
+                                            @if(is_file($iconFile)){!! file_get_contents($iconFile) !!}@endif
+                                        </span>
+                                        <h2>{{ $strength->title }}</h2>
                                     </div>
+
+                                    {!! str_replace('<ul>', '<ul class="equipment-list">', $strength->description) !!}
                                 </div>
+                            </div>
                             @endforeach
 
                         </div>
                     </div>
                 </section>
-                
+
                 @php($f = $facility)
                 @if($f && ($f->testing_heading || $f->testing_content || $f->nabl_heading || $f->precision_heading || $f->mockup_caption))
                 <section class="gws-facade-testing-section">
-    <div class="container">
+                    <div class="container">
 
-        <!-- SECTION 01 — In-House Façade Testing Facility -->
-        @if($f->testing_heading || $f->testing_content || $f->testing_image1 || $f->testing_image2)
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                @if($f->testing_heading)<h2>{{ $f->testing_heading }}</h2>@endif
-                {!! $f->testing_content !!}
-            </div>
-            @if($f->testing_image1)
-            <div class="col-md-3">
-                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing_image1) }}" alt=""></div>
-            </div>
-            @endif
-            @if($f->testing_image2)
-            <div class="col-md-3">
-                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing_image2) }}" alt=""></div>
-            </div>
-            @endif
-        </div>
-        @endif
+                        <!-- SECTION 01 — In-House Façade Testing Facility -->
+                        @if($f->testing_heading || $f->testing_content || $f->testing_image1 || $f->testing_image2)
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                @if($f->testing_heading)<h2>{{ $f->testing_heading }}</h2>@endif
+                                {!! $f->testing_content !!}
+                            </div>
+                            @if($f->testing_image1)
+                            <div class="col-md-3">
+                                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing_image1) }}" alt=""></div>
+                            </div>
+                            @endif
+                            @if($f->testing_image2)
+                            <div class="col-md-3">
+                                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing_image2) }}" alt=""></div>
+                            </div>
+                            @endif
+                        </div>
+                        @endif
 
-        <!-- SECTION 02 — calibration text + images -->
-        @if($f->testing2_content || $f->testing2_image1 || $f->testing2_image2)
-        <div class="row gws-content-section align-items-center">
-            <!--@if($f->testing2_image1)-->
-            <!--<div class="col-md-6">-->
-            <!--    <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing2_image1) }}" alt=""></div>-->
-            <!--</div>-->
-            <!--@endif-->
-            <!--@if($f->testing2_image2)-->
-            <!--<div class="col-md-3">-->
-            <!--    <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing2_image2) }}" alt=""></div>-->
-            <!--</div>-->
-            <!--@endif-->
-            
-            <div class="col-md-9">
-                <div class="image-grid">
-    <div class="image-item">
-        <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/1.png" alt="">
-    </div>
-    <div class="image-item">
-        <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/2.png" alt="">
-    </div>
-    <div class="image-item">
-        <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/3.png" alt="">
-    </div>
-    <div class="image-item">
-        <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/4.png" alt="">
-    </div>
-</div>
-            </div>
-            
-            <div class="col-md-3">
-                {!! $f->testing2_content !!}
-            </div>
-        </div>
-        @endif
+                        <!-- SECTION 02 — calibration text + images -->
+                        @if($f->testing2_content || $f->testingImages->where('block', 'calibration')->count())
+                        <div class="row gws-content-section align-items-center">
+                            @if($f->testingImages->where('block', 'calibration')->count())
+                            <div class="col-md-9">
+                                <div class="image-grid">
+                                    @foreach($f->testingImages->where('block', 'calibration') as $img)
+                                        <div class="image-item">
+                                            <img src="{{ $img->image_url }}" alt="">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
 
-        <!-- SECTION 03 — NABL certification -->
-        @if($f->nabl_heading || $f->nabl_image)
-        <div class="row gws-nabl-section">
-            <div class="col-md-6">
-                @if($f->nabl_heading)<h3>{{ $f->nabl_heading }}</h3>@endif
-            </div>
-            @if($f->nabl_image)
-            <div class="col-md-6">
-                <div class="gws-nabl-image"><img src="{{ $f->assetUrl($f->nabl_image) }}" alt=""></div>
-            </div>
-            @endif
-        </div>
-        @endif
+                            <div class="col-md-3">
+                                {!! $f->testing2_content !!}
+                            </div>
+                        </div>
+                        @endif
 
-        <!-- SECTION 04 — Precision Engineering -->
-        @if($f->precision_heading || $f->precision_content)
-        <div class="row gws-content-section">
-            <div class="col-12">
-                @if($f->precision_heading)<h2>{{ $f->precision_heading }}</h2>@endif
-                {!! $f->precision_content !!}
-            </div>
-        </div>
-        @endif
+                        <!-- SECTION 03 — NABL certification -->
+                        @if($f->nabl_heading || $f->nabl_image)
+                        <div class="row gws-nabl-section">
+                            <div class="col-md-6">
+                                @if($f->nabl_heading)<h3>{{ $f->nabl_heading }}</h3>@endif
+                            </div>
+                            @if($f->nabl_image)
+                            <div class="col-md-6">
+                                <div class="gws-nabl-image"><img src="{{ $f->assetUrl($f->nabl_image) }}" alt=""></div>
+                            </div>
+                            @endif
+                        </div>
+                        @endif
 
-        <!-- SECTION 05 — Project testing mock-ups -->
-        @if($f->mockup_caption)
-        <div class="row gws-project-testing-section">
-            <div class="col-12">
-                <p class="gws-project-testing-title">{{ $f->mockup_caption }}</p>
-            </div>
-        </div>
-        @endif
+                        <!-- SECTION 04 — Precision Engineering -->
+                        @if($f->precision_heading || $f->precision_content)
+                        <div class="row gws-content-section">
+                            <div class="col-12">
+                                @if($f->precision_heading)<h2>{{ $f->precision_heading }}</h2>@endif
+                                {!! $f->precision_content !!}
+                            </div>
+                        </div>
+                        @endif
 
-        <!--@if($f->mockup_image1 || $f->mockup_image2)-->
-        <!--<div class="row gws-testing-images-row align-items-center">-->
-        <!--    @if($f->mockup_image1)-->
-        <!--    <div class="col-md-4">-->
-        <!--        <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->mockup_image1) }}" alt=""></div>-->
-        <!--    </div>-->
-        <!--    @endif-->
-        <!--    @if($f->mockup_image2)-->
-        <!--    <div class="col-md-8">-->
-        <!--        <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->mockup_image2) }}" alt=""></div>-->
-        <!--    </div>-->
-        <!--    @endif-->
-        <!--</div>-->
-        <!--@endif-->
-        
-        <div class="row gws-testing-images-row align-items-center">
-            <div class="col-md-4">
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/5.png" alt="">
-                    <h6>St. Lucy’s, USA</h6>
+                        <!-- SECTION 05 — Project testing mock-ups -->
+                        @if($f->mockup_caption)
+                        <div class="row gws-project-testing-section">
+                            <div class="col-12">
+                                <p class="gws-project-testing-title">{{ $f->mockup_caption }}</p>
+                            </div>
+                        </div>
+                        @endif
+
+                        @if($f->testingImages->where('block', 'mockup')->count())
+                        <div class="row gws-testing-images-row align-items-center">
+                            @foreach($f->testingImages->where('block', 'mockup') as $mockup)
+                            <div class="col-md-4">
+                                <div class="gws-testing-image">
+                                    <img src="{{ $mockup->image_url }}" alt="{{ $mockup->caption }}">
+                                    @if($mockup->caption)<h6>{{ $mockup->caption }}</h6>@endif
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
+
                     </div>
-            </div>
-            <div class="col-md-4">
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/6.png" alt="">
-                    <h6>Google HGU, Hyderabad - VMU</h6>
-                    </div>
-            </div>
-            <div class="col-md-4">
-                <div class="gws-testing-image">
-                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/gallery/7.png" alt="">
-                    <h6>Google HGU, Hyderabad - VMU</h6>
-                    </div>
-            </div>
-        </div>
-
-    </div>
-</section>
+                </section>
                 @endif
 
 

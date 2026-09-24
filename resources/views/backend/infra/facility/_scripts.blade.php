@@ -49,6 +49,12 @@
                        '<td><input type="text" class="form-control" name="galleries['+i+'][heading]" placeholder="e.g. MS and Sheet Metal Fabrication Unit"></td>' +
                        '<td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove>&times;</button></td>';
             }
+            if (kind === 'mockup') {
+                return '<td><input type="file" class="form-control" name="mockup['+i+'][image]" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="facPreviewRow(this)">' +
+                       '<div class="mt-2"><img class="fac-row-preview" src="" style="max-height:70px; display:none; border:1px solid #ddd; padding:3px; border-radius:6px;" alt=""></div></td>' +
+                       '<td><input type="text" class="form-control" name="mockup['+i+'][caption]" placeholder="e.g. St. Lucy\'s, USA"></td>' +
+                       '<td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove>&times;</button></td>';
+            }
             if (kind === 'strengths') {
                 return '<td><input type="text" class="form-control" name="strengths['+i+'][title]" placeholder="Title"></td>' +
                        '<td><textarea class="form-control fac-editor" name="strengths['+i+'][description]" rows="3" placeholder="Description"></textarea></td>' +

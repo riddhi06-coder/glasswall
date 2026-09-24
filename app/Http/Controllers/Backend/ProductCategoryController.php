@@ -31,6 +31,7 @@ class ProductCategoryController extends Controller
             'name'              => 'required|string|max:255',
             'image'             => 'required|file|mimes:jpg,jpeg,png,webp|max:2048',
             'short_description' => 'nullable|string|max:1000',
+            'seo_content'       => 'nullable|string',
             'is_active'         => 'required|in:0,1',
             'priority'          => 'nullable|integer|min:0',
         ], $this->messages());
@@ -40,6 +41,7 @@ class ProductCategoryController extends Controller
             'slug'              => $this->generateUniqueSlug($validated['name']),
             'image'             => $this->storeImage($request->file('image')),
             'short_description' => $validated['short_description'] ?? null,
+            'seo_content'       => $validated['seo_content'] ?? null,
             'is_active'         => $validated['is_active'],
             'priority'          => $validated['priority'] ?? 0,
             'created_by'        => Auth::id(),
@@ -63,6 +65,7 @@ class ProductCategoryController extends Controller
             'name'              => 'required|string|max:255',
             'image'             => 'nullable|file|mimes:jpg,jpeg,png,webp|max:2048',
             'short_description' => 'nullable|string|max:1000',
+            'seo_content'       => 'nullable|string',
             'is_active'         => 'required|in:0,1',
             'priority'          => 'nullable|integer|min:0',
         ], $this->messages());
@@ -73,6 +76,7 @@ class ProductCategoryController extends Controller
 
         $category->name              = $validated['name'];
         $category->short_description = $validated['short_description'] ?? null;
+        $category->seo_content       = $validated['seo_content'] ?? null;
         $category->is_active         = $validated['is_active'];
         $category->priority          = $validated['priority'] ?? 0;
 

@@ -181,20 +181,26 @@
 </div>
 
 {{-- Block 2 --}}
-<div class="col-12"><small class="text-secondary fw-bold">Block 2 — Calibration (2 images + text)</small></div>
+<div class="col-12"><small class="text-secondary fw-bold">Block 2 — Calibration (images + text)</small></div>
 <div class="col-12">
   <label class="form-label" for="testing2_content">Content</label>
   <textarea class="form-control editor" id="testing2_content" name="testing2_content" rows="3">{{ old('testing2_content', $r->testing2_content ?? '') }}</textarea>
 </div>
-<div class="col-md-6">
-  <label class="form-label" for="testing2_image1">Image 1 (large)</label>
-  <input class="form-control" id="testing2_image1" type="file" name="testing2_image1" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'testing2_image1_preview')">
-  <div class="mt-2"><img id="testing2_image1_preview" src="{{ $r ? $r->assetUrl($r->testing2_image1) : '' }}" style="max-height:100px; {{ $r && $r->testing2_image1 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
-</div>
-<div class="col-md-6">
-  <label class="form-label" for="testing2_image2">Image 2</label>
-  <input class="form-control" id="testing2_image2" type="file" name="testing2_image2" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'testing2_image2_preview')">
-  <div class="mt-2"><img id="testing2_image2_preview" src="{{ $r ? $r->assetUrl($r->testing2_image2) : '' }}" style="max-height:100px; {{ $r && $r->testing2_image2 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+<div class="col-12">
+  <label class="form-label d-block">Images <small class="text-secondary">(select one or more at once)</small></label>
+  @php $b2imgs = $r ? $r->testingImages->where('block', 'calibration') : collect(); @endphp
+  @if($b2imgs->count())
+    <div class="d-flex flex-wrap gap-3 mb-2">
+      @foreach($b2imgs as $img)
+        <div class="text-center" style="width:120px;">
+          <img src="{{ $img->image_url }}" style="width:120px;height:80px;object-fit:cover;border:1px solid #ddd;border-radius:6px;">
+          <label class="d-block small mt-1 text-danger"><input type="checkbox" name="testing2_delete[]" value="{{ $img->id }}"> Remove</label>
+        </div>
+      @endforeach
+    </div>
+  @endif
+  <input class="form-control" type="file" name="testing2_images[]" accept="image/*" multiple>
+  <small class="text-secondary d-block mt-1"><b>Allowed:</b> jpg, jpeg, png, webp, svg &nbsp;|&nbsp; <b>Max:</b> 2 MB each &nbsp;|&nbsp; Hold Ctrl/Shift to pick several.</small>
 </div>
 
 {{-- Block 3 --}}
@@ -221,18 +227,33 @@
 </div>
 
 {{-- Block 5 --}}
-<div class="col-12"><small class="text-secondary fw-bold">Block 5 — Project Mock-ups (caption + 2 images)</small></div>
+<div class="col-12"><small class="text-secondary fw-bold">Block 5 — Project Mock-ups (caption + images with per-image captions)</small></div>
 <div class="col-12">
-  <label class="form-label" for="mockup_caption">Caption</label>
+  <label class="form-label" for="mockup_caption">Section Caption</label>
   <input class="form-control" id="mockup_caption" type="text" name="mockup_caption" value="{{ old('mockup_caption', $r->mockup_caption ?? '') }}" placeholder="e.g. Some of our project testing mock-ups are as shown below:">
 </div>
-<div class="col-md-6">
-  <label class="form-label" for="mockup_image1">Image 1</label>
-  <input class="form-control" id="mockup_image1" type="file" name="mockup_image1" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'mockup_image1_preview')">
-  <div class="mt-2"><img id="mockup_image1_preview" src="{{ $r ? $r->assetUrl($r->mockup_image1) : '' }}" style="max-height:100px; {{ $r && $r->mockup_image1 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
-</div>
-<div class="col-md-6">
-  <label class="form-label" for="mockup_image2">Image 2 (wide)</label>
-  <input class="form-control" id="mockup_image2" type="file" name="mockup_image2" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'mockup_image2_preview')">
-  <div class="mt-2"><img id="mockup_image2_preview" src="{{ $r ? $r->assetUrl($r->mockup_image2) : '' }}" style="max-height:100px; {{ $r && $r->mockup_image2 ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+<div class="col-12">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <label class="form-label mb-0">Mock-up Images</label>
+    <button type="button" class="btn btn-sm btn-primary" data-add="mockup">+ Add More</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead><tr><th style="width:220px;">Image</th><th>Caption</th><th style="width:60px;" class="text-center">×</th></tr></thead>
+      <tbody data-body="mockup">
+        @foreach(($r ? $r->testingImages->where('block','mockup') : collect()) as $img)
+        <tr>
+          <td>
+            <input type="hidden" name="mockup[{{ $img->id }}][id]" value="{{ $img->id }}">
+            <input type="file" class="form-control" name="mockup[{{ $img->id }}][image]" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="facPreviewRow(this)">
+            <div class="mt-2"><img class="fac-row-preview" src="{{ $img->image_url }}" style="max-height:70px; border:1px solid #ddd; padding:3px; border-radius:6px;" alt=""></div>
+          </td>
+          <td><input type="text" class="form-control" name="mockup[{{ $img->id }}][caption]" value="{{ $img->caption }}" placeholder="e.g. St. Lucy's, USA"></td>
+          <td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove>&times;</button></td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  <small class="text-secondary d-block">Upload an image and give each its own caption. Leaving an existing row's image empty keeps the current image; add rows with <b>+ Add More</b>.</small>
 </div>

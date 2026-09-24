@@ -69,6 +69,35 @@
                     tr.remove();
                 });
             }
+
+            // ---- Team Images gallery: Add More / Remove ----
+            var imgBody = document.getElementById('deImgBody');
+            var imgAdd  = document.getElementById('deImgAddRow');
+            var imgTpl  = document.getElementById('deImgRowTpl');
+            if (imgAdd && imgBody && imgTpl) {
+                imgAdd.addEventListener('click', function () {
+                    var idx = parseInt(imgAdd.getAttribute('data-next-index'), 10) || 0;
+                    var tmp = document.createElement('template');
+                    tmp.innerHTML = imgTpl.innerHTML.replace(/__IDX__/g, idx).trim();
+                    imgBody.appendChild(tmp.content.firstElementChild);
+                    imgAdd.setAttribute('data-next-index', idx + 1);
+                });
+                imgBody.addEventListener('click', function (e) {
+                    if (e.target.classList.contains('de-img-remove')) {
+                        var row = e.target.closest('tr');
+                        if (row) row.remove();
+                    }
+                });
+            }
         });
     })();
+
+    // Preview a selected team image in its row.
+    function deImgPreview(input) {
+        var file = input.files[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) { alert('Image is too large. Maximum allowed is 2 MB.'); input.value = ''; return; }
+        var img = input.closest('tr').querySelector('.de-img-prev');
+        if (img) { img.src = URL.createObjectURL(file); img.style.display = ''; }
+    }
 </script>

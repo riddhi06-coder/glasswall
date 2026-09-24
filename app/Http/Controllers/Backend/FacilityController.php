@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Facility;
+use App\Models\FacilityTestingImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,7 +60,7 @@ class FacilityController extends Controller
 
     public function edit($id)
     {
-        $record = Facility::with(['features', 'counters', 'galleries', 'strengths'])->findOrFail($id);
+        $record = Facility::with(['features', 'counters', 'galleries', 'strengths', 'testingImages'])->findOrFail($id);
 
         return view('backend.infra.facility.edit', compact('record'));
     }
@@ -104,6 +105,10 @@ class FacilityController extends Controller
         foreach (['testing_image1', 'testing_image2', 'testing2_image1', 'testing2_image2', 'nabl_image', 'mockup_image1', 'mockup_image2'] as $img) {
             $this->deleteUpload($facility->$img);
         }
+        foreach ($facility->testingImages as $ti) {
+            $this->deleteUpload($ti->image);
+        }
+        $facility->testingImages()->delete();
         foreach ($facility->features as $f) { $this->deleteUpload($f->image); }
         foreach ($facility->galleries as $g) { $this->deleteUpload($g->image); }
         $facility->features()->delete();
@@ -124,7 +129,7 @@ class FacilityController extends Controller
             $facility->$field = $data[$field] ?? null;
         }
 
-        foreach (['testing_image1', 'testing_image2', 'testing2_image1', 'testing2_image2', 'nabl_image', 'mockup_image1', 'mockup_image2'] as $img) {
+        foreach (['testing_image1', 'testing_image2', 'nabl_image'] as $img) {
             if ($request->hasFile($img)) {
                 $this->deleteUpload($facility->$img);
                 $facility->$img = $this->storeUpload($request->file($img));
@@ -132,6 +137,89 @@ class FacilityController extends Controller
         }
 
         $facility->save();
+
+        $this->syncTestingBlock2Images($facility, $request);
+        $this->syncMockupImages($facility, $request);
+    }
+
+    /** Block 5 (Project Mock-ups): repeatable image + per-image caption rows. */
+    private function syncMockupImages(Facility $facility, Request $request): void
+    {
+        $rows = (array) $request->input('mockup', []);
+
+        // Existing ids that survived the submit (rows still present in the form).
+        $keptIds = [];
+        foreach ($rows as $row) {
+            if (! empty($row['id'])) {
+                $keptIds[] = (int) $row['id'];
+            }
+        }
+
+        // Delete mockup rows the admin removed from the table.
+        $stale = FacilityTestingImage::where('facility_id', $facility->id)
+            ->where('block', 'mockup')
+            ->when($keptIds, fn ($q) => $q->whereNotIn('id', $keptIds))
+            ->get();
+        foreach ($stale as $img) {
+            $this->deleteUpload($img->image);
+            $img->delete();
+        }
+
+        // Create / update rows in submit order.
+        $order = 0;
+        foreach ($rows as $key => $row) {
+            $caption = trim($row['caption'] ?? '');
+            $file    = $request->file("mockup.$key.image");
+
+            if (! empty($row['id'])) {
+                $img = FacilityTestingImage::where('facility_id', $facility->id)
+                    ->where('block', 'mockup')->where('id', $row['id'])->first();
+                if (! $img) { continue; }
+                if ($file) {
+                    $this->deleteUpload($img->image);
+                    $img->image = $this->storeUpload($file);
+                }
+                $img->caption    = $caption;
+                $img->sort_order = $order++;
+                $img->save();
+                continue;
+            }
+
+            // New row — needs an uploaded image to be meaningful.
+            if ($file) {
+                $facility->testingImages()->create([
+                    'block'      => 'mockup',
+                    'image'      => $this->storeUpload($file),
+                    'caption'    => $caption,
+                    'sort_order' => $order++,
+                ]);
+            }
+        }
+    }
+
+    /** Block 2 (Calibration): remove checked images, add newly-uploaded ones (single multi-file input). */
+    private function syncTestingBlock2Images(Facility $facility, Request $request): void
+    {
+        // Delete the images ticked for removal.
+        foreach ((array) $request->input('testing2_delete', []) as $id) {
+            $img = FacilityTestingImage::where('facility_id', $facility->id)->where('id', $id)->first();
+            if ($img) {
+                $this->deleteUpload($img->image);
+                $img->delete();
+            }
+        }
+
+        // Add newly uploaded images.
+        $order = (int) FacilityTestingImage::where('facility_id', $facility->id)->where('block', 'calibration')->max('sort_order');
+        foreach ((array) $request->file('testing2_images', []) as $file) {
+            if ($file) {
+                $facility->testingImages()->create([
+                    'block'      => 'calibration',
+                    'image'      => $this->storeUpload($file),
+                    'sort_order' => ++$order,
+                ]);
+            }
+        }
     }
 
     // ------------------------------------------------------------------
@@ -227,6 +315,8 @@ class FacilityController extends Controller
             'testing_heading'        => 'nullable|string|max:255',
             'testing_content'        => 'nullable|string',
             'testing2_content'       => 'nullable|string',
+            'testing2_images'        => 'nullable|array',
+            'testing2_images.*'      => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'nabl_heading'           => 'nullable|string',
             'precision_heading'      => 'nullable|string|max:255',
             'precision_content'      => 'nullable|string',
@@ -236,8 +326,9 @@ class FacilityController extends Controller
             'testing2_image1'        => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'testing2_image2'        => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'nabl_image'             => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
-            'mockup_image1'          => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
-            'mockup_image2'          => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'mockup'                 => 'nullable|array',
+            'mockup.*.caption'       => 'nullable|string|max:255',
+            'mockup.*.image'         => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
 
             'features'               => 'required|array|min:1',
             'features.*.title'       => 'required|string|max:255',

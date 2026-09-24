@@ -50,14 +50,6 @@
   @error('features_heading')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
 </div>
 
-<div class="col-md-6">
-  <label class="form-label" for="features_image">Features Image @if(!$r)<span class="text-danger">*</span>@endif</label>
-  <input class="form-control @error('features_image') is-invalid @enderror" id="features_image" type="file" name="features_image" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="previewFile(this,'features_image_preview')" @if(!$r) required @endif>
-  @error('features_image')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-  <small class="text-secondary d-block mt-1"><b>Allowed:</b> jpg, jpeg, png, webp, svg &nbsp;|&nbsp; <b>Max:</b> 2 MB @if($r)&nbsp;|&nbsp; Leave empty to keep current.@endif</small>
-  <div class="mt-2"><img id="features_image_preview" src="{{ $r ? $r->assetUrl($r->features_image) : '' }}" style="max-height:120px; {{ $r && $r->features_image ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
-</div>
-
 <div class="col-12">
   <div class="d-flex justify-content-between align-items-center mb-2">
     <label class="form-label mb-0">Features <span class="text-danger">*</span></label>
@@ -85,3 +77,44 @@
     </table>
   </div>
 </div>
+
+{{-- ============ TEAM IMAGES (multi-image gallery) ============ --}}
+<div class="col-12">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <label class="form-label mb-0">Team Images</label>
+    <button type="button" class="btn btn-sm btn-primary" id="deImgAddRow" data-next-index="{{ $r ? $r->teamImages->count() : 0 }}">+ Add More</button>
+  </div>
+  <small class="text-secondary d-block mb-2">Images shown in the row below the features (jpg, jpeg, png, webp, svg &nbsp;|&nbsp; Max 2 MB each).</small>
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle" id="deImgTable">
+      <thead>
+        <tr><th style="width:60%;">Image</th><th style="width:120px;">Preview</th><th style="width:70px;" class="text-center">Action</th></tr>
+      </thead>
+      <tbody id="deImgBody">
+        @php $teamImgs = $r ? $r->teamImages : collect(); @endphp
+        @foreach($teamImgs as $i => $img)
+          <tr>
+            <td>
+              <input type="hidden" name="team_images[{{ $i }}][existing_image]" value="{{ $img->image }}">
+              <input type="file" class="form-control" name="team_images[{{ $i }}][image]" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="deImgPreview(this)">
+              <small class="text-secondary">Leave empty to keep current.</small>
+            </td>
+            <td><img src="{{ $img->image_url }}" class="de-img-prev" style="max-height:56px;border:1px solid #ddd;padding:3px;border-radius:6px;"></td>
+            <td class="text-center"><button type="button" class="btn btn-sm btn-danger de-img-remove">&times;</button></td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<template id="deImgRowTpl">
+  <tr>
+    <td>
+      <input type="hidden" name="team_images[__IDX__][existing_image]" value="">
+      <input type="file" class="form-control" name="team_images[__IDX__][image]" accept=".jpg,.jpeg,.png,.webp,.svg" onchange="deImgPreview(this)">
+    </td>
+    <td><img class="de-img-prev" style="max-height:56px;border:1px solid #ddd;padding:3px;border-radius:6px;display:none;"></td>
+    <td class="text-center"><button type="button" class="btn btn-sm btn-danger de-img-remove">&times;</button></td>
+  </tr>
+</template>

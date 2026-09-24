@@ -214,7 +214,7 @@ class HomeController extends Controller
     // Infrastructure — Facility page
     public function facility()
     {
-        $facility = Facility::with(['features', 'counters', 'galleries', 'strengths'])->first();
+        $facility = Facility::with(['features', 'counters', 'galleries', 'strengths', 'testingImages'])->first();
 
         return view('frontend.facility', compact('facility'));
     }

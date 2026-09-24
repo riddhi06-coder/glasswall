@@ -30,6 +30,11 @@ class DesignEngineering extends Model
         return $this->hasMany(DesignEngineeringFeature::class, 'design_engineering_id')->orderBy('sort_order');
     }
 
+    public function teamImages(): HasMany
+    {
+        return $this->hasMany(DesignEngineeringImage::class, 'design_engineering_id')->orderBy('sort_order')->orderBy('id');
+    }
+
     /** URL to any stored image for this record. */
     public function assetUrl(?string $fileName): ?string
     {

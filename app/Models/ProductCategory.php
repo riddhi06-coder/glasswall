@@ -18,6 +18,7 @@ class ProductCategory extends Model
         'slug',
         'image',
         'short_description',
+        'seo_content',
         'is_active',
         'priority',
         'created_by',

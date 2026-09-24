@@ -60,6 +60,11 @@ class Facility extends Model
         return $this->hasMany(FacilityStrength::class, 'facility_id')->orderBy('sort_order');
     }
 
+    public function testingImages(): HasMany
+    {
+        return $this->hasMany(FacilityTestingImage::class, 'facility_id')->orderBy('sort_order')->orderBy('id');
+    }
+
     /** URL to any stored image for this record. */
     public function assetUrl(?string $fileName): ?string
     {

@@ -87,6 +87,13 @@
                     @error('short_description')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                   </div>
 
+                  <!-- SEO Content (long text under the heading, on the category page) -->
+                  <div class="col-12">
+                    <label class="form-label" for="seo_content">SEO Content <small class="text-secondary">(paragraphs shown under the heading on the products page)</small></label>
+                    <textarea class="form-control editor @error('seo_content') is-invalid @enderror" id="seo_content" name="seo_content" rows="8">{{ old('seo_content', $category->seo_content) }}</textarea>
+                    @error('seo_content')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                  </div>
+
                   <div class="col-12 text-end mt-3">
                     <a href="{{ route('manage-product-category.index') }}" class="btn btn-danger px-4">Cancel</a>
                     <button class="btn btn-primary" type="submit">Update</button>
@@ -116,6 +123,10 @@
             preview.src = URL.createObjectURL(file);
             preview.style.display = 'block';
         }
+
+        document.querySelectorAll('textarea.editor').forEach(function (el) {
+            ClassicEditor.create(el).catch(function (e) { console.error(e); });
+        });
     </script>
 
 </body>

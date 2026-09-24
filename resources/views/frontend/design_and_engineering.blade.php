@@ -44,13 +44,6 @@
                             <div>{!! optional($design)->description !!}</div>
                         </div>
                         
-                    <div class="container team-images" style="margin-bottom: 80px;">
-                        <div class="row">
-                            <div class="col-md-6 mx-auto">
-                                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/Picture3.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
 
                         <div class="technology-grid">
                             <div class="technology-quote">
@@ -70,23 +63,17 @@
 
                     </div>
 
+                    @if(optional($design)->teamImages && $design->teamImages->count())
                     <div class="container team-images">
                         <div class="row">
-                            <div class="col-md-4 mx-auto">
-                                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/Picture1.jpg" alt="">
-                            </div>
-                            <div class="col-md-4 mx-auto">
-                                @if($design && $design->features_image)
-                                    <img src="{{ $design->assetUrl($design->features_image) }}" alt="{{ optional($design)->features_heading }}">
-                                @endif
-                            </div>
-                            
-                            <div class="col-md-4 mx-auto">
-                                    <img src="https://anvayafoundation.com/glasswall/public/frontend/assets/images/home/Picture2.jpg" alt="">
-                            </div>
-                                    
+                            @foreach($design->teamImages as $img)
+                                <div class="col-md-4 mx-auto">
+                                    <img src="{{ $img->image_url }}" alt="{{ optional($design)->features_heading }}">
+                                </div>
+                            @endforeach
                         </div>
                     </div>
+                    @endif
                 </section>
 
 

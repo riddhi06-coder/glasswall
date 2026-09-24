@@ -44,18 +44,18 @@ class DesignEnggController extends Controller
             'section_heading'  => $data['section_heading'],
             'description'      => $data['description'],
             'features_heading' => $data['features_heading'],
-            'features_image'   => $this->storeUpload($request->file('features_image')),
             'created_by'       => Auth::id(),
         ]);
 
         $this->syncFeatures($record, $data['features']);
+        $this->syncTeamImages($record, $request);
 
         return redirect()->route('manage-design-engg.index')->with('message', 'Design & Engineering details added successfully.');
     }
 
     public function edit($id)
     {
-        $record = DesignEngineering::with('features')->findOrFail($id);
+        $record = DesignEngineering::with(['features', 'teamImages'])->findOrFail($id);
 
         return view('backend.infra.design_engg.edit', compact('record'));
     }
@@ -71,11 +71,6 @@ class DesignEnggController extends Controller
             $record->banner_image = $this->storeUpload($request->file('banner_image'));
         }
 
-        if ($request->hasFile('features_image')) {
-            $this->deleteUpload($record->features_image);
-            $record->features_image = $this->storeUpload($request->file('features_image'));
-        }
-
         $record->banner_heading   = $data['banner_heading'];
         $record->section_heading  = $data['section_heading'];
         $record->description      = $data['description'];
@@ -84,6 +79,7 @@ class DesignEnggController extends Controller
         $record->save();
 
         $this->syncFeatures($record, $data['features']);
+        $this->syncTeamImages($record, $request);
 
         return redirect()->route('manage-design-engg.index')->with('message', 'Design & Engineering details updated successfully.');
     }
@@ -93,6 +89,10 @@ class DesignEnggController extends Controller
         $record = DesignEngineering::findOrFail($id);
         $this->deleteUpload($record->banner_image);
         $this->deleteUpload($record->features_image);
+        foreach ($record->teamImages as $img) {
+            $this->deleteUpload($img->image);
+        }
+        $record->teamImages()->delete();
         $record->features()->delete();
         $record->delete();
 
@@ -112,10 +112,11 @@ class DesignEnggController extends Controller
             'section_heading'         => 'required|string|max:255',
             'description'             => 'required|string',
             'features_heading'        => 'required|string|max:255',
-            'features_image'          => "{$req}|file|mimes:jpg,jpeg,png,webp,svg|max:2048",
             'features'                => 'required|array|min:1',
             'features.*.feature'      => 'required|string|max:255',
             'features.*.description'  => 'required|string',
+            'team_images'             => 'nullable|array',
+            'team_images.*.image'     => 'nullable|file|mimes:jpg,jpeg,png,webp,svg|max:2048',
         ];
     }
 
@@ -146,6 +147,27 @@ class DesignEnggController extends Controller
                 'feature'     => $feature,
                 'description' => $desc,
                 'sort_order'  => $order++,
+            ]);
+        }
+    }
+
+    /** Repeatable team-images gallery: keep existing (existing_image) or store new uploads; removed rows drop out. */
+    private function syncTeamImages(DesignEngineering $record, Request $request): void
+    {
+        $record->teamImages()->delete();
+
+        $order = 0;
+        foreach ($request->input('team_images', []) as $i => $row) {
+            $image = $row['existing_image'] ?? null;
+            if ($file = $request->file("team_images.$i.image")) {
+                $image = $this->storeUpload($file);
+            }
+            if (! $image) {
+                continue;
+            }
+            $record->teamImages()->create([
+                'image'      => $image,
+                'sort_order' => $order++,
             ]);
         }
     }
