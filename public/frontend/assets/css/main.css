@@ -4982,13 +4982,19 @@ h4.tpwork__title.mb-15 {
   visibility: visible;
   bottom: 60px;
 }
+
+.tp-project-area .tpportpost__title {
+    margin-bottom: 20px;
+}
+
 .tpportpost__info {
   width: 100%;
   background-color: #f4f4f4;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
   padding: 50px;
   padding-right: 123px;
   margin-right: 6px;
