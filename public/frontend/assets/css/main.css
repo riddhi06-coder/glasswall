@@ -4821,6 +4821,7 @@ h4.tpwork__title.mb-15 {
 .tpwork__content {
   background-color: #d3f0ff;
     padding: 30px 20px;
+    border-radius: 0 0 10px 10px;
 }
 
 /*.tpwork:nth-child(2) {*/

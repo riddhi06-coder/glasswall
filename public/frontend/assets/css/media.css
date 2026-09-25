@@ -1118,8 +1118,14 @@
 
 
 
-
-
+@media (max-width: 1400px) {
+.custom-waste-wrap .tpserv__card .tp-fs-24 {
+    height: 80px;
+}
+.custom-waste-wrap .tpserv__card p {
+    height: 130px;
+}
+}
 
 
 @media (max-width: 1200px) {
@@ -1136,10 +1142,29 @@
     width: 45%;
         height: auto;
 }
+h4.tpwork__title.mb-15 {
+    height: 90px;
+}
+.custom-counter-wrap .tp-fact-grid {
+    margin: 0 auto;
+    justify-items: center;
+}
+.custom-counter-wrap .tp-fact-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
 
 }
 
 @media (max-width: 992px) {
+.tp-work-wrap {
+    flex-wrap: wrap;
+}
+.tpwork {
+    width: 50%;
+}
+h4.tpwork__title.mb-15 {
+    height: auto;
+}
     .tpwork__content p {
     height: auto;
 }
@@ -1171,6 +1196,15 @@
 }
 
 @media (max-width: 768px) {
+.custom-waste-wrap .tpserv__card .tp-fs-24 {
+    height: auto;
+}
+.custom-waste-wrap .tpserv__card p {
+    height: auto;
+}
+.custom-waste-wrap .tpserv__card {
+    min-height: auto;
+}
 .document-grid-two {
     grid-template-columns: unset;
 }
@@ -1281,6 +1315,9 @@ h4.tpwork__title.mb-15 {
 }
 
 @media (max-width: 480px) {
+.custom-counter-wrap .tp-fact-grid {
+        grid-template-columns: 1fr;
+    }
 .gws-careers-intro h2 {
     font-size: 20px;
 }
