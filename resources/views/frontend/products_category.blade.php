@@ -71,12 +71,11 @@
         padding: 44px 48px;
         box-shadow: 0 20px 50px rgba(20, 40, 80, .06);
       }
+      /* Collapsed height (= the first paragraph) is set by the script below. */
       .pc-about-text {
-        max-height: 330px;
         overflow: hidden;
         transition: max-height .6s ease;
       }
-      .pc-about-body.is-open .pc-about-text { max-height: 3000px; }
       .pc-about-text p {
         margin: 0 0 20px;
         color: #4a5160;
@@ -85,17 +84,14 @@
         text-align: left;
       }
       .pc-about-text p:last-child { margin-bottom: 0; }
-      .pc-about-fade {
-        position: absolute;
-        left: 48px; right: 48px; bottom: 96px;
-        height: 110px;
-        pointer-events: none;
-        background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
-        transition: opacity .4s ease;
+      .pc-about-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 18px 32px;
+        margin-top: 28px;
       }
-      .pc-about-body.is-open .pc-about-fade { opacity: 0; }
       .pc-readmore {
-        margin-top: 24px;
         padding: 0;
         border: 0;
         background: none;
@@ -107,8 +103,6 @@
       }
       .pc-readmore i { transition: transform .3s ease; }
       .pc-about-body.is-open .pc-readmore i { transform: rotate(180deg); }
-      .pc-about-body.no-toggle .pc-about-text { max-height: none; }
-      .pc-about-body.no-toggle .pc-about-fade,
       .pc-about-body.no-toggle .pc-readmore { display: none; }
 
       @media (max-width: 991px) {
@@ -121,7 +115,6 @@
       @media (max-width: 575px) {
         .pc-lead { font-size: 16px; }
         .pc-about-body { padding: 28px 22px; }
-        .pc-about-fade { left: 22px; right: 22px; }
       }
     </style>
 
@@ -167,9 +160,6 @@
                     <span class="pc-about-label">About</span>
                     <h3 class="pc-about-title">{{ $category->name }}</h3>
                     <p>Have a project in mind? Our facade specialists can help you choose the right system.</p>
-                    <a href="{{ route('frontend.contact_us') }}" class="pc-cta">
-                      Talk to our team <i class="fa-solid fa-arrow-right"></i>
-                    </a>
                   </div>
                 </div>
                 <div class="col-lg-8">
@@ -177,10 +167,14 @@
                     <div class="pc-about-text">
                       {!! $category->seo_content !!}
                     </div>
-                    <div class="pc-about-fade"></div>
-                    <button type="button" class="pc-readmore" id="pc-readmore" aria-expanded="false">
-                      <span>Read more</span> <i class="fa-solid fa-chevron-down"></i>
-                    </button>
+                    <div class="pc-about-actions">
+                      <button type="button" class="pc-readmore" id="pc-readmore" aria-expanded="false">
+                        <span>Read more</span> <i class="fa-solid fa-chevron-down"></i>
+                      </button>
+                      <a href="{{ route('frontend.contact_us') }}" class="pc-cta">
+                        Talk to our team <i class="fa-solid fa-arrow-right"></i>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -248,22 +242,34 @@
     @include('components.frontend.main-js')
 
     <script>
-      // "Read more" for the About text — hidden entirely when the text is short.
+      // "Read more" for the About text: collapsed, only the first paragraph shows.
+      // The toggle is hidden when there is nothing beyond the first paragraph.
       (function () {
         var body = document.getElementById('pc-about-body');
         if (!body) return;
-        var text = body.querySelector('.pc-about-text');
-        var btn  = document.getElementById('pc-readmore');
+        var text  = body.querySelector('.pc-about-text');
+        var first = text.firstElementChild;
+        var btn   = document.getElementById('pc-readmore');
 
-        if (text.scrollHeight <= text.clientHeight + 10) {
+        if (!first || text.scrollHeight <= first.offsetHeight + 10) {
           body.classList.add('no-toggle');
           return;
         }
+
+        function collapsedHeight() { return first.offsetHeight + 'px'; }
+
+        function apply() {
+          text.style.maxHeight = body.classList.contains('is-open') ? text.scrollHeight + 'px' : collapsedHeight();
+        }
+
+        apply();
+        window.addEventListener('resize', apply);
 
         btn.addEventListener('click', function () {
           var open = body.classList.toggle('is-open');
           btn.setAttribute('aria-expanded', open);
           btn.querySelector('span').textContent = open ? 'Read less' : 'Read more';
+          apply();
           // The page uses GSAP smooth scrolling; re-measure once the height has animated.
           setTimeout(function () {
             if (window.ScrollTrigger) window.ScrollTrigger.refresh();
