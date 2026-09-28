@@ -20,7 +20,8 @@ class PermissionController extends Controller
 
     public function edit(Role $role)
     {
-        $permissions = Permission::orderBy('module')->orderBy('id')->get()->groupBy('module');
+        // Ordered by id so the cards follow the sidebar order the permissions were created in.
+        $permissions = Permission::orderBy('id')->get()->groupBy('module');
         $assigned    = $role->permissions->pluck('id')->all();
 
         return view('backend.permissions.edit', compact('role', 'permissions', 'assigned'));
@@ -47,7 +48,7 @@ class PermissionController extends Controller
     // ---------------------------------------------------------------
     public function manage()
     {
-        $grouped = Permission::orderBy('module')->orderBy('id')->get()->groupBy('module');
+        $grouped = Permission::orderBy('id')->get()->groupBy('module');
         return view('backend.permissions.manage', compact('grouped'));
     }
 

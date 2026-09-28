@@ -84,7 +84,8 @@
                             <!-- Priority -->
                             <div class="col-md-3">
                               <label class="form-label" for="priority">Priority <span class="text-danger">*</span></label>
-                              <input class="form-control @error('priority') is-invalid @enderror" id="priority" type="number" name="priority" min="0" value="{{ old('priority', 0) }}" placeholder="e.g. 1" required>
+                              <input class="form-control @error('priority') is-invalid @enderror" id="priority" type="number" name="priority" min="0" value="{{ old('priority') }}" placeholder="e.g. 1" required>
+                              <small class="text-secondary d-block mt-1">Must be unique within the category.</small>
                               @error('priority')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                             </div>
 
@@ -96,6 +97,24 @@
                                 <option value="0" {{ old('is_active') === '0' ? 'selected' : '' }}>Inactive</option>
                               </select>
                               @error('is_active')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                            </div>
+
+                            <!-- Show on Home -->
+                            <div class="col-md-3">
+                              <label class="form-label" for="show_on_home">Show on Home <span class="text-danger">*</span></label>
+                              <select class="form-control @error('show_on_home') is-invalid @enderror" id="show_on_home" name="show_on_home" required>
+                                <option value="0" {{ old('show_on_home', '0') === '0' ? 'selected' : '' }}>No</option>
+                                <option value="1" {{ old('show_on_home') === '1' ? 'selected' : '' }}>Yes</option>
+                              </select>
+                              @error('show_on_home')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                            </div>
+
+                            <!-- Home Priority (only when shown on home) -->
+                            <div class="col-md-3" id="home_priority_wrap">
+                              <label class="form-label" for="home_priority">Home Priority <span class="text-danger">*</span></label>
+                              <input class="form-control @error('home_priority') is-invalid @enderror" id="home_priority" type="number" name="home_priority" min="1" value="{{ old('home_priority') }}" placeholder="e.g. 1">
+                              @error('home_priority')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                              <small class="text-secondary d-block mt-1">Order on the home page. Must be unique within the category.</small>
                             </div>
 
                             <!-- Thumbnail -->
@@ -135,6 +154,20 @@
     @include('components.backend.main-js')
 
     <script>
+        // Home Priority only applies when the project is shown on the home page.
+        (function () {
+            var sel  = document.getElementById('show_on_home');
+            var wrap = document.getElementById('home_priority_wrap');
+            var inp  = document.getElementById('home_priority');
+            function sync() {
+                var on = sel.value === '1';
+                wrap.hidden  = !on;
+                inp.required = on;
+            }
+            sel.addEventListener('change', sync);
+            sync();
+        })();
+
         function previewThumbnail() {
             var input = document.getElementById('thumbnail');
             var preview = document.getElementById('thumbnail_preview');

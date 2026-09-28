@@ -58,12 +58,17 @@ class HomeController extends Controller
             ->orderBy('name')
             ->get();
 
+        // Home priority is unique per category, so ties across categories fall back to category order.
         $homeProjects = ProjectListing::with('category')
             ->where('is_active', true)
             ->where('show_on_home', true)
-            ->orderBy('priority')
-            ->orderBy('id')
-            ->get();
+            ->get()
+            ->sortBy([
+                ['home_priority', 'asc'],
+                fn ($a, $b) => (optional($a->category)->priority ?? PHP_INT_MAX) <=> (optional($b->category)->priority ?? PHP_INT_MAX),
+                ['id', 'asc'],
+            ])
+            ->values();
 
         return view('frontend.index', compact('banners', 'about', 'clientele', 'blog', 'categories', 'productCategories', 'homeProjects'));
     }

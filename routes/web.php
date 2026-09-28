@@ -108,62 +108,73 @@ use App\Http\Controllers\Frontend\FormController;
         Route::get('activity-logs/{id}', [ActivityLogController::class, 'show'])->whereNumber('id')->name('admin.activity-logs.show');
     
     
-        // Home Page
-        Route::resource('banner-details', HomeBannerController::class);
-        Route::resource('home-about-details', HomeAboutController::class);
-        Route::resource('home-clientele', HomeClienteleController::class);
-        Route::resource('home-blog-details', HomeBlogController::class);
+        // ---- CMS sections ----
+        // Each resource is gated per action by "<resource-name>.<view|create|edit|delete>" permissions
+        // (seeded by the 2026_09_28_110000_add_cms_module_permissions migration).
+        $cms = function (string $name, string $controller, ?array $only = null) {
+            $resource = Route::resource($name, $controller);
+            if ($only) {
+                $resource->only($only);
+            }
 
+            return $resource
+                ->middlewareFor(['index', 'show'], "permission:$name.view")
+                ->middlewareFor(['create', 'store'], "permission:$name.create")
+                ->middlewareFor(['edit', 'update'], "permission:$name.edit")
+                ->middlewareFor('destroy', "permission:$name.delete");
+        };
+
+        // Home Page
+        $cms('banner-details', HomeBannerController::class);
+        $cms('home-about-details', HomeAboutController::class);
+        $cms('home-clientele', HomeClienteleController::class);
+        $cms('home-blog-details', HomeBlogController::class);
 
         // Products
-        Route::resource('manage-product-category', ProductCategoryController::class);
-        Route::resource('manage-product-list', ProductListController::class);
+        $cms('manage-product-category', ProductCategoryController::class);
+        $cms('manage-product-list', ProductListController::class);
 
         // Projects
-        Route::resource('manage-project-category', ProjectCategoryController::class);
-        Route::post('manage-project-listing/{id}/toggle-home', [ProjectListingController::class, 'toggleHome'])->name('manage-project-listing.toggle-home');
-        Route::resource('manage-project-listing', ProjectListingController::class);
-        Route::get('manage-project-details/listings-by-category/{category}', [ProjectDetailsController::class, 'listingsByCategory'])->name('manage-project-details.listings-by-category');
-        Route::resource('manage-project-details', ProjectDetailsController::class);
-        Route::resource('manage-project-details', ProjectDetailsController::class);
-
+        $cms('manage-project-category', ProjectCategoryController::class);
+        Route::post('manage-project-listing/{id}/toggle-home', [ProjectListingController::class, 'toggleHome'])->middleware('permission:manage-project-listing.edit')->name('manage-project-listing.toggle-home');
+        $cms('manage-project-listing', ProjectListingController::class);
+        Route::get('manage-project-details/listings-by-category/{category}', [ProjectDetailsController::class, 'listingsByCategory'])->middleware('permission:manage-project-details.create,manage-project-details.edit')->name('manage-project-details.listings-by-category');
+        $cms('manage-project-details', ProjectDetailsController::class);
 
         // Infrastructure
-        Route::resource('manage-design-engg', DesignEnggController::class);
-        Route::resource('manage-project-management', ProjectManagementController::class);
-        Route::resource('manage-facility', FacilityController::class);
+        $cms('manage-design-engg', DesignEnggController::class);
+        $cms('manage-project-management', ProjectManagementController::class);
+        $cms('manage-facility', FacilityController::class);
 
         // Investors Relations
-        Route::resource('manage-ipo', IpoController::class);
-        Route::resource('manage-ipo-drhp', IpoDrhpController::class);
-        Route::resource('manage-annual-report', AnnualReportController::class);
-        Route::resource('manage-investor-resource', InvestorResourceController::class);
-        Route::resource('manage-corporate-governance', CorporateGovernanceController::class);
-
+        $cms('manage-ipo', IpoController::class);
+        $cms('manage-ipo-drhp', IpoDrhpController::class);
+        $cms('manage-annual-report', AnnualReportController::class);
+        $cms('manage-investor-resource', InvestorResourceController::class);
+        $cms('manage-corporate-governance', CorporateGovernanceController::class);
 
         // Careers
-        Route::resource('manage-careers-details', CareersDetailsController::class);
-        Route::resource('manage-jobs',JobController::class);
+        $cms('manage-careers-details', CareersDetailsController::class);
+        $cms('manage-jobs', JobController::class);
 
-        
         // Contact
-        Route::resource('manage-contact-details', ContactDetailsController::class);
+        $cms('manage-contact-details', ContactDetailsController::class);
 
         // Enquiries (form submissions stored in DB)
-        Route::resource('manage-contact-enquiries', ContactSubmissionController::class)->only(['index', 'show', 'destroy']);
-        Route::resource('manage-career-applications', CareerApplicationController::class)->only(['index', 'show', 'destroy']);
+        $cms('manage-contact-enquiries', ContactSubmissionController::class, ['index', 'show', 'destroy']);
+        $cms('manage-career-applications', CareerApplicationController::class, ['index', 'show', 'destroy']);
 
         // Legal pages (Privacy Policy / Terms & Conditions)
-        Route::resource('manage-legal-pages', LegalPageController::class)->only(['index', 'edit', 'update']);
-  
+        $cms('manage-legal-pages', LegalPageController::class, ['index', 'edit', 'update']);
+
         // Overview Pages
-        Route::resource('manage-about-us', AboutUsController::class);
-        Route::resource('manage-board-of-directors', BoardDirectorController::class);
-        Route::resource('manage-innovation', InnovationController::class);
-        Route::resource('manage-esg', EsgController::class);
-        Route::resource('manage-media', MediaController::class);
-        Route::resource('manage-awards-category', AwardsCategoryController::class);
-        Route::resource('manage-awards-recognition', AwardsRecognitionController::class);
+        $cms('manage-about-us', AboutUsController::class);
+        $cms('manage-board-of-directors', BoardDirectorController::class);
+        $cms('manage-innovation', InnovationController::class);
+        $cms('manage-esg', EsgController::class);
+        $cms('manage-media', MediaController::class);
+        $cms('manage-awards-category', AwardsCategoryController::class);
+        $cms('manage-awards-recognition', AwardsRecognitionController::class);
 
     
     

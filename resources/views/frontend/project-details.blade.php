@@ -5,30 +5,12 @@
     @include('components.frontend.head')
 
     <style>
-      /* Uniform project image frame on the detail page */
-      /* Landscape images: fill the banner, trim the sky */
+      /* Project image on the detail page: natural height, never cropped */
       .tp-project-details-info img {
         width: 100%;
-        height: clamp(260px, 34vw, 460px);
-        object-fit: cover;
-        object-position: center 62%;
+        height: auto;
         border-radius: 20px;
         display: block;
-      }
-      /* Portrait images (tall buildings): show the WHOLE building, tall and centered */
-      .tp-project-details-info.is-portrait { text-align: center; }
-      .tp-project-details-info.is-portrait img {
-        width: auto;
-        max-width: 100%;
-        height: clamp(420px, 64vw, 720px);
-        object-fit: contain;
-        margin: 0 auto;
-        border-radius: 20px;
-        display: inline-block;
-      }
-      @media (max-width: 767px) {
-        .tp-project-details-info img { height: 240px; }
-        .tp-project-details-info.is-portrait img { height: 60vh; }
       }
     </style>
 
@@ -74,27 +56,12 @@
           <section class="tp-project-details-area pt-150 pb-100 tp-project-spacing fix">
             <div class="container">
               @php
-                  // Resolve the displayed image and its on-disk path so tall (portrait)
-                  // images can be shown in full instead of being cropped.
-                  if ($detail && $detail->image) {
-                      $detailImgUrl  = $detail->image_url;
-                      $detailImgPath = public_path('project/details/'.$detail->image);
-                  } else {
-                      $detailImgUrl  = $project->thumbnail_url;
-                      $detailImgPath = $project->thumbnail ? public_path('project/listings/'.$project->thumbnail) : null;
-                  }
-                  $isPortrait = false;
-                  if ($detailImgPath && is_file($detailImgPath)) {
-                      $dim = @getimagesize($detailImgPath);
-                      if ($dim && !empty($dim[0]) && $dim[1] > $dim[0]) {
-                          $isPortrait = true;
-                      }
-                  }
+                  $detailImgUrl = ($detail && $detail->image) ? $detail->image_url : $project->thumbnail_url;
               @endphp
 
               <div class="row">
                 <div class="col-lg-8 mx-auto">
-                  <div class="tp-project-details-info br-20 mb-40 text-center {{ $isPortrait ? 'is-portrait' : '' }}">
+                  <div class="tp-project-details-info br-20 mb-40 text-center">
                     <img src="{{ $detailImgUrl }}" alt="{{ $project->name }}" class="w-100 br-20" />
                   </div>
                 </div>

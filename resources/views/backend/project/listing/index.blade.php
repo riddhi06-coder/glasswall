@@ -101,6 +101,7 @@
                                             <th style="width:80px;">Priority</th>
                                             <th style="width:90px;">Status</th>
                                             <th style="width:110px;">Show on Home</th>
+                                            <th style="width:110px;">Home Priority</th>
                                             <th style="width:150px;">Actions</th>
                                         </tr>
                                     </thead>
@@ -127,6 +128,7 @@
                                                                {{ $listing->show_on_home ? 'checked' : '' }}>
                                                     </div>
                                                 </td>
+                                                <td class="home-priority-cell">{{ $listing->show_on_home ? $listing->home_priority : '—' }}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <a href="{{ route('manage-project-listing.edit', $listing->id) }}" class="btn btn-sm btn-primary">Edit</a>
@@ -179,6 +181,13 @@
                     rowGroup: { dataSrc: 3 }               // group by Category
                 });
 
+                // Sr No. counts only the rows left after filtering/searching, so it always starts at 1.
+                table.on('draw', function () {
+                    table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
+
                 $('#f-category, #f-status').on('change', function () { table.draw(); });
                 $('#f-reset').on('click', function () {
                     $('#f-category').val('');
@@ -206,6 +215,7 @@
                         data: { _token: '{{ csrf_token() }}' },
                         success: function (r) {
                             el.prop('disabled', false);
+                            el.closest('tr').find('.home-priority-cell').text(r.show_on_home ? r.home_priority : '—');
                             toast(r.show_on_home ? 'Project will now show on the home page.' : 'Project removed from the home page.');
                         },
                         error: function () {

@@ -22,6 +22,7 @@ class ProjectListing extends Model
         'location',
         'is_active',
         'show_on_home',
+        'home_priority',
         'priority',
         'created_by',
         'updated_by',

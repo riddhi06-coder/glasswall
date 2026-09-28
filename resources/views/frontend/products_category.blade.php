@@ -4,6 +4,127 @@
 
     @include('components.frontend.head')
 
+    <style>
+      /* ---- Intro ---- */
+      .pc-intro { padding: 100px 0 50px; }
+      .pc-intro .tp-section-title { margin-bottom: 18px; }
+      .pc-lead {
+        max-width: 720px;
+        margin: 0 auto;
+        color: #5b6270;
+        font-size: 18px;
+        line-height: 1.7;
+      }
+      .pc-divider {
+        width: 64px; height: 3px;
+        margin: 28px auto 0;
+        border-radius: 3px;
+        background: #1a4685;
+      }
+
+      /* ---- Product grid ---- */
+      .pc-grid { padding-bottom: 110px; }
+
+      /* ---- About / SEO content ---- */
+      .pc-about {
+        background: #f4f6fa;
+        padding: 100px 0;
+      }
+      .pc-about-aside { position: sticky; top: 130px; }
+      .pc-about-label {
+        display: inline-block;
+        color: #1a4685;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .pc-about-title {
+        font-size: 34px;
+        line-height: 1.25;
+        margin-bottom: 20px;
+      }
+      .pc-about-aside p {
+        color: #5b6270;
+        font-size: 16px;
+        line-height: 1.7;
+        margin: 0 0 28px;
+      }
+      .pc-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 50px;
+        background: #1a4685;
+        color: #fff;
+        font-weight: 500;
+        transition: background .3s ease, transform .3s ease;
+      }
+      .pc-cta:hover { background: #12325f; color: #fff; transform: translateY(-2px); }
+
+      .pc-about-body {
+        position: relative;
+        background: #fff;
+        border-radius: 20px;
+        padding: 44px 48px;
+        box-shadow: 0 20px 50px rgba(20, 40, 80, .06);
+      }
+      .pc-about-text {
+        max-height: 330px;
+        overflow: hidden;
+        transition: max-height .6s ease;
+      }
+      .pc-about-body.is-open .pc-about-text { max-height: 3000px; }
+      .pc-about-text p {
+        margin: 0 0 20px;
+        color: #4a5160;
+        font-size: 16px;
+        line-height: 1.85;
+        text-align: left;
+      }
+      .pc-about-text p:last-child { margin-bottom: 0; }
+      .pc-about-fade {
+        position: absolute;
+        left: 48px; right: 48px; bottom: 96px;
+        height: 110px;
+        pointer-events: none;
+        background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+        transition: opacity .4s ease;
+      }
+      .pc-about-body.is-open .pc-about-fade { opacity: 0; }
+      .pc-readmore {
+        margin-top: 24px;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: #1a4685;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .pc-readmore i { transition: transform .3s ease; }
+      .pc-about-body.is-open .pc-readmore i { transform: rotate(180deg); }
+      .pc-about-body.no-toggle .pc-about-text { max-height: none; }
+      .pc-about-body.no-toggle .pc-about-fade,
+      .pc-about-body.no-toggle .pc-readmore { display: none; }
+
+      @media (max-width: 991px) {
+        .pc-intro { padding: 70px 0 40px; }
+        .pc-grid { padding-bottom: 80px; }
+        .pc-about { padding: 70px 0; }
+        .pc-about-aside { position: static; margin-bottom: 30px; }
+        .pc-about-title { font-size: 28px; }
+      }
+      @media (max-width: 575px) {
+        .pc-lead { font-size: 16px; }
+        .pc-about-body { padding: 28px 22px; }
+        .pc-about-fade { left: 22px; right: 22px; }
+      }
+    </style>
+
   </head>
   <body>
 
@@ -36,41 +157,57 @@
           </section>
           <!-- hero area end -->
 
-          <section class="product-section">
+          <!-- About this category (SEO content) -->
+          @if($category->seo_content)
+          <section class="pc-about">
             <div class="container">
-              <!-- Heading -->
-
-              <div class="row align-items-center mb-5">
-                <div class="col-lg-12">
-                  <div class="tp-section-title-wrap tp_fade_anim tp-text-center" data-dure=".9">
-                    <span class="tp-section-sub-title mb-15">Our Services</span>
-                    <!--@if($category->short_description)-->
-                    <!--  <div class="mt- section-heading">-->
-                    <!--    <p class="sub-title">{{ $category->short_description }}</p>-->
-                    <!--  </div>-->
-                    <!--@endif-->
-                    
-                    
-                    @if($category->seo_content)
-                     <div class="mt- section-heading seo-text">
-                       {!! $category->seo_content !!}
-                      </div>
-                    @endif
-                      
-                      
-                      
-                      
-                    <h2 class="tp-section-title mb-25">{{ $category->name }}</h2>
-                    
+              <div class="row g-5">
+                <div class="col-lg-4">
+                  <div class="pc-about-aside">
+                    <span class="pc-about-label">About</span>
+                    <h3 class="pc-about-title">{{ $category->name }}</h3>
+                    <p>Have a project in mind? Our facade specialists can help you choose the right system.</p>
+                    <a href="{{ route('frontend.contact_us') }}" class="pc-cta">
+                      Talk to our team <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="pc-about-body" id="pc-about-body">
+                    <div class="pc-about-text">
+                      {!! $category->seo_content !!}
+                    </div>
+                    <div class="pc-about-fade"></div>
+                    <button type="button" class="pc-readmore" id="pc-readmore" aria-expanded="false">
+                      <span>Read more</span> <i class="fa-solid fa-chevron-down"></i>
+                    </button>
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+          @endif
 
-              <!-- Grid -->
+          <!-- Intro -->
+          <section class="pc-intro">
+            <div class="container">
+              <div class="tp-section-title-wrap tp_fade_anim tp-text-center" data-dure=".9">
+                <span class="tp-section-sub-title mb-15">Our Products</span>
+                <h2 class="tp-section-title">{{ $category->name }}</h2>
+                @if($category->short_description)
+                  <p class="pc-lead">{{ $category->short_description }}</p>
+                @endif
+                <div class="pc-divider"></div>
+              </div>
+            </div>
+          </section>
 
+          <!-- Product grid -->
+          <section class="product-section pc-grid pt-0">
+            <div class="container">
               <div class="row g-4">
                 @forelse($products as $product)
-                  <div class="col-lg-4">
+                  <div class="col-lg-4 col-md-6">
                     <article class="product-card large">
                       <img src="{{ $product->image_url }}" alt="{{ $product->name }}" />
 
@@ -109,6 +246,31 @@
     </div>
 
     @include('components.frontend.main-js')
+
+    <script>
+      // "Read more" for the About text — hidden entirely when the text is short.
+      (function () {
+        var body = document.getElementById('pc-about-body');
+        if (!body) return;
+        var text = body.querySelector('.pc-about-text');
+        var btn  = document.getElementById('pc-readmore');
+
+        if (text.scrollHeight <= text.clientHeight + 10) {
+          body.classList.add('no-toggle');
+          return;
+        }
+
+        btn.addEventListener('click', function () {
+          var open = body.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', open);
+          btn.querySelector('span').textContent = open ? 'Read less' : 'Read more';
+          // The page uses GSAP smooth scrolling; re-measure once the height has animated.
+          setTimeout(function () {
+            if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+          }, 650);
+        });
+      })();
+    </script>
 
   </body>
 </html>

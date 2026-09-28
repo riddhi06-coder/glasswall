@@ -78,6 +78,8 @@
                 @php
                     $authUser = auth()->user();
                     $can = fn (string $permission) => (bool) $authUser?->hasPermission($permission);
+                    // Sidebar items for CMS sections are keyed by resource route name; visible with "<name>.view".
+                    $canView = fn (string ...$names) => collect($names)->contains(fn ($n) => $can("$n.view"));
                 @endphp
 
                 {{-- User management: Roles / Users / Permissions --}}
@@ -107,8 +109,7 @@
                 </li>
                 @endif
 
-              
-
+                @if($canView('banner-details', 'home-about-details', 'home-clientele', 'home-blog-details'))
                 <li class="sidebar-list {{ request()->routeIs('banner-details.*','home-about-details.*','home-clientele.*','home-blog-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
@@ -123,19 +124,23 @@
                   </a>
                   
                   <ul class="sidebar-submenu">
-                      @if($can('roles.view'))
-                          <li><a href="{{ route('banner-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Banner Details</a></li>
+                      @if($canView('banner-details'))
+                          <li><a href="{{ route('banner-details.index') }}" class="{{ request()->routeIs('banner-details.*') ? 'active' : '' }}">Banner Details</a></li>
                       @endif
-                          <li><a href="{{ route('home-about-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">About Details</a></li>
-                          <li><a href="{{ route('home-clientele.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Clientele</a></li>
-                          <li><a href="{{ route('home-blog-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Blog Section Details</a></li>
-
+                      @if($canView('home-about-details'))
+                          <li><a href="{{ route('home-about-details.index') }}" class="{{ request()->routeIs('home-about-details.*') ? 'active' : '' }}">About Details</a></li>
+                      @endif
+                      @if($canView('home-clientele'))
+                          <li><a href="{{ route('home-clientele.index') }}" class="{{ request()->routeIs('home-clientele.*') ? 'active' : '' }}">Clientele</a></li>
+                      @endif
+                      @if($canView('home-blog-details'))
+                          <li><a href="{{ route('home-blog-details.index') }}" class="{{ request()->routeIs('home-blog-details.*') ? 'active' : '' }}">Blog Section Details</a></li>
+                      @endif
                   </ul>
                 </li>
+                @endif
 
-
-
-
+                @if($canView('manage-about-us', 'manage-board-of-directors', 'manage-innovation', 'manage-esg', 'manage-media', 'manage-awards-category', 'manage-awards-recognition'))
                 <li class="sidebar-list {{ request()->routeIs('manage-about-us.*','manage-board-of-directors.*','manage-innovation.*','manage-esg.*','manage-media.*','manage-awards-category.*','manage-awards-recognition.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
@@ -150,24 +155,39 @@
                   </a>
                   
                   <ul class="sidebar-submenu">
-                      <li><a href="{{ route('manage-about-us.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">About Us</a></li>
-                      <li><a href="{{ route('manage-board-of-directors.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Board of Directors</a></li>
-                      <li><a href="{{ route('manage-innovation.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Innovation</a></li>
-                      <li><a href="{{ route('manage-esg.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">ESG</a></li>
-                      <li><a href="{{ route('manage-media.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Media</a></li>
+                      @if($canView('manage-about-us'))
+                      <li><a href="{{ route('manage-about-us.index') }}" class="{{ request()->routeIs('manage-about-us.*') ? 'active' : '' }}">About Us</a></li>
+                      @endif
+                      @if($canView('manage-board-of-directors'))
+                      <li><a href="{{ route('manage-board-of-directors.index') }}" class="{{ request()->routeIs('manage-board-of-directors.*') ? 'active' : '' }}">Board of Directors</a></li>
+                      @endif
+                      @if($canView('manage-innovation'))
+                      <li><a href="{{ route('manage-innovation.index') }}" class="{{ request()->routeIs('manage-innovation.*') ? 'active' : '' }}">Innovation</a></li>
+                      @endif
+                      @if($canView('manage-esg'))
+                      <li><a href="{{ route('manage-esg.index') }}" class="{{ request()->routeIs('manage-esg.*') ? 'active' : '' }}">ESG</a></li>
+                      @endif
+                      @if($canView('manage-media'))
+                      <li><a href="{{ route('manage-media.index') }}" class="{{ request()->routeIs('manage-media.*') ? 'active' : '' }}">Media</a></li>
+                      @endif
+                      @if($canView('manage-awards-category', 'manage-awards-recognition'))
                       <li>
                         <a href="#" class="submenu-title">Awards &amp; Recognition</a>
                         <ul class="submenu-content">
+                          @if($canView('manage-awards-category'))
                           <li><a href="{{ route('manage-awards-category.index') }}" class="{{ request()->routeIs('manage-awards-category.*') ? 'active' : '' }}">Category</a></li>
+                          @endif
+                          @if($canView('manage-awards-recognition'))
                           <li><a href="{{ route('manage-awards-recognition.index') }}" class="{{ request()->routeIs('manage-awards-recognition.*') ? 'active' : '' }}">Listing</a></li>
+                          @endif
                         </ul>
                       </li>
-
+                      @endif
                     </ul>
                 </li>
+                @endif
 
-
-
+                @if($canView('manage-product-category', 'manage-product-list'))
                 <li class="sidebar-list {{ request()->routeIs('manage-product-category.*','manage-product-list.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
@@ -182,12 +202,17 @@
                   </a>
                   
                   <ul class="sidebar-submenu">
+                      @if($canView('manage-product-category'))
                       <li><a href="{{ route('manage-product-category.index') }}" class="{{ request()->routeIs('manage-product-category.*') ? 'active' : '' }}">Category</a></li>
+                      @endif
+                      @if($canView('manage-product-list'))
                       <li><a href="{{ route('manage-product-list.index') }}" class="{{ request()->routeIs('manage-product-list.*') ? 'active' : '' }}">Listing</a></li>
+                      @endif
                   </ul>
                 </li>
+                @endif
 
-
+                @if($canView('manage-project-category', 'manage-project-listing', 'manage-project-details'))
                 <li class="sidebar-list {{ request()->routeIs('manage-project-category.*','manage-project-listing.*','manage-project-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
@@ -202,15 +227,21 @@
                   </a>
                   
                   <ul class="sidebar-submenu">
-                      <li><a href="{{ route('manage-project-category.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Category</a></li>
-                      <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Listing</a></li>
-                      <li><a href="{{ route('manage-project-details.index') }}" class="{{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">Details</a></li>
+                      @if($canView('manage-project-category'))
+                      <li><a href="{{ route('manage-project-category.index') }}" class="{{ request()->routeIs('manage-project-category.*') ? 'active' : '' }}">Category</a></li>
+                      @endif
+                      @if($canView('manage-project-listing'))
+                      <li><a href="{{ route('manage-project-listing.index') }}" class="{{ request()->routeIs('manage-project-listing.*') ? 'active' : '' }}">Listing</a></li>
+                      @endif
+                      @if($canView('manage-project-details'))
+                      <li><a href="{{ route('manage-project-details.index') }}" class="{{ request()->routeIs('manage-project-details.*') ? 'active' : '' }}">Details</a></li>
+                      @endif
                   </ul>
                 </li>
+                @endif
 
-
-
-                <li class="sidebar-list {{ request()->routeIs('manage-design-engg.*','manage-project-management.*','manage-facility.*','manage-jobs.*') ? 'active' : '' }}">
+                @if($canView('manage-design-engg', 'manage-facility', 'manage-project-management'))
+                <li class="sidebar-list {{ request()->routeIs('manage-design-engg.*','manage-project-management.*','manage-facility.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
                   <a class="sidebar-link sidebar-title" href="#">
@@ -224,14 +255,20 @@
                   </a>
 
                   <ul class="sidebar-submenu">
+                      @if($canView('manage-design-engg'))
                       <li><a href="{{ route('manage-design-engg.index') }}" class="{{ request()->routeIs('manage-design-engg.*') ? 'active' : '' }}">Design and Engineering</a></li>
+                      @endif
+                      @if($canView('manage-facility'))
                       <li><a href="{{ route('manage-facility.index') }}" class="{{ request()->routeIs('manage-facility.*') ? 'active' : '' }}">Facility</a></li>
+                      @endif
+                      @if($canView('manage-project-management'))
                       <li><a href="{{ route('manage-project-management.index') }}" class="{{ request()->routeIs('manage-project-management.*') ? 'active' : '' }}">Project Management</a></li>
-
+                      @endif
                   </ul>
                 </li>
+                @endif
 
-
+                @if($canView('manage-ipo', 'manage-ipo-drhp', 'manage-corporate-governance', 'manage-annual-report', 'manage-investor-resource'))
                 <li class="sidebar-list {{ request()->routeIs('manage-ipo.*','manage-ipo-drhp.*','manage-annual-report.*','manage-investor-resource.*','manage-corporate-governance.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
@@ -246,21 +283,33 @@
                   </a>
 
                   <ul class="sidebar-submenu">
+                      @if($canView('manage-ipo', 'manage-ipo-drhp'))
                       <li>
                         <a href="#" class="submenu-title">IPO <i class="fa fa-angle-down"></i></a>
                         <ul class="submenu-content">
+                          @if($canView('manage-ipo'))
                           <li><a href="{{ route('manage-ipo.index') }}" class="{{ request()->routeIs('manage-ipo.*') ? 'active' : '' }}">IPO Documents</a></li>
+                          @endif
+                          @if($canView('manage-ipo-drhp'))
                           <li><a href="{{ route('manage-ipo-drhp.index') }}" class="{{ request()->routeIs('manage-ipo-drhp.*') ? 'active' : '' }}">DRHP Disclaimer</a></li>
+                          @endif
                         </ul>
                       </li>
+                      @endif
+                      @if($canView('manage-corporate-governance'))
                       <li><a href="{{ route('manage-corporate-governance.index') }}" class="{{ request()->routeIs('manage-corporate-governance.*') ? 'active' : '' }}">Corporate Governance</a></li>
+                      @endif
+                      @if($canView('manage-annual-report'))
                       <li><a href="{{ route('manage-annual-report.index') }}" class="{{ request()->routeIs('manage-annual-report.*') ? 'active' : '' }}">Annual Reports</a></li>
+                      @endif
+                      @if($canView('manage-investor-resource'))
                       <li><a href="{{ route('manage-investor-resource.index') }}" class="{{ request()->routeIs('manage-investor-resource.*') ? 'active' : '' }}">Investor Resources</a></li>
+                      @endif
                   </ul>
                 </li>
+                @endif
 
-
-
+                @if($canView('manage-careers-details', 'manage-jobs'))
                 <li class="sidebar-list {{ request()->routeIs('manage-careers-details.*','manage-jobs.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
 
@@ -275,14 +324,18 @@
                   </a>
                   
                   <ul class="sidebar-submenu">
+                      @if($canView('manage-careers-details'))
                       <li><a href="{{ route('manage-careers-details.index') }}" class="{{ request()->routeIs('manage-careers-details.*') ? 'active' : '' }}">Page Details</a></li>
+                      @endif
+                      @if($canView('manage-jobs'))
                       <li><a href="{{ route('manage-jobs.index') }}" class="{{ request()->routeIs('manage-jobs.*') ? 'active' : '' }}">Job posting</a></li>
+                      @endif
                   </ul>
                 </li>
-
+                @endif
 
                 {{-- Contact Details --}}
-                @if($authUser?->isSuperAdmin())
+                @if($canView('manage-contact-details'))
                 <li class="sidebar-list {{ request()->routeIs('manage-contact-details.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
                   <a class="sidebar-link" href="{{ route('manage-contact-details.index') }}">
@@ -299,6 +352,7 @@
 
 
                 {{-- Enquiries (form submissions stored in DB) --}}
+                @if($canView('manage-contact-enquiries', 'manage-career-applications'))
                 <li class="sidebar-list {{ request()->routeIs('manage-contact-enquiries.*','manage-career-applications.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
                   <a class="sidebar-link sidebar-title" href="#">
@@ -311,13 +365,18 @@
                     <span>Enquiries</span>
                   </a>
                   <ul class="sidebar-submenu">
+                      @if($canView('manage-contact-enquiries'))
                       <li><a href="{{ route('manage-contact-enquiries.index') }}" class="{{ request()->routeIs('manage-contact-enquiries.*') ? 'active' : '' }}">Contact Enquiries</a></li>
+                      @endif
+                      @if($canView('manage-career-applications'))
                       <li><a href="{{ route('manage-career-applications.index') }}" class="{{ request()->routeIs('manage-career-applications.*') ? 'active' : '' }}">Career Applications</a></li>
+                      @endif
                   </ul>
                 </li>
-
+                @endif
 
                 {{-- Legal Pages (Privacy Policy / Terms & Conditions) --}}
+                @if($canView('manage-legal-pages'))
                 <li class="sidebar-list {{ request()->routeIs('manage-legal-pages.*') ? 'active' : '' }}">
                   <i class="fa fa-thumb-tack"></i>
                   <a class="sidebar-link" href="{{ route('manage-legal-pages.index') }}">
@@ -330,6 +389,7 @@
                     <span>Legal Pages</span>
                   </a>
                 </li>
+                @endif
 
 
 

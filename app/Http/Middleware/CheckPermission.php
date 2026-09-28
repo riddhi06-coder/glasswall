@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckPermission
 {
-    public function handle(Request $request, Closure $next, string $permission): Response
+    /** Usage: ->middleware('permission:users.view') or, for any-of, 'permission:a.create,a.edit'. */
+    public function handle(Request $request, Closure $next, string ...$permissions): Response
     {
         $user = $request->user();
 
@@ -24,7 +25,7 @@ class CheckPermission
             return redirect()->route('admin.login')->with('message', 'Your account has been deactivated.');
         }
 
-        if (! $user->hasPermission($permission)) {
+        if (! collect($permissions)->contains(fn ($p) => $user->hasPermission($p))) {
             abort(403, 'You do not have permission to access this page.');
         }
 
