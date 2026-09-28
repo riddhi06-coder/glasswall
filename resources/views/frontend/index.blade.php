@@ -40,7 +40,7 @@
                             </h1>
                             <div class="tp-hero-slider-btn pt-25">
                               <p class="margin-0 tp-text-white fw-500 pb-50">{{ $banner->banner_title }}</p>
-                              <a href="{{ route('frontend.products_category_listing') }}" class="tp-btn">
+                              <a href="{{ route('frontend.projects_category_listing') }}" class="tp-btn">
                                 <span class="tp-btn-text">Explore Our Work</span>
                                 <span class="tp-btn-icon">
                                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
