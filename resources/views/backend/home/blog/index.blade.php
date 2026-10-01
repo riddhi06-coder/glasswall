@@ -61,7 +61,7 @@
                                         @foreach($blogs as $key => $blog)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $blog->section_heading }}</td>
+                                                <td>{{ trim(strip_tags(str_replace(['<br>', '<br/>', '<br />'], ' ', $blog->section_heading))) }}</td>
                                                 <td><div class="api-cell"><a href="{{ $blog->api_link }}" target="_blank" rel="noopener">{{ $blog->api_link }}</a></div></td>
                                                 <td>
                                                     <div class="d-flex gap-2">

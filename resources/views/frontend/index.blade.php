@@ -421,7 +421,7 @@
             <div class="tp-blog-heading mb-70">
               <div class="tp-section-title-wrap tp-text-center">
                 <span class="tp-section-sub-title mb-12 tp_fade_anim">Latest Insights</span>
-                <h2 class="tp-section-title mb-20 tp_fade_anim" data-delay=".2">{{ optional($blog)->section_heading ?? "Let's grow together - Connect with us on social." }}
+                <h2 class="tp-section-title mb-20 tp_fade_anim" data-delay=".2">{!! optional($blog)->section_heading ? str_replace(['<p>', '</p>'], '', $blog->section_heading) : "Let's grow together - Connect with us on social." !!}
                 </h2>
               </div>
             </div>

@@ -57,7 +57,7 @@
                             <!-- Section Heading -->
                             <div class="col-md-12">
                               <label class="form-label" for="section_heading">Section Heading <span class="text-danger">*</span></label>
-                              <input class="form-control @error('section_heading') is-invalid @enderror" id="section_heading" type="text" name="section_heading" value="{{ old('section_heading') }}" placeholder="Enter Section Heading" required>
+                              <textarea class="form-control editor @error('section_heading') is-invalid @enderror" id="section_heading" name="section_heading" rows="2" placeholder="Enter Section Heading" required>{{ old('section_heading') }}</textarea>
                               @error('section_heading')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                             </div>
 
@@ -92,6 +92,20 @@
     </div>
 
     @include('components.backend.main-js')
+
+    <script>
+        document.querySelectorAll('textarea.editor').forEach(function (el) {
+            ClassicEditor.create(el, {
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                    ]
+                }
+            }).catch(function (err) { console.error(err); });
+        });
+    </script>
 
 </body>
 
