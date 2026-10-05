@@ -116,6 +116,9 @@
                         <li>
                           <a href="{{ route('frontend.investor_resources') }}"><span>Investor Resources</span></a>
                         </li>
+                        <li>
+                          <a href="{{ route('frontend.disclosures') }}"><span>Disclosures</span></a>
+                        </li>
                       </ul>
                     </li>
                     <li><a href="{{ route('frontend.careers') }}">Careers</a></li>

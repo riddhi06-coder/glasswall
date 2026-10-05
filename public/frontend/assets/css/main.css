@@ -6877,3 +6877,97 @@ flex: 1 1 calc(19% - 15px);
     display: block;
     object-fit: cover;
 }
+
+
+
+.disclosures-wrap {
+  background: #fff;
+  padding:80px 0 !important;
+}
+
+.disclosures-table {
+  width: 100%;
+  border-top: 1px solid #ddd;
+}
+
+.disclosure-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px;
+  align-items: center;
+  min-height: 82px;
+  border-bottom: 1px solid #ddd;
+}
+
+.disclosure-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 22px 30px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #222;
+  font-weight: 500;
+}
+
+.disclosure-number {
+  min-width: 28px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  padding-top: 2px;
+}
+
+.disclosure-link {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid #ddd;
+  padding: 20px;
+  font-size: 15px;
+}
+
+.disclosure-link a {
+  color: #222;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.disclosure-link a:hover {
+  color: #777;
+}
+
+.disclosure-link span {
+  color: #aaa;
+}
+.disclosures-heading {
+  margin-bottom: 35px;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #222;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+  .disclosure-row {
+    grid-template-columns: 1fr 80px;
+  }
+
+  .disclosure-title {
+    gap: 12px;
+    padding: 18px 15px;
+    font-size: 14px;
+  }
+
+  .disclosure-number {
+    min-width: 22px;
+    font-size: 12px;
+  }
+
+  .disclosure-link {
+    padding: 15px 10px;
+    font-size: 13px;
+  }
+}

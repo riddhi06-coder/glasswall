@@ -19,7 +19,7 @@
             <div class="container">
               <div class="tp-breadcrumb pb-50">
                 <div class="page-heading">
-                  <h1 class="tp-breadcrumb-title tp-text-white margin-0">{{ optional($contact)->banner_heading ?: 'Disclosures' }}</h1>
+                  <h1 class="tp-breadcrumb-title tp-text-white margin-0">Disclosures</h1>
                 </div>
                 <div class="tp-breadcrumb-menu tp-flex-center mb-15 pt-35">
                   <span><a href="{{ route('frontend.index') }}">Home</a></span>
@@ -31,123 +31,370 @@
           </section>
           <!-- hero area end -->
 
-          <section class="contact-info py-5">
-            <div class="container">
-              <div class="row g-4">
+          <section class="disclosures-wrap py-5">
+  <div class="container">
 
-                <div class="col-md-4">
-                  <div class="contact-item">
-                    <img src="{{ asset('frontend/assets/images/icons/email.svg') }}" />
-                    <h5>Email</h5>
-                    <p class="mb-0">
-                      <a href="mailto:{{ optional($contact)->email_1 }}">{{ optional($contact)->email_1 }}</a>
-                    </p>
-                  </div>
-                </div>
+    <h2 class="disclosures-heading">
+      Disclosure under regulation 46 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015.
+    </h2>
 
-                <div class="col-md-4">
-                  <div class="contact-item">
-                    <img src="{{ asset('frontend/assets/images/icons/pin.svg') }}" />
-                    <h5>Location</h5>
-                    @if(optional($contact)->map_url)
-                      <a href="{{ $contact->map_url }}" target="_blank" rel="noopener" class="mb-0 d-block text-reset">
-                        {!! optional($contact)->address !!}
-                      </a>
-                    @else
-                      <div class="mb-0">
-                        {!! optional($contact)->address !!}
-                      </div>
-                    @endif
-                  </div>
-                </div>
+    <div class="disclosures-table">
 
-                <div class="col-md-4">
-                  <div class="contact-item">
-                    <img src="{{ asset('frontend/assets/images/icons/phone.svg') }}" />
-                    <h5>Call</h5>
-                    <p class="mb-0">
-                      <a href="tel:{{ preg_replace('/\s+/', '', optional($contact)->phone ?? '') }}">{{ optional($contact)->phone }}</a>
-                    </p>
-                  </div>
-                </div>
+      <!-- 01 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">01</span>
+          <span>Details of Business</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/about-us/" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
 
-              </div>
-            </div>
-          </section>
+      <!-- 02 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">02</span>
+          <span>Memorandum of Association and Articles of Association</span>
+        </div>
+        <div class="disclosure-link" style="flex-direction: column;">
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/MOA.pdf" target="_blank">View MOA</a>
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/AOA.pdf" target="_blank">View AOA</a>
+        </div>
+      </div>
 
-          <!-- contect-area,start  -->
-          <section class="tp-contect-area tp-contect-spacing-2 tp-about-spacing-3 fix">
-            <div class="container">
-              <div class="tp-contect-map-main">
-                <div class="row">
-                  <div class="col-lg-5">
-                    <div class="tp-contect-map-wrap">
-                      <div class="tp-contect-map pt-50">
-                        @if(optional($contact)->iframe_url)
-                          <iframe src="{{ $contact->iframe_url }}" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                        @endif
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-7">
-                    <div class="tp-contect-box tp-contect-box-inner ">
-                      <div class="tp-section-title-wrap tp-text-center mb-30">
-                        <h2 class="tp-section-title tp_fade_anim" data-duration=".9" data-delay=".2">
-                          Keep in touch with us
-                        </h2>
-                      </div>
-                      <form id="contactForm" action="{{ route('frontend.contact.submit') }}" method="post" novalidate>
-                        @csrf
-                        <div class="row">
-                          <div class="tp-contect-box-input mb-10 col-lg-6">
-                            <label>Full Name *</label>
-                            <input type="text" name="name" value="{{ old('name') }}" class="{{ $errors->contact->has('name') ? 'is-invalid' : '' }}" />
-                            <small class="form-error {{ $errors->contact->has('name') ? 'show' : '' }}" data-for="name">{{ $errors->contact->first('name') }}</small>
-                          </div>
-                          <div class="tp-contect-box-input mb-10 col-lg-6">
-                            <label>Email *</label>
-                            <input type="email" name="email" value="{{ old('email') }}" class="{{ $errors->contact->has('email') ? 'is-invalid' : '' }}" />
-                            <small class="form-error {{ $errors->contact->has('email') ? 'show' : '' }}" data-for="email">{{ $errors->contact->first('email') }}</small>
-                          </div>
-                          <div class="tp-contect-box-input mb-10 col-lg-6">
-                            <label>Company Name *</label>
-                            <input type="text" name="company" value="{{ old('company') }}" class="{{ $errors->contact->has('company') ? 'is-invalid' : '' }}" />
-                            <small class="form-error {{ $errors->contact->has('company') ? 'show' : '' }}" data-for="company">{{ $errors->contact->first('company') }}</small>
-                          </div>
-                          <div class="tp-contect-box-input mb-10 col-lg-6">
-                            <label>Phone *</label>
-                            <div style="position: relative;">
-                              <span style="position:absolute; left:24px; top:50%; transform:translateY(-50%); color:#8a8a8a; pointer-events:none;">+91</span>
-                              <input type="text" name="phone" value="{{ old('phone') }}" inputmode="numeric" maxlength="10" style="padding-left:58px;" class="{{ $errors->contact->has('phone') ? 'is-invalid' : '' }}" />
-                            </div>
-                            <small class="form-error {{ $errors->contact->has('phone') ? 'show' : '' }}" data-for="phone">{{ $errors->contact->first('phone') }}</small>
-                          </div>
-                          <div class="tp-contect-box-input mb-20 col-lg-12">
-                            <label>Message *</label>
-                            <textarea name="message" rows="8" style="min-height:200px; resize:vertical;" class="{{ $errors->contact->has('message') ? 'is-invalid' : '' }}">{{ old('message') }}</textarea>
-                            <small class="form-error {{ $errors->contact->has('message') ? 'show' : '' }}" data-for="message">{{ $errors->contact->first('message') }}</small>
-                          </div>
-                        </div>
-                        <div class="tp-contect-box-input mb-10">
-                          <button type="submit" class="tp-btn tp-btn-white">
-                            <span class="tp-btn-text tp-btn-white">Submit</span>
-                            <span class="tp-btn-icon">
-                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0.75 10.75L10.75 0.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M0.75 0.75H10.75V10.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                              </svg>
-                            </span>
-                          </button>
-                          <div class="form-status" data-status></div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          <!-- contect-area,end  -->
+      <!-- 03 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">03</span>
+          <span>Brief Profile of Board of Directors including Directorship and full-time positions in Body Corporates</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">04</span>
+          <span>Terms and conditions of appointment of Independent Directors</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">05</span>
+          <span>Composition of various committees of Board of Directors</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/Composition-of-various-committees-of-Board-of-Directors.pdf" target="_blank">View</a>
+        </div>
+      </div>
+
+      <!-- 06 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">06</span>
+          <span>Code of conduct of Board of Directors and Senior Management Personnel</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/Code-of-conduct-for-BOD-SMP.pdf" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 07 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">07</span>
+          <span>Details of establishment of Vigil Mechanism/Whistle Blower policy</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/Whistle-Blower-Policy.pdf" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 08 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">08</span>
+          <span>Criteria of making payments to Non-executive directors, if the same has not been disclosed in annual report</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 09 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">09</span>
+          <span>Policy on Dealing with Related Party Transactions</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">10</span>
+          <span>Policy for determining 'Material' subsidiaries</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/Determination-of-Material-Subsidiary-Policy.pdf" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">11</span>
+          <span>Details of familiarization programmes imparted to Independent Directors</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/Policy-on-ID-familiarisation.pdf" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">12</span>
+          <span>Email address for grievance redressal and other relevant details</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/investor-resources" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">13</span>
+          <span>Contact information of the designated officials of the listed entity who are responsible for assisting and handling investor grievances</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/investor-resources/" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">14</span>
+          <span>
+            Financial information including:
+            <br>
+            a. Notice of meeting of the board of directors where financial results shall be discussed
+            <br>
+            b. Financial Results
+            <br>
+            c. Annual Report
+          </span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">15</span>
+          <span>Shareholding pattern</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">16</span>
+          <span>Details of agreements entered into with the media companies and/or their associates etc.</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">17</span>
+          <span>Schedule of analyst or institutional investor meet</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">18</span>
+          <span>Presentations made by the Company to analysts or institutional investors</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">19</span>
+          <span>Audio or video recordings and transcripts of post earnings/quarterly calls</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">20</span>
+          <span>New name and the old name of the listed entity for a continuous period of one year, from the date of the last name change (Date of Name Change)</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 21 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">21</span>
+          <span>Items in sub-regulation (1) of regulation 47</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 22 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">22</span>
+          <span>Credit Ratings</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 23 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">23</span>
+          <span>Separate audited financial statements of each subsidiary of the listed entity in respect of a relevant financial year</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 24 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">24</span>
+          <span>Secretarial compliance report as per sub-regulation (2) of regulation 24A</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 25 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">25</span>
+          <span>Disclosure of the policy for determination of materiality of events or information required under clause (ii), sub-regulation (4) of regulation 30</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/Policy-on-Materiality-of-events.pdf" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 26 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">26</span>
+          <span>Disclosure of contact details of key managerial personnel</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 27 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">27</span>
+          <span>Disclosures under sub-regulation (8) of regulation 30 of these regulations</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 28 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">28</span>
+          <span>Statements of deviation(s) or variation(s) as specified in regulation 32</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+      <!-- 29 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">29</span>
+          <span>Dividend distribution policy</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/public/frontend/assets/pdf/Dividend-Distribution-Policy.pdf" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 30 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">30</span>
+          <span>Annual return as provided under section 92 of the Companies Act, 2013</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="https://www.glasswallsystems.in/annual-report/" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+
+      <!-- 31 -->
+      <div class="disclosure-row">
+        <div class="disclosure-title">
+          <span class="disclosure-number">31</span>
+          <span>Employee Benefit Scheme Documents</span>
+        </div>
+        <div class="disclosure-link">
+          <a href="#">View</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
 
         </main>
 
@@ -156,71 +403,6 @@
     </div>
 
     @include('components.frontend.main-js')
-
-    <style>
-      .form-error { display:none; color:#e03131; font-size:12px; margin-top:4px; }
-      .form-error.show { display:block; }
-      .is-invalid { border-color:#e03131 !important; }
-      .form-status { margin-top:12px; font-size:14px; display:none; }
-      .form-status.show { display:block; }
-      .form-status.success { color:#2b8a3e; }
-      .form-status.error { color:#e03131; }
-    </style>
-    <script>
-      // Client-side validation (mirrors the server rules). On success the form submits
-      // normally and the server redirects to the thank-you page.
-      (function () {
-        var form = document.getElementById('contactForm');
-        if (!form) return;
-
-        var nameRe  = /^[A-Za-z][A-Za-z .'\-]*$/;
-        var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        var phoneRe = /^\d{10}$/;
-
-        function fieldEl(name) { return form.querySelector('[name="' + name + '"]'); }
-        function val(name) { var el = fieldEl(name); return el ? el.value.trim() : ''; }
-        function setErr(name, msg) {
-          var box = form.querySelector('.form-error[data-for="' + name + '"]');
-          var input = fieldEl(name);
-          if (box) { box.textContent = msg || ''; box.classList.toggle('show', !!msg); }
-          if (input) input.classList.toggle('is-invalid', !!msg);
-          return !msg;
-        }
-
-        function validate() {
-          var ok = true;
-          var name = val('name');
-          ok = setErr('name', (name.length >= 2 && nameRe.test(name)) ? '' : 'Please enter a valid name (letters only).') && ok;
-          ok = setErr('email', emailRe.test(val('email')) ? '' : 'Please enter a valid email address.') && ok;
-          ok = setErr('company', val('company') ? '' : 'Please enter your company.') && ok;
-          ok = setErr('phone', phoneRe.test(val('phone')) ? '' : 'Please enter a valid 10-digit phone number.') && ok;
-          ok = setErr('message', val('message').length >= 5 ? '' : 'Please enter your message.') && ok;
-          return ok;
-        }
-
-        // keep phone numeric only
-        var phone = fieldEl('phone');
-        if (phone) phone.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); });
-
-        // clear a field's error as the user corrects it
-        form.querySelectorAll('[name]').forEach(function (el) {
-          el.addEventListener('input', function () { setErr(el.getAttribute('name'), ''); });
-        });
-
-        form.addEventListener('submit', function (e) {
-          if (!validate()) {
-            e.preventDefault();
-            var firstBad = form.querySelector('.is-invalid');
-            if (firstBad) firstBad.focus();
-            return;
-          }
-          var btn = form.querySelector('button[type="submit"]');
-          var label = btn ? btn.querySelector('.tp-btn-text') : null;
-          if (btn) { btn.disabled = true; btn.style.opacity = '.65'; }
-          if (label) label.textContent = 'Sending...';
-        });
-      })();
-    </script>
 
   </body>
 </html>
