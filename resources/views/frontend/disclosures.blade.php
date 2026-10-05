@@ -19,12 +19,12 @@
             <div class="container">
               <div class="tp-breadcrumb pb-50">
                 <div class="page-heading">
-                  <h1 class="tp-breadcrumb-title tp-text-white margin-0">{{ optional($contact)->banner_heading ?: 'Contact Us' }}</h1>
+                  <h1 class="tp-breadcrumb-title tp-text-white margin-0">{{ optional($contact)->banner_heading ?: 'Disclosures' }}</h1>
                 </div>
                 <div class="tp-breadcrumb-menu tp-flex-center mb-15 pt-35">
                   <span><a href="{{ route('frontend.index') }}">Home</a></span>
                   <span class="tp-breadcrumb-dvdr">-</span>
-                  <span>Contact Us</span>
+                  <span>Disclosures</span>
                 </div>
               </div>
             </div>
