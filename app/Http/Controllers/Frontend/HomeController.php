@@ -369,5 +369,13 @@ class HomeController extends Controller
     {
         return view('frontend.career_thank_you',);
     }
+    
+    // Contact Us page
+    public function disclosures()
+    {
+        $contact = ContactDetail::latest()->first();
+
+        return view('frontend.disclosures', compact('contact'));
+    }
 
 }

@@ -198,6 +198,8 @@ use App\Http\Controllers\Frontend\FormController;
     // IPO/DRHP — defined BEFORE the greedy /{category}/{project} route below so /ipo/disclaimer isn't shadowed.
     Route::get('/ipo/disclaimer/confirm', [HomeController::class, 'ipo_disclaimer_confirm'])->name('frontend.ipo_disclaimer_confirm');
     Route::get('/ipo/disclaimer', [HomeController::class, 'ipo_disclaimer'])->name('frontend.ipo_disclaimer');
+    Route::get('/disclosures', [HomeController::class, 'disclosures'])->name('frontend.disclosures');
+
     // Legal pages — literal routes BEFORE the greedy /{category}/{project} route below.
     Route::get('/privacy-policy', [HomeController::class, 'legal_page'])->defaults('slug', 'privacy-policy')->name('frontend.privacy_policy');
     Route::get('/terms-conditions', [HomeController::class, 'legal_page'])->defaults('slug', 'terms-conditions')->name('frontend.terms_conditions');
