@@ -4,10 +4,19 @@
 <head>
 
   @include('components.frontend.head')
-
+  
+    <title>Facade Solution Company in Mumbai & India | Glass Wall Systems</title>
+    <meta name="description" content="Glass Wall Systems is among top facade companies in Mumbai & India, offering architectural facade solutions, glass wall systems, aluminium glazing works & structural glazing services.">
+    <meta name="google-site-verification" content="PIxuVoyRAbtq2aje11Hq0upbsj7O66AiAhoTukQjSWw" />
 </head>
 
 <body>
+    
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5CF8RLQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
   @include('components.frontend.header')
 
