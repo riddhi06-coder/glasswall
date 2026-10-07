@@ -12,7 +12,7 @@
 
                                 <div class="tp-footer-content mb-25">
                                     <h3 class="tp-footer-info-title mb-20">
-                                        Glass Wall Systems
+                                        Glass Wall Systems(India) Limited
                                     </h3>
 
                                     <address class="tp-footer-info-deg white-rgba footer-address-normal">
@@ -93,6 +93,7 @@
                                 <li><a href="{{ route('frontend.about_us') }}">About Us</a></li>
                                 <li><a href="{{ route('frontend.board_of_directors') }}">Our Team</a></li>
                                 <li><a href="{{ route('frontend.contact_us') }}">Contact Us</a></li>
+                                <li><a href="https://stafflogin.glasswallsystems.in/SPINEHRMS/login.aspx" target="_blank" rel="noopener" title="Glass Wall Systems HRMS">Glass Wall Systems HRMS</a></li>
                             </ul>
 
                         </div>
@@ -166,13 +167,8 @@
                                 Privacy Policy
                             </a>
 
-                            <a href="{{ route('frontend.terms_conditions') }}" class="me-3">
+                            <a href="{{ route('frontend.terms_conditions') }}" class="">
                                 Terms &amp; Conditions
-                            </a>
-
-                            <a href="https://stafflogin.glasswallsystems.in/SPINEHRMS/login.aspx"
-                                target="_blank" rel="noopener" title="Glass Wall Systems HRMS">
-                                Glass Wall Systems HRMS
                             </a>
                         </div>
                     </div>

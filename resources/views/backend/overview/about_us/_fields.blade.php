@@ -36,11 +36,23 @@
 </div>
 
 <div class="col-md-6">
-  <label class="form-label" for="section_image">Section Image <span class="text-danger">*</span></label>
-  <input class="form-control @error('section_image') is-invalid @enderror" id="section_image" type="file" name="section_image" accept=".jpg,.jpeg,.png,.webp,.svg" {{ $a ? '' : 'required' }} onchange="previewFile(this,'section_image_preview')">
-  @error('section_image')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-  <small class="text-secondary d-block mt-1"><b>Allowed:</b> jpg, jpeg, png, webp, svg &nbsp;|&nbsp; <b>Max:</b> 2 MB{{ $a ? ' | Leave empty to keep current.' : '' }}</small>
-  <div class="mt-2"><img id="section_image_preview" class="file-preview" src="{{ $a ? $a->assetUrl($a->section_image) : '' }}" style="max-height:110px; {{ optional($a)->section_image ? '' : 'display:none;' }} border:1px solid #ddd; padding:4px; border-radius:6px;" alt="preview"></div>
+  <label class="form-label d-block">Section Images <small>(slider — select one or more)</small></label>
+  @php
+      $secImgs = $a ? $a->sectionImages : collect();
+  @endphp
+  @if($secImgs->count())
+    <div class="d-flex flex-wrap gap-3 mb-2">
+      @foreach($secImgs as $img)
+        <div class="text-center" style="width:120px;">
+          <img src="{{ $img->image_url }}" style="width:120px;height:80px;object-fit:cover;border:1px solid #ddd;border-radius:6px;">
+          <label class="d-block small mt-1 text-danger"><input type="checkbox" name="section_images_delete[]" value="{{ $img->id }}"> Remove</label>
+        </div>
+      @endforeach
+    </div>
+  @endif
+  <input class="form-control @error('section_images.*') is-invalid @enderror" type="file" name="section_images[]" accept=".jpg,.jpeg,.webp,.svg" multiple>
+  @error('section_images.*')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+  <small class="text-secondary d-block mt-1"><b>Allowed:</b> jpg, jpeg, webp, svg &nbsp;|&nbsp; <b>Max:</b> 2 MB each &nbsp;|&nbsp; Hold Ctrl/Shift to pick several. They show as a slider on the page.</small>
 </div>
 
 <div class="col-12">

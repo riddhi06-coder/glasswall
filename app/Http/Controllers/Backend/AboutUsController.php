@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
+use App\Models\AboutUsImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,7 @@ class AboutUsController extends Controller
 
     /** Image file fields (jpg/png/webp/svg, max 2 MB). */
     private const IMAGE_FIELDS = [
-        'section_image', 'vision_logo', 'vision_image',
+        'vision_logo', 'vision_image',
         'mission_logo', 'mission_image', 'core_image',
     ];
 
@@ -42,14 +43,16 @@ class AboutUsController extends Controller
         }
 
         $data['created_by'] = Auth::id();
-        AboutUs::create($data);
+        $about = AboutUs::create($data);
+
+        $this->syncSectionImages($about, $request);
 
         return redirect()->route('manage-about-us.index')->with('message', 'About Us added successfully.');
     }
 
     public function edit($id)
     {
-        $about = AboutUs::findOrFail($id);
+        $about = AboutUs::with('sectionImages')->findOrFail($id);
 
         return view('backend.overview.about_us.edit', compact('about'));
     }
@@ -72,19 +75,48 @@ class AboutUsController extends Controller
         $data['updated_by'] = Auth::id();
         $about->update($data);
 
+        $this->syncSectionImages($about, $request);
+
         return redirect()->route('manage-about-us.index')->with('message', 'About Us updated successfully.');
     }
 
     public function destroy($id)
     {
-        $about = AboutUs::findOrFail($id);
+        $about = AboutUs::with('sectionImages')->findOrFail($id);
 
         foreach ($this->fileFields() as $field) {
             $this->deleteUpload($about->$field);
         }
+        $this->deleteUpload($about->section_image);
+        foreach ($about->sectionImages as $img) {
+            $this->deleteUpload($img->image);
+        }
+        $about->sectionImages()->delete();
         $about->delete();
 
         return redirect()->route('manage-about-us.index')->with('message', 'About Us deleted successfully.');
+    }
+
+    /** Section slider images — remove ticked ones, add newly-uploaded ones. */
+    private function syncSectionImages(AboutUs $about, Request $request): void
+    {
+        foreach ((array) $request->input('section_images_delete', []) as $id) {
+            $img = AboutUsImage::where('about_us_id', $about->id)->where('id', $id)->first();
+            if ($img) {
+                $this->deleteUpload($img->image);
+                $img->delete();
+            }
+        }
+
+        $order = (int) AboutUsImage::where('about_us_id', $about->id)->max('sort_order');
+        foreach ((array) $request->file('section_images', []) as $file) {
+            if ($file) {
+                $about->sectionImages()->create([
+                    'image'      => $this->storeUpload($file),
+                    'sort_order' => ++$order,
+                ]);
+            }
+        }
     }
 
     // ------------------------------------------------------------------
@@ -103,9 +135,10 @@ class AboutUsController extends Controller
             // Banner / top section
             'banner_heading'  => 'required|string|max:255',
             'banner_video'    => "{$req}|file|mimes:mp4,webm,ogg,mov|max:30720",
-            'section_heading' => 'required|string|max:255',
-            'section_image'   => "{$req}|file|mimes:jpg,jpeg,png,webp,svg|max:2048",
-            'description'     => 'required|string',
+            'section_heading'   => 'required|string|max:255',
+            'section_images'    => 'nullable|array',
+            'section_images.*'  => 'nullable|file|mimes:jpg,jpeg,webp,svg|max:2048',
+            'description'       => 'required|string',
 
             // Vision section wrapper
             'vision_section_heading'     => 'required|string|max:255',

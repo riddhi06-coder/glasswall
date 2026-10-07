@@ -47,7 +47,20 @@
               <div class="row align-items-center">
                 <div class="col-lg-6 d-flex align-items-center">
                   <div class="tp-about-image p-relative w-100">
+                    @if(optional($about) && $about->sectionImages->count())
+                    <div class="swiper tp-about-slider">
+                      <div class="swiper-wrapper">
+                        @foreach($about->sectionImages as $img)
+                        <div class="swiper-slide">
+                          <img class="w-100 br-20" src="{{ $img->image_url }}" alt="{{ optional($about)->section_heading }}" />
+                        </div>
+                        @endforeach
+                      </div>
+                      <div class="swiper-pagination"></div>
+                    </div>
+                    @else
                     <img class="w-100 br-20" src="{{ optional($about) && $about->section_image ? $about->assetUrl($about->section_image) : asset('frontend/assets/images/home/Gulita.webp') }}" alt="{{ optional($about)->section_heading }}" />
+                    @endif
                   </div>
                 </div>
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\TracksDeletedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AboutUs extends Model
@@ -37,6 +38,12 @@ class AboutUs extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    /** Section slider images (multi-image upload). */
+    public function sectionImages(): HasMany
+    {
+        return $this->hasMany(AboutUsImage::class)->orderBy('sort_order')->orderBy('id');
+    }
 
     /** URL to any stored asset (images/video) for this record. */
     public function assetUrl(?string $fileName): ?string

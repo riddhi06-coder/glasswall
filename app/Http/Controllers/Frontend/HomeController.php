@@ -115,7 +115,7 @@ class HomeController extends Controller
     // About Us page
     public function about_us()
     {
-        $about = AboutUs::latest()->first();
+        $about = AboutUs::with('sectionImages')->latest()->first();
 
         return view('frontend.about_us', compact('about'));
     }
