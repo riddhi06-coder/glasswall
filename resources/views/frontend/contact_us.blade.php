@@ -128,7 +128,13 @@
                             <small class="form-error {{ $errors->contact->has('message') ? 'show' : '' }}" data-for="message">{{ $errors->contact->first('message') }}</small>
                           </div>
                         </div>
-                        <div class="tp-contect-box-input mb-10">
+                        <div class="tp-contect-box-input mb-15">
+                          <div class="d-flex justify-content-center">
+                            <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                          </div>
+                          <small class="form-error {{ $errors->contact->has('g-recaptcha-response') ? 'show' : '' }}" data-for="g-recaptcha-response" style="display:block;text-align:center;margin-top:6px;">{{ $errors->contact->first('g-recaptcha-response') }}</small>
+                        </div>
+                        <div class="tp-contect-box-input mb-10 text-center">
                           <button type="submit" class="tp-btn tp-btn-white">
                             <span class="tp-btn-text tp-btn-white">Submit</span>
                             <span class="tp-btn-icon">
@@ -208,7 +214,11 @@
         });
 
         form.addEventListener('submit', function (e) {
-          if (!validate()) {
+          var ok = validate();
+          var captcha = (window.grecaptcha && typeof grecaptcha.getResponse === 'function') ? grecaptcha.getResponse() : '';
+          if (!captcha) { setErr('g-recaptcha-response', 'Please confirm you are not a robot.'); ok = false; }
+          else { setErr('g-recaptcha-response', ''); }
+          if (!ok) {
             e.preventDefault();
             var firstBad = form.querySelector('.is-invalid');
             if (firstBad) firstBad.focus();
@@ -221,6 +231,7 @@
         });
       })();
     </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   </body>
 </html>

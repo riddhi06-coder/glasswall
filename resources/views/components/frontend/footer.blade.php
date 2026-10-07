@@ -12,7 +12,7 @@
 
                                 <div class="tp-footer-content mb-25">
                                     <h3 class="tp-footer-info-title mb-20">
-                                        Glass Wall Systems(India) Limited
+                                        Glass Wall Systems (India) Limited
                                     </h3>
 
                                     <address class="tp-footer-info-deg white-rgba footer-address-normal">

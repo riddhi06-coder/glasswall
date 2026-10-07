@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\BrandedFormMail;
 use App\Models\CareerApplication;
 use App\Models\ContactSubmission;
+use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -28,6 +29,7 @@ class FormController extends Controller
             'company' => ['required', 'string', 'max:150'],
             'phone'   => self::PHONE_RULE,
             'message' => ['required', 'string', 'min:5', 'max:5000'],
+            'g-recaptcha-response' => ['required', new Recaptcha()],
         ], $this->messages());
 
         if ($validator->fails()) {
@@ -89,6 +91,7 @@ class FormController extends Controller
             'message'    => ['nullable', 'string', 'max:5000'],
             'job_role'   => ['nullable', 'string', 'max:150'],
             'resume'     => ['required', 'file', 'mimes:pdf,doc,docx', 'max:3072'],
+            'g-recaptcha-response' => ['required', new Recaptcha()],
         ], $this->messages());
 
         if ($validator->fails()) {
@@ -186,6 +189,7 @@ class FormController extends Controller
             'resume.required'  => 'Please upload your resume.',
             'resume.mimes'     => 'Resume must be a PDF, DOC or DOCX file.',
             'resume.max'       => 'Resume is too large (max 3 MB).',
+            'g-recaptcha-response.required' => 'Please confirm you are not a robot.',
         ];
     }
 }
