@@ -166,8 +166,13 @@
                                 Privacy Policy
                             </a>
 
-                            <a href="{{ route('frontend.terms_conditions') }}" class="">
+                            <a href="{{ route('frontend.terms_conditions') }}" class="me-3">
                                 Terms &amp; Conditions
+                            </a>
+
+                            <a href="https://stafflogin.glasswallsystems.in/SPINEHRMS/login.aspx"
+                                target="_blank" rel="noopener" title="Glass Wall Systems HRMS">
+                                Glass Wall Systems HRMS
                             </a>
                         </div>
                     </div>
