@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Disclosure;
-use App\Models\DisclosureLink;
 use App\Models\DisclosureRow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DisclosureItemController extends Controller
 {
@@ -28,13 +28,14 @@ class DisclosureItemController extends Controller
         $data = $this->validateData($request);
 
         $row = DisclosureRow::create([
-            'number'     => $data['number'] ?? null,
             'title'      => $data['title'] ?? null,
             'type'       => $data['type'],
             'year'       => $data['year'] ?? null,
-            'sort_order' => (int) ($data['sort_order'] ?? 0),
             'is_active'  => $request->boolean('is_active'),
         ]);
+
+        $row->slug = $this->uniqueSlug($data['title'] ?? 'item', $row->id);
+        $row->save();
 
         $this->syncLinks($row, $request);
         $this->syncTabs($row, $request);
@@ -44,7 +45,7 @@ class DisclosureItemController extends Controller
 
     public function edit($id)
     {
-        $record = DisclosureRow::with(['links', 'tabs'])->findOrFail($id);
+        $record = DisclosureRow::with(['links', 'tabs.tabItems'])->findOrFail($id);
 
         return view('backend.disclosures.items.edit', compact('record'));
     }
@@ -55,13 +56,14 @@ class DisclosureItemController extends Controller
         $data = $this->validateData($request);
 
         $row->update([
-            'number'     => $data['number'] ?? null,
             'title'      => $data['title'] ?? null,
             'type'       => $data['type'],
             'year'       => $data['year'] ?? null,
-            'sort_order' => (int) ($data['sort_order'] ?? 0),
             'is_active'  => $request->boolean('is_active'),
         ]);
+
+        $row->slug = $this->uniqueSlug($data['title'] ?? 'item', $row->id);
+        $row->save();
 
         $this->syncLinks($row, $request);
         $this->syncTabs($row, $request);
@@ -71,9 +73,13 @@ class DisclosureItemController extends Controller
 
     public function destroy($id)
     {
-        $row = DisclosureRow::with('links')->findOrFail($id);
+        $row = DisclosureRow::with(['links', 'tabs.tabItems'])->findOrFail($id);
         foreach ($row->links as $link) {
             $this->deleteUpload($link->file);
+        }
+        foreach ($row->tabs as $tab) {
+            foreach ($tab->tabItems as $it) { $this->deleteUpload($it->file); }
+            $tab->tabItems()->delete();
         }
         $row->links()->delete();
         $row->tabs()->delete();
@@ -143,57 +149,122 @@ class DisclosureItemController extends Controller
         }
     }
 
+    /** Tabs rows: each tab holds a list of documents (title + URL/file). Empty tab => "Coming Soon". */
     private function syncTabs(DisclosureRow $row, Request $request): void
     {
         if ($row->type !== 'tabs') {
+            foreach ($row->tabs as $tab) {
+                foreach ($tab->tabItems as $it) { $this->deleteUpload($it->file); }
+                $tab->tabItems()->delete();
+            }
             $row->tabs()->delete();
             return;
         }
 
-        $rows    = (array) $request->input('tabs', []);
-        $keptIds = array_filter(array_column($rows, 'id'));
+        $tabsInput  = (array) $request->input('tabs', []);
+        $keptTabIds = array_filter(array_column($tabsInput, 'id'));
 
-        $row->tabs()->whereNotIn('id', $keptIds ?: [0])->delete();
+        // Remove deleted tabs (and their documents + files).
+        foreach ($row->tabs()->whereNotIn('id', $keptTabIds ?: [0])->get() as $staleTab) {
+            foreach ($staleTab->tabItems as $it) { $this->deleteUpload($it->file); }
+            $staleTab->tabItems()->delete();
+            $staleTab->delete();
+        }
+
+        $tabOrder = 0;
+        foreach ($tabsInput as $tabKey => $t) {
+            $label = trim($t['label'] ?? '');
+            $items = (array) ($t['items'] ?? []);
+            if (empty($t['id']) && $label === '' && ! $items) {
+                continue;
+            }
+
+            if (! empty($t['id'])) {
+                $tab = $row->tabs()->where('id', $t['id'])->first();
+                if (! $tab) { continue; }
+                $tab->update(['label' => $label ?: 'Tab', 'sort_order' => $tabOrder++]);
+            } else {
+                $tab = $row->tabs()->create(['label' => $label ?: 'Tab', 'sort_order' => $tabOrder++]);
+            }
+
+            $this->syncTabItems($tab, $items, $request, $tabKey);
+        }
+    }
+
+    private function syncTabItems($tab, array $items, Request $request, $tabKey): void
+    {
+        $keptIds = array_filter(array_column($items, 'id'));
+
+        foreach ($tab->tabItems()->whereNotIn('id', $keptIds ?: [0])->get() as $stale) {
+            $this->deleteUpload($stale->file);
+            $stale->delete();
+        }
 
         $order = 0;
-        foreach ($rows as $r) {
-            $label   = trim($r['label'] ?? '');
-            $content = $r['content'] ?? '';
-            if (empty($r['id']) && $label === '' && trim(strip_tags($content)) === '') {
+        foreach ($items as $itKey => $it) {
+            $title = trim($it['title'] ?? '');
+            $file  = $request->file("tabs.$tabKey.items.$itKey.file");
+
+            if (empty($it['id']) && ! $file && $title === '') {
                 continue;
             }
 
-            if (! empty($r['id'])) {
-                $tab = $row->tabs()->where('id', $r['id'])->first();
-                if (! $tab) { continue; }
-                $tab->update(['label' => $label ?: 'Tab', 'content' => $content, 'sort_order' => $order++]);
+            if (! empty($it['id'])) {
+                $item = $tab->tabItems()->where('id', $it['id'])->first();
+                if (! $item) { continue; }
+                if ($file) {
+                    $this->deleteUpload($item->file);
+                    $item->file = $this->storeUpload($file);
+                }
+                $item->title      = $title ?: null;
+                $item->sort_order = $order++;
+                $item->save();
                 continue;
             }
 
-            $row->tabs()->create(['label' => $label ?: 'Tab', 'content' => $content, 'sort_order' => $order++]);
+            $tab->tabItems()->create([
+                'title'      => $title ?: null,
+                'file'       => $file ? $this->storeUpload($file) : null,
+                'sort_order' => $order++,
+            ]);
         }
+    }
+
+    /** Unique slug for the tabs detail page URL, derived from the title. */
+    private function uniqueSlug(?string $source, int $ignoreId): string
+    {
+        $base = Str::slug(strip_tags((string) $source)) ?: 'item';
+        $slug = $base;
+        $i    = 2;
+        while (DisclosureRow::where('slug', $slug)->where('id', '!=', $ignoreId)->exists()) {
+            $slug = $base.'-'.$i++;
+        }
+
+        return $slug;
     }
 
     // ------------------------------------------------------------------
     private function validateData(Request $request): array
     {
         return $request->validate([
-            'number'          => 'nullable|string|max:20',
-            'title'           => 'nullable|string',
-            'type'            => 'required|in:links,financial,tabs',
-            'year'            => 'nullable|string|max:50',
-            'sort_order'      => 'nullable|integer',
-            'links'           => 'nullable|array',
-            'links.*.name'    => 'nullable|string',
-            'links.*.label'   => 'nullable|string|max:100',
-            'links.*.url'     => 'nullable|string|max:500',
-            'links.*.file'    => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
-            'tabs'            => 'nullable|array',
-            'tabs.*.label'    => 'nullable|string|max:100',
-            'tabs.*.content'  => 'nullable|string',
+            'title'                 => 'nullable|string',
+            'type'                  => 'required|in:links,financial,tabs',
+            'year'                  => 'nullable|string|max:50',
+            'links'                 => 'nullable|array',
+            'links.*.name'          => 'nullable|string',
+            'links.*.label'         => 'nullable|string|max:100',
+            'links.*.url'           => 'nullable|string|max:500',
+            'links.*.file'          => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
+            'tabs'                  => 'nullable|array',
+            'tabs.*.label'          => 'nullable|string|max:100',
+            'tabs.*.items'          => 'nullable|array',
+            'tabs.*.items.*.title'  => 'nullable|string',
+            'tabs.*.items.*.file'   => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
         ], [
-            'links.*.file.mimes' => 'Documents must be a PDF, DOC, DOCX or ZIP file.',
-            'links.*.file.max'   => 'Each document may not be larger than 5 MB.',
+            'links.*.file.mimes'        => 'Documents must be a PDF, DOC, DOCX or ZIP file.',
+            'links.*.file.max'          => 'Each document may not be larger than 5 MB.',
+            'tabs.*.items.*.file.mimes' => 'Documents must be a PDF, DOC, DOCX or ZIP file.',
+            'tabs.*.items.*.file.max'   => 'Each document may not be larger than 5 MB.',
         ]);
     }
 

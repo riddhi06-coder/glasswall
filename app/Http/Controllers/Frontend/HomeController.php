@@ -380,6 +380,17 @@ class HomeController extends Controller
 
         return view('frontend.disclosures', compact('disclosure', 'rows'));
     }
+
+    // Disclosure tabs detail page (Shareholding pattern / Analyst meet) — opens the Q1/Q2/Q3 tabs on its own page
+    public function disclosure_tabs(\App\Models\DisclosureRow $row)
+    {
+        abort_unless($row->type === 'tabs', 404);
+
+        $row->load('tabs.tabItems');
+        $disclosure = \App\Models\Disclosure::first();
+
+        return view('frontend.disclosure_tabs', compact('row', 'disclosure'));
+    }
     
     
         

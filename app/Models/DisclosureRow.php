@@ -12,12 +12,18 @@ class DisclosureRow extends Model
 
     protected $fillable = [
         'number',
+        'slug',
         'title',
         'type',
         'year',
         'sort_order',
         'is_active',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
     protected $casts = [
         'is_active' => 'boolean',

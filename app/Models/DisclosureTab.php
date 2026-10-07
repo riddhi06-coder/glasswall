@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DisclosureTab extends Model
 {
@@ -12,4 +13,9 @@ class DisclosureTab extends Model
         'content',
         'sort_order',
     ];
+
+    public function tabItems(): HasMany
+    {
+        return $this->hasMany(DisclosureTabItem::class)->orderBy('sort_order')->orderBy('id');
+    }
 }

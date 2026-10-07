@@ -43,7 +43,7 @@
                                 <table class="display" id="basic-1">
                                     <thead>
                                         <tr>
-                                            <th style="width:70px;">Order</th>
+                                            <th style="width:70px;">#</th>
                                             <th>Tab Label</th>
                                             <th style="width:130px;">Documents</th>
                                             <th style="width:90px;">Status</th>
@@ -53,7 +53,7 @@
                                     <tbody>
                                         @foreach($records as $tab)
                                             <tr>
-                                                <td>{{ $tab->sort_order }}</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td><strong>{{ $tab->label }}</strong></td>
                                                 <td>{{ $tab->items_count }} document(s)</td>
                                                 <td>

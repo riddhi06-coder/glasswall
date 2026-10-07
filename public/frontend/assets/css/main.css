@@ -7081,3 +7081,21 @@ h2.year-heading {
 .year-box {
     padding-left: 40px;
 }
+/* ===== Disclosures page — Financial block (#14) & stacked links ===== */
+.financial-disclosure-new { width: 100%; padding: 25px 30px 30px; border-bottom: 1px solid #ddd; box-sizing: border-box; }
+.financial-row-row { margin-left: 55px; }
+.financial-row { display: flex; gap: 40px; }
+.financial-disclosure-new-number { font-size: 13px; font-weight: 600; color: #888; margin-bottom: 10px; }
+.financial-disclosure-new-heading { font-size: 16px; line-height: 1.5; font-weight: 600; color: #222; margin-bottom: 4px; }
+.financial-disclosure-new-year { font-size: 15px; line-height: 1.5; color: #888; margin-bottom: 6px; }
+.financial-disclosure-new-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 45px; width: 100%; }
+.financial-disclosure-new-item { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.financial-disclosure-new-letter { font-size: 15px; line-height: 1.5; color: #222; margin-bottom: 4px; }
+.financial-disclosure-new-name { font-size: 15px; line-height: 1.55; color: #222; max-width: 100%; }
+.financial-disclosure-new-view { margin-top: 5px; color: #222; font-size: 15px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; transition: color 0.25s ease; }
+.financial-disclosure-new-view:hover { color: #777; }
+.disclosure-link--stacked { flex-direction: column; }
+@media (max-width: 767px) {
+  .financial-disclosure-new { padding: 24px 20px 30px; }
+  .financial-disclosure-new-items { grid-template-columns: 1fr; gap: 25px; }
+}

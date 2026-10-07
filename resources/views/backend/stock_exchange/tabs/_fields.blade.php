@@ -9,12 +9,6 @@
   @error('label')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
 </div>
 
-<div class="col-md-4">
-  <label class="form-label" for="sort_order">Sort Order</label>
-  <input class="form-control @error('sort_order') is-invalid @enderror" id="sort_order" type="number" name="sort_order" value="{{ old('sort_order', $r->sort_order ?? 0) }}">
-  @error('sort_order')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
-</div>
-
 <div class="col-md-3">
   <label class="form-label d-block">Status</label>
   <div class="form-check form-switch mt-2">
@@ -31,10 +25,8 @@
   <div class="table-responsive">
     <table class="table table-bordered align-middle">
       <thead><tr>
-        <th style="width:80px;">No.</th>
-        <th>Title</th>
-        <th style="width:26%;">URL / Path</th>
-        <th style="width:24%;">Document (PDF/DOC/ZIP)</th>
+        <th>Document Name</th>
+        <th style="width:40%;">Attachment (PDF/DOC/ZIP)</th>
         <th style="width:50px;">×</th>
       </tr></thead>
       <tbody id="itemsBody">
@@ -42,13 +34,11 @@
         <tr>
           <td>
             <input type="hidden" name="items[{{ $item->id }}][id]" value="{{ $item->id }}">
-            <input class="form-control" type="text" name="items[{{ $item->id }}][number]" value="{{ $item->number }}" placeholder="01">
+            <textarea class="form-control" name="items[{{ $item->id }}][title]" rows="2" placeholder="Document name">{{ $item->title }}</textarea>
           </td>
-          <td><textarea class="form-control" name="items[{{ $item->id }}][title]" rows="2" placeholder="Document title">{{ $item->title }}</textarea></td>
-          <td><input class="form-control" type="text" name="items[{{ $item->id }}][url]" value="{{ $item->url }}" placeholder="https://… or /path"></td>
           <td>
             <input class="form-control" type="file" name="items[{{ $item->id }}][file]" accept=".pdf,.doc,.docx,.zip">
-            <a class="js-file-preview small d-block mt-1" href="{{ $item->file ? asset(\App\Models\StockExchange::DIR.'/'.$item->file) : '#' }}" target="_blank" style="{{ $item->file ? '' : 'display:none;' }}">Preview PDF ↗</a>
+            <a class="js-file-preview small mt-1" href="{{ $item->href ?: '#' }}" target="_blank" style="{{ $item->href ? 'display:block;' : 'display:none;' }}">Preview ↗</a>
           </td>
           <td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-item>&times;</button></td>
         </tr>
@@ -56,7 +46,7 @@
       </tbody>
     </table>
   </div>
-  <small class="text-secondary">Each document: a <b>No.</b>, a <b>Title</b>, and either a pasted <b>URL</b> or an uploaded <b>document</b> — PDF, DOC, DOCX or ZIP, max 5 MB (file takes priority).</small>
+  <small class="text-secondary">The <b>No.</b> is assigned automatically (01, 02, 03 …) in row order. For each document give a <b>Name</b> and upload the <b>attachment</b> — PDF, DOC, DOCX or ZIP, max 5 MB.</small>
   @foreach($errors->get('items.*') as $errs)@foreach($errs as $e)<div class="text-danger small mt-1">{{ $e }}</div>@endforeach @endforeach
 </div>
 
@@ -65,11 +55,9 @@
     var idx = Date.now();
     function itemRow(i) {
         return '<tr>' +
-            '<td><input class="form-control" type="text" name="items[n'+i+'][number]" placeholder="01"></td>' +
-            '<td><textarea class="form-control" name="items[n'+i+'][title]" rows="2" placeholder="Document title"></textarea></td>' +
-            '<td><input class="form-control" type="text" name="items[n'+i+'][url]" placeholder="https://… or /path"></td>' +
+            '<td><textarea class="form-control" name="items[n'+i+'][title]" rows="2" placeholder="Document name"></textarea></td>' +
             '<td><input class="form-control" type="file" name="items[n'+i+'][file]" accept=".pdf,.doc,.docx,.zip">' +
-            '<a class="js-file-preview small d-block mt-1" href="#" target="_blank" style="display:none;">Preview PDF ↗</a></td>' +
+            '<a class="js-file-preview small mt-1" href="#" target="_blank" style="display:none;">Preview ↗</a></td>' +
             '<td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-item>&times;</button></td>' +
         '</tr>';
     }

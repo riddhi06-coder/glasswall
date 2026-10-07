@@ -27,7 +27,6 @@ class StockExchangeTabController extends Controller
 
         $tab = StockExchangeTab::create([
             'label'      => $data['label'],
-            'sort_order' => (int) ($data['sort_order'] ?? 0),
             'is_active'  => $request->boolean('is_active'),
         ]);
 
@@ -50,7 +49,6 @@ class StockExchangeTabController extends Controller
 
         $tab->update([
             'label'      => $data['label'],
-            'sort_order' => (int) ($data['sort_order'] ?? 0),
             'is_active'  => $request->boolean('is_active'),
         ]);
 
@@ -84,14 +82,15 @@ class StockExchangeTabController extends Controller
 
         $order = 0;
         foreach ($rows as $key => $r) {
-            $number = trim($r['number'] ?? '');
-            $title  = trim($r['title'] ?? '');
-            $url    = trim($r['url'] ?? '');
-            $file   = $request->file("items.$key.file");
+            $title = trim($r['title'] ?? '');
+            $file  = $request->file("items.$key.file");
 
-            if (empty($r['id']) && ! $file && $title === '' && $url === '' && $number === '') {
+            if (empty($r['id']) && ! $file && $title === '') {
                 continue;
             }
+
+            // Number is automatic — sequential by row order (01, 02, 03 …).
+            $number = str_pad((string) ($order + 1), 2, '0', STR_PAD_LEFT);
 
             if (! empty($r['id'])) {
                 $item = $tab->items()->where('id', $r['id'])->first();
@@ -100,18 +99,16 @@ class StockExchangeTabController extends Controller
                     $this->deleteUpload($item->file);
                     $item->file = $this->storeUpload($file);
                 }
-                $item->number     = $number ?: null;
+                $item->number     = $number;
                 $item->title      = $title ?: null;
-                $item->url        = $url ?: null;
                 $item->sort_order = $order++;
-                $item->save();
+                $item->save();   // note: legacy url (if any) is left untouched
                 continue;
             }
 
             $tab->items()->create([
-                'number'     => $number ?: null,
+                'number'     => $number,
                 'title'      => $title ?: null,
-                'url'        => $url ?: null,
                 'file'       => $file ? $this->storeUpload($file) : null,
                 'sort_order' => $order++,
             ]);
@@ -122,11 +119,8 @@ class StockExchangeTabController extends Controller
     {
         return $request->validate([
             'label'         => 'required|string|max:100',
-            'sort_order'    => 'nullable|integer',
             'items'         => 'nullable|array',
-            'items.*.number' => 'nullable|string|max:20',
             'items.*.title'  => 'nullable|string',
-            'items.*.url'    => 'nullable|string|max:500',
             'items.*.file'   => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
         ], [
             'items.*.file.mimes' => 'Documents must be a PDF, DOC, DOCX or ZIP file.',

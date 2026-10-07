@@ -27,8 +27,8 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header"><h4>Disclosure Item</h4></div>
-              <div class="card-body">
-                <form class="row g-3" action="{{ route('manage-disclosure-items.update', $record->id) }}" method="POST" enctype="multipart/form-data">
+              <div class="card-body p-4">
+                <form class="row g-4 disclosure-form" action="{{ route('manage-disclosure-items.update', $record->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
                   @include('backend.disclosures.items._fields')

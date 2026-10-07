@@ -34,7 +34,7 @@
                 <a href="{{ route('manage-disclosure-items.index') }}" class="btn btn-outline-primary">Manage Disclosure Items →</a>
               </div>
               <div class="card-body">
-                <form class="row g-3" action="{{ route('manage-disclosures.update', $record->id) }}" method="POST" enctype="multipart/form-data">
+                <form class="row g-4" action="{{ route('manage-disclosures.update', $record->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
 

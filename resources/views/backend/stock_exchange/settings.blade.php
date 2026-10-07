@@ -34,7 +34,7 @@
                 <a href="{{ route('manage-stock-exchange-tabs.index') }}" class="btn btn-outline-primary">Manage Tabs &amp; Documents →</a>
               </div>
               <div class="card-body">
-                <form class="row g-3" action="{{ route('manage-stock-exchange.update', $record->id) }}" method="POST" enctype="multipart/form-data">
+                <form class="row g-4" action="{{ route('manage-stock-exchange.update', $record->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
 

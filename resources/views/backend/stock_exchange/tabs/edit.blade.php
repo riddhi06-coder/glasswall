@@ -28,7 +28,7 @@
             <div class="card">
               <div class="card-header"><h4>Stock Exchange Tab</h4></div>
               <div class="card-body">
-                <form class="row g-3" action="{{ route('manage-stock-exchange-tabs.update', $record->id) }}" method="POST" enctype="multipart/form-data">
+                <form class="row g-4 stock-form" action="{{ route('manage-stock-exchange-tabs.update', $record->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
                   @include('backend.stock_exchange.tabs._fields')

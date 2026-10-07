@@ -56,7 +56,7 @@
                                     <tbody>
                                         @foreach($records as $row)
                                             <tr>
-                                                <td>{{ $row->number }}</td>
+                                                <td>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</td>
                                                 <td><div class="title-cell">{{ \Illuminate\Support\Str::limit(trim(strip_tags($row->title)), 140) }}</div></td>
                                                 <td>
                                                     @php

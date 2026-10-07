@@ -215,6 +215,8 @@ use App\Http\Controllers\Frontend\FormController;
     Route::get('/ipo/disclaimer/confirm', [HomeController::class, 'ipo_disclaimer_confirm'])->name('frontend.ipo_disclaimer_confirm');
     Route::get('/ipo/disclaimer', [HomeController::class, 'ipo_disclaimer'])->name('frontend.ipo_disclaimer');
     Route::get('/disclosures', [HomeController::class, 'disclosures'])->name('frontend.disclosures');
+    // Disclosure tabs detail (Shareholding / Analyst meet) — literal prefix BEFORE the greedy /{category}/{project} route below.
+    Route::get('/disclosures/{row}', [HomeController::class, 'disclosure_tabs'])->name('frontend.disclosure_tabs');
     Route::get('/stock-exchange', [HomeController::class, 'stock_exchange'])->name('frontend.stock_exchange');
 
     // Legal pages — literal routes BEFORE the greedy /{category}/{project} route below.
