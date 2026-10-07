@@ -13,6 +13,134 @@
 <body>
     
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://www.glasswallsystems.in/",
+          "url": "https://www.glasswallsystems.in/",
+          "name": "Facade Solution Company in Mumbai & India | Glass Wall Systems",
+          "isPartOf": {
+            "@id": "https://www.glasswallsystems.in/#website"
+          },
+          "datePublished": "2016-10-01T03:50:48+00:00",
+          "dateModified": "2026-10-06T00:00:00+00:00",
+          "description": "Glass Wall Systems is among the top facade companies in Mumbai & India, offering architectural facade solutions, glass wall systems, aluminium glazing works, rainscreen cladding, louvers and structural glazing services.",
+          "breadcrumb": {
+            "@id": "https://www.glasswallsystems.in/#breadcrumb"
+          },
+          "inLanguage": "en-US",
+          "potentialAction": [
+            {
+              "@type": "ReadAction",
+              "target": ["https://www.glasswallsystems.in/"]
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://www.glasswallsystems.in/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.glasswallsystems.in/"
+            }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.glasswallsystems.in/#website",
+          "url": "https://www.glasswallsystems.in/",
+          "name": "Glass Wall Systems",
+          "description": "Top facade solution company in India offering glass wall systems, curtain wall systems, rainscreen cladding, architectural louvers and aluminium glazing works.",
+          "potentialAction": [
+            {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.glasswallsystems.in/?s={search_term_string}"
+              },
+              "query-input": {
+                "@type": "PropertyValueSpecification",
+                "valueRequired": true,
+                "valueName": "search_term_string"
+              }
+            }
+          ],
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://www.glasswallsystems.in/#organization",
+          "name": "Glass Wall Systems (India) Limited",
+          "url": "https://www.glasswallsystems.in/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.glasswallsystems.in/frontend/assets/images/gws.png",
+            "width": 400,
+            "height": 71
+          },
+          "description": "Glass Wall Systems (India) Limited is a leading facade solution company in India offering curtain wall systems, structural glazing, rainscreen cladding, architectural louvers and aluminium glazing works for commercial and hospitality projects.",
+          "foundingDate": "2016",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 1000
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Lower Parel",
+            "addressLocality": "Mumbai",
+            "addressRegion": "Maharashtra",
+            "addressCountry": "IN"
+          },
+          "areaServed": [
+            "IN", "US", "AU", "QA", "LK"
+          ],
+          "sameAs": [
+            "https://www.linkedin.com/company/glass-wall-systems-india",
+            "https://www.facebook.com/glasswallsystemsindia",
+            "https://www.instagram.com/glasswallsystemsindia"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Facade Products & Solutions",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Facade & Curtain Wall Systems",
+                  "url": "https://www.glasswallsystems.in/products/facade-and-curtain-wall-systems"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Rainscreen Cladding Systems",
+                  "url": "https://www.glasswallsystems.in/products/rain-screen-cladding"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Architectural Louvers & Sun Control Systems",
+                  "url": "https://www.glasswallsystems.in/products/louvers"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+
+    
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5CF8RLQ"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
