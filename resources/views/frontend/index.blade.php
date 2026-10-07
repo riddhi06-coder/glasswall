@@ -12,7 +12,7 @@
 
 <body>
     
-    
+    @verbatim
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -139,6 +139,7 @@
       ]
     }
     </script>
+    @endverbatim
 
     
     <!-- Google Tag Manager (noscript) -->
