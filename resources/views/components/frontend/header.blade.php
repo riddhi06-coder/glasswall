@@ -1,33 +1,10 @@
-<style>
-  /* Header search widget */
-  .gws-search { position: relative; }
-  .gws-search-dropdown {
-    position: absolute; top: 100%; right: 0; margin-top: 14px;
-    width: 340px; max-width: 90vw; background: #fff; border-radius: 12px;
-    box-shadow: 0 12px 34px rgba(0,0,0,.18); padding: 14px; z-index: 9999;
-  }
-  .gws-search-dropdown[hidden] { display: none; }
-  #gwsSearchInput {
-    width: 100%; padding: 11px 14px; border: 1px solid #dcdcdc; border-radius: 8px;
-    font-size: 14px; outline: none; color: #111; background: #fff;
-  }
-  #gwsSearchInput:focus { border-color: #0a4bb3; }
-  #gwsSearchInput::placeholder { color: #9aa0a6; opacity: 1; }
-  #gwsSearchResults { list-style: none; margin: 10px 0 0; padding: 0; max-height: 340px; overflow-y: auto; }
-  #gwsSearchResults li { margin: 0; }
-  #gwsSearchResults li a {
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    padding: 10px 11px; border-radius: 7px; text-decoration: none; color: #111; line-height: 1.3;
-  }
-  #gwsSearchResults li a:hover { background: #f3f4f6; }
-  #gwsSearchResults small { color: #888; font-size: 12px; }
-  #gwsSearchResults .gws-tag {
-    flex: none; font-size: 11px; color: #fff; background: #0a4bb3;
-    border-radius: 20px; padding: 3px 9px; white-space: nowrap;
-  }
-  #gwsSearchResults .gws-tag.product { background: #0a8a5f; }
-  .gws-search-empty { padding: 10px 4px; color: #777; font-size: 13px; }
-</style>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5CF8RLQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
 <header>
   <div class="tp-header-area tp-header-transparent sticky-black" id="header-sticky">
     <div class="container">
