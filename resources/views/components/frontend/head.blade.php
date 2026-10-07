@@ -13,6 +13,7 @@
 
     {{-- ===== Dynamic SEO (managed in admin → SEO Manager) ===== --}}
     <title>{{ optional($seo ?? null)->meta_title ?: config('app.name', 'Glass Wall Systems') }}</title>
+    
     @if(optional($seo ?? null)->meta_description)
     <meta name="description" content="{{ $seo->meta_description }}" />
     @endif
