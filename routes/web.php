@@ -38,6 +38,8 @@ use App\Http\Controllers\Backend\ContactSubmissionController;
 use App\Http\Controllers\Backend\CareerApplicationController;
 use App\Http\Controllers\Backend\LegalPageController;
 use App\Http\Controllers\Backend\SeoMetaController;
+use App\Http\Controllers\Backend\DisclosureController;
+use App\Http\Controllers\Backend\DisclosureItemController;
 
 
 
@@ -170,6 +172,10 @@ use App\Http\Controllers\Frontend\FormController;
 
         // SEO Manager (per-URL meta tags)
         $cms('manage-seo', SeoMetaController::class);
+
+        // Disclosures page (settings + repeatable items)
+        $cms('manage-disclosures', DisclosureController::class, ['index', 'update']);
+        $cms('manage-disclosure-items', DisclosureItemController::class);
 
         // Overview Pages
         $cms('manage-about-us', AboutUsController::class);

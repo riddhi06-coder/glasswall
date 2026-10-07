@@ -373,9 +373,12 @@ class HomeController extends Controller
     // disclosures page
     public function disclosures()
     {
-        $contact = ContactDetail::latest()->first();
+        $disclosure = \App\Models\Disclosure::first();
+        $rows       = \App\Models\DisclosureRow::with(['links', 'tabs'])
+            ->where('is_active', true)
+            ->orderBy('sort_order')->orderBy('id')->get();
 
-        return view('frontend.disclosures', compact('contact'));
+        return view('frontend.disclosures', compact('disclosure', 'rows'));
     }
     
     

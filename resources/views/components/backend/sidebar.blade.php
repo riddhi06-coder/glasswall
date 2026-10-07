@@ -305,6 +305,19 @@
                       @if($canView('manage-investor-resource'))
                       <li><a href="{{ route('manage-investor-resource.index') }}" class="{{ request()->routeIs('manage-investor-resource.*') ? 'active' : '' }}">Investor Resources</a></li>
                       @endif
+                      @if($canView('manage-disclosures') || $canView('manage-disclosure-items'))
+                      <li>
+                        <a href="#" class="submenu-title">Disclosures <i class="fa fa-angle-down"></i></a>
+                        <ul class="submenu-content">
+                          @if($canView('manage-disclosures'))
+                          <li><a href="{{ route('manage-disclosures.index') }}" class="{{ request()->routeIs('manage-disclosures.*') ? 'active' : '' }}">Page Settings</a></li>
+                          @endif
+                          @if($canView('manage-disclosure-items'))
+                          <li><a href="{{ route('manage-disclosure-items.index') }}" class="{{ request()->routeIs('manage-disclosure-items.*') ? 'active' : '' }}">Disclosure Items</a></li>
+                          @endif
+                        </ul>
+                      </li>
+                      @endif
                   </ul>
                 </li>
                 @endif
@@ -406,6 +419,7 @@
                   </a>
                 </li>
                 @endif
+
 
 
 
