@@ -102,5 +102,10 @@ class AppServiceProvider extends ServiceProvider
         View::composer('components.frontend.footer', function ($view) {
             $view->with('footerContact', ContactDetail::with('socialLinks')->latest()->first());
         });
+
+        // Share the per-URL SEO meta tags with every frontend page's <head>.
+        View::composer('components.frontend.head', function ($view) {
+            $view->with('seo', \App\Models\SeoMeta::forPath(request()->path()));
+        });
     }
 }

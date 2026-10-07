@@ -4,9 +4,8 @@
 <head>
 
   @include('components.frontend.head')
-  
-    <title>Facade Solution Company in Mumbai & India | Glass Wall Systems</title>
-    <meta name="description" content="Glass Wall Systems is among top facade companies in Mumbai & India, offering architectural facade solutions, glass wall systems, aluminium glazing works & structural glazing services.">
+
+    {{-- Title & meta description now come from admin → SEO Manager (per-URL). --}}
     <meta name="google-site-verification" content="PIxuVoyRAbtq2aje11Hq0upbsj7O66AiAhoTukQjSWw" />
 </head>
 

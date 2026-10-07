@@ -37,6 +37,7 @@ use App\Http\Controllers\Backend\IpoDrhpController;
 use App\Http\Controllers\Backend\ContactSubmissionController;
 use App\Http\Controllers\Backend\CareerApplicationController;
 use App\Http\Controllers\Backend\LegalPageController;
+use App\Http\Controllers\Backend\SeoMetaController;
 
 
 
@@ -166,6 +167,9 @@ use App\Http\Controllers\Frontend\FormController;
 
         // Legal pages (Privacy Policy / Terms & Conditions)
         $cms('manage-legal-pages', LegalPageController::class, ['index', 'edit', 'update']);
+
+        // SEO Manager (per-URL meta tags)
+        $cms('manage-seo', SeoMetaController::class);
 
         // Overview Pages
         $cms('manage-about-us', AboutUsController::class);

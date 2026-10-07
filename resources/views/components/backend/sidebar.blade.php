@@ -391,6 +391,22 @@
                 </li>
                 @endif
 
+                {{-- SEO Manager (per-URL meta tags) --}}
+                @if($canView('manage-seo'))
+                <li class="sidebar-list {{ request()->routeIs('manage-seo.*') ? 'active' : '' }}">
+                  <i class="fa fa-thumb-tack"></i>
+                  <a class="sidebar-link" href="{{ route('manage-seo.index') }}">
+                    <svg class="stroke-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-search') }}"></use>
+                    </svg>
+                    <svg class="fill-icon">
+                      <use href="{{ asset('admin/assets/svg/icon-sprite.svg#stroke-search') }}"></use>
+                    </svg>
+                    <span>SEO Manager</span>
+                  </a>
+                </li>
+                @endif
+
 
 
 
