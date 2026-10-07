@@ -40,6 +40,8 @@ use App\Http\Controllers\Backend\LegalPageController;
 use App\Http\Controllers\Backend\SeoMetaController;
 use App\Http\Controllers\Backend\DisclosureController;
 use App\Http\Controllers\Backend\DisclosureItemController;
+use App\Http\Controllers\Backend\StockExchangeController;
+use App\Http\Controllers\Backend\StockExchangeTabController;
 
 
 
@@ -176,6 +178,10 @@ use App\Http\Controllers\Frontend\FormController;
         // Disclosures page (settings + repeatable items)
         $cms('manage-disclosures', DisclosureController::class, ['index', 'update']);
         $cms('manage-disclosure-items', DisclosureItemController::class);
+
+        // Stock Exchange page (settings + tabs with documents)
+        $cms('manage-stock-exchange', StockExchangeController::class, ['index', 'update']);
+        $cms('manage-stock-exchange-tabs', StockExchangeTabController::class);
 
         // Overview Pages
         $cms('manage-about-us', AboutUsController::class);

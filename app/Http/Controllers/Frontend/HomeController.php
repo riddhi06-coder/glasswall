@@ -386,7 +386,12 @@ class HomeController extends Controller
     // stock_exchange page
     public function stock_exchange()
     {
-        return view('frontend.stock_exchange');
+        $stock = \App\Models\StockExchange::first();
+        $tabs  = \App\Models\StockExchangeTab::with('items')
+            ->where('is_active', true)
+            ->orderBy('sort_order')->orderBy('id')->get();
+
+        return view('frontend.stock_exchange', compact('stock', 'tabs'));
     }
 
 }

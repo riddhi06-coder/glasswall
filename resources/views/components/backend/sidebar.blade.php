@@ -318,6 +318,19 @@
                         </ul>
                       </li>
                       @endif
+                      @if($canView('manage-stock-exchange') || $canView('manage-stock-exchange-tabs'))
+                      <li>
+                        <a href="#" class="submenu-title">Stock Exchange <i class="fa fa-angle-down"></i></a>
+                        <ul class="submenu-content">
+                          @if($canView('manage-stock-exchange'))
+                          <li><a href="{{ route('manage-stock-exchange.index') }}" class="{{ request()->routeIs('manage-stock-exchange.*') ? 'active' : '' }}">Page Settings</a></li>
+                          @endif
+                          @if($canView('manage-stock-exchange-tabs'))
+                          <li><a href="{{ route('manage-stock-exchange-tabs.index') }}" class="{{ request()->routeIs('manage-stock-exchange-tabs.*') ? 'active' : '' }}">Tabs &amp; Documents</a></li>
+                          @endif
+                        </ul>
+                      </li>
+                      @endif
                   </ul>
                 </li>
                 @endif

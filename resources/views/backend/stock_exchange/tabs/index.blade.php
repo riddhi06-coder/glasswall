@@ -3,9 +3,7 @@
 <head>
     @include('components.backend.head')
     <style>
-        #basic-1 td { vertical-align: top; }
-        #basic-1 th, #basic-1 td { padding: 14px 12px; }
-        .title-cell { max-width: 520px; font-size: 13px; }
+        #basic-1 th, #basic-1 td { padding: 14px 12px; vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -34,45 +32,38 @@
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('manage-disclosures.index') }}">Disclosures Page</a></li>
-                                        <li class="breadcrumb-item active">Disclosure Items</li>
+                                        <li class="breadcrumb-item"><a href="{{ route('manage-stock-exchange.index') }}">Stock Exchange Page</a></li>
+                                        <li class="breadcrumb-item active">Tabs &amp; Documents</li>
                                     </ol>
                                 </nav>
-                                <a href="{{ route('manage-disclosure-items.create') }}" class="btn btn-primary px-5 radius-30">+ Add Disclosure Item</a>
+                                <a href="{{ route('manage-stock-exchange-tabs.create') }}" class="btn btn-primary px-5 radius-30">+ Add Tab</a>
                             </div>
 
                             <div class="table-responsive custom-scrollbar">
                                 <table class="display" id="basic-1">
                                     <thead>
                                         <tr>
-                                            <th style="width:70px;">No.</th>
-                                            <th>Title</th>
-                                            <th style="width:110px;">Type</th>
-                                            <th style="width:90px;">Items</th>
-                                            <th style="width:80px;">Status</th>
+                                            <th style="width:70px;">Order</th>
+                                            <th>Tab Label</th>
+                                            <th style="width:130px;">Documents</th>
+                                            <th style="width:90px;">Status</th>
                                             <th style="width:150px;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($records as $row)
+                                        @foreach($records as $tab)
                                             <tr>
-                                                <td>{{ $row->number }}</td>
-                                                <td><div class="title-cell">{{ \Illuminate\Support\Str::limit(trim(strip_tags($row->title)), 140) }}</div></td>
+                                                <td>{{ $tab->sort_order }}</td>
+                                                <td><strong>{{ $tab->label }}</strong></td>
+                                                <td>{{ $tab->items_count }} document(s)</td>
                                                 <td>
-                                                    @php
-                                                        $badge = ['links' => 'badge-light-primary', 'financial' => 'badge-light-warning', 'tabs' => 'badge-light-info'][$row->type] ?? 'badge-light-secondary';
-                                                    @endphp
-                                                    <span class="badge {{ $badge }}">{{ ucfirst($row->type) }}</span>
-                                                </td>
-                                                <td>{{ $row->type === 'tabs' ? $row->tabs_count.' tabs' : $row->links_count.' links' }}</td>
-                                                <td>
-                                                    @if($row->is_active)<span class="badge badge-light-success">Active</span>
+                                                    @if($tab->is_active)<span class="badge badge-light-success">Active</span>
                                                     @else<span class="badge badge-light-danger">Inactive</span>@endif
                                                 </td>
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="{{ route('manage-disclosure-items.edit', $row->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                                        <form action="{{ route('manage-disclosure-items.destroy', $row->id) }}" method="POST" class="m-0" onsubmit="return confirm('Delete this disclosure item?')">
+                                                        <a href="{{ route('manage-stock-exchange-tabs.edit', $tab->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                                        <form action="{{ route('manage-stock-exchange-tabs.destroy', $tab->id) }}" method="POST" class="m-0" onsubmit="return confirm('Delete this tab and its documents?')">
                                                             @csrf @method('DELETE')
                                                             <button class="btn btn-sm btn-danger">Delete</button>
                                                         </form>

@@ -11,11 +11,11 @@
       <div class="container-fluid">
         <div class="page-title">
           <div class="row">
-            <div class="col-6"><h4>Disclosures Page Settings</h4></div>
+            <div class="col-6"><h4>Stock Exchange Page Settings</h4></div>
             <div class="col-6">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">Disclosures Page</li>
+                <li class="breadcrumb-item active">Stock Exchange Page</li>
               </ol>
             </div>
           </div>
@@ -29,12 +29,12 @@
               <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                   <h4>Banner &amp; Heading</h4>
-                  <p class="f-m-light mt-1">Manage the top banner and the intro heading of the Disclosures page.</p>
+                  <p class="f-m-light mt-1">Manage the top banner and the heading of the Stock Exchange page.</p>
                 </div>
-                <a href="{{ route('manage-disclosure-items.index') }}" class="btn btn-outline-primary">Manage Disclosure Items →</a>
+                <a href="{{ route('manage-stock-exchange-tabs.index') }}" class="btn btn-outline-primary">Manage Tabs &amp; Documents →</a>
               </div>
               <div class="card-body">
-                <form class="row g-3" action="{{ route('manage-disclosures.update', $record->id) }}" method="POST" enctype="multipart/form-data">
+                <form class="row g-3" action="{{ route('manage-stock-exchange.update', $record->id) }}" method="POST" enctype="multipart/form-data">
                   @csrf
                   @method('PUT')
 
@@ -56,8 +56,7 @@
 
                   <div class="col-12">
                     <label class="form-label" for="page_heading">Page Heading</label>
-                    <textarea class="form-control @error('page_heading') is-invalid @enderror" id="page_heading" name="page_heading" rows="3">{{ old('page_heading', $record->page_heading) }}</textarea>
-                    <small class="text-secondary">e.g. "Disclosure under regulation 46 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015."</small>
+                    <input class="form-control @error('page_heading') is-invalid @enderror" id="page_heading" type="text" name="page_heading" value="{{ old('page_heading', $record->page_heading) }}" placeholder="e.g. Financial Year 2026-2027">
                     @error('page_heading')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                   </div>
 

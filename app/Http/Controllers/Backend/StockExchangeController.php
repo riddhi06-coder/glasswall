@@ -3,30 +3,29 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Disclosure;
+use App\Models\StockExchange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DisclosureController extends Controller
+class StockExchangeController extends Controller
 {
-    /** Settings form for the single Disclosures page record. */
     public function index()
     {
-        $record = Disclosure::firstOrCreate([], [
-            'banner_heading' => 'Disclosures',
+        $record = StockExchange::firstOrCreate([], [
+            'banner_heading' => 'Stock Exchange',
             'created_by'     => Auth::id(),
         ]);
 
-        return view('backend.disclosures.settings', compact('record'));
+        return view('backend.stock_exchange.settings', compact('record'));
     }
 
     public function update(Request $request, $id)
     {
-        $record = Disclosure::findOrFail($id);
+        $record = StockExchange::findOrFail($id);
 
         $data = $request->validate([
             'banner_heading' => 'required|string|max:255',
-            'page_heading'   => 'nullable|string',
+            'page_heading'   => 'nullable|string|max:255',
             'banner_image'   => 'nullable|file|mimes:jpg,jpeg,webp,svg|max:2048',
         ], [
             'banner_image.mimes' => 'The banner must be a jpg, jpeg, webp or svg.',
@@ -41,13 +40,13 @@ class DisclosureController extends Controller
         $data['updated_by'] = Auth::id();
         $record->update($data);
 
-        return redirect()->route('manage-disclosures.index')->with('message', 'Disclosures page settings updated successfully.');
+        return redirect()->route('manage-stock-exchange.index')->with('message', 'Stock Exchange page settings updated successfully.');
     }
 
     // ------------------------------------------------------------------
     private function storeUpload($file): string
     {
-        $folder = public_path(Disclosure::DIR);
+        $folder = public_path(StockExchange::DIR);
         if (! is_dir($folder)) {
             mkdir($folder, 0755, true);
         }
@@ -62,7 +61,7 @@ class DisclosureController extends Controller
         if (! $fileName) {
             return;
         }
-        $path = public_path(Disclosure::DIR.'/'.$fileName);
+        $path = public_path(StockExchange::DIR.'/'.$fileName);
         if (is_file($path)) {
             @unlink($path);
         }

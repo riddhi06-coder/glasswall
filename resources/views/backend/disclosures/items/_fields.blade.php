@@ -5,18 +5,16 @@
     $curType = old('type', $r->type ?? 'links');
 @endphp
 
-@if($errors->any())
-  <div class="col-12"><div class="alert alert-danger mb-0"><ul class="mb-0">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div></div>
-@endif
-
 <div class="col-md-2">
   <label class="form-label" for="number">Number</label>
-  <input class="form-control" id="number" type="text" name="number" value="{{ old('number', $r->number ?? '') }}" placeholder="01">
+  <input class="form-control @error('number') is-invalid @enderror" id="number" type="text" name="number" value="{{ old('number', $r->number ?? '') }}" placeholder="01">
+  @error('number')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
 </div>
 
 <div class="col-md-7">
   <label class="form-label" for="title">Title / Heading</label>
-  <textarea class="form-control" id="title" name="title" rows="2" placeholder="e.g. Details of Business">{{ old('title', $r->title ?? '') }}</textarea>
+  <textarea class="form-control @error('title') is-invalid @enderror" id="title" name="title" rows="2" placeholder="e.g. Details of Business">{{ old('title', $r->title ?? '') }}</textarea>
+  @error('title')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
 </div>
 
 <div class="col-md-3">
@@ -31,11 +29,13 @@
     <option value="financial" {{ $curType === 'financial' ? 'selected' : '' }}>Financial block (#14 — sub-items a/b/c)</option>
     <option value="tabs" {{ $curType === 'tabs' ? 'selected' : '' }}>Quarterly tabs block (Q1/Q2/Q3)</option>
   </select>
+  @error('type')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
 </div>
 
 <div class="col-md-4 js-year-wrap">
   <label class="form-label" for="year">Year <small>(financial / tabs)</small></label>
-  <input class="form-control" id="year" type="text" name="year" value="{{ old('year', $r->year ?? '') }}" placeholder="2026–2027">
+  <input class="form-control @error('year') is-invalid @enderror" id="year" type="text" name="year" value="{{ old('year', $r->year ?? '') }}" placeholder="2026–2027">
+  @error('year')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
 </div>
 
 <div class="col-md-4">
@@ -58,7 +58,7 @@
         <th class="js-name-col" style="width:34%;display:none;">Item Name (financial a/b/c)</th>
         <th style="width:14%;">Link Text</th>
         <th>URL / Path</th>
-        <th style="width:24%;">PDF Upload</th>
+        <th style="width:24%;">Document (PDF/DOC/ZIP)</th>
         <th style="width:50px;">×</th>
       </tr></thead>
       <tbody id="linksBody">
@@ -71,8 +71,8 @@
           <td><input class="form-control" type="text" name="links[{{ $link->id }}][label]" value="{{ $link->label }}" placeholder="View"></td>
           <td><input class="form-control" type="text" name="links[{{ $link->id }}][url]" value="{{ $link->url }}" placeholder="https://… or /path"></td>
           <td>
-            <input class="form-control" type="file" name="links[{{ $link->id }}][file]" accept=".pdf">
-            @if($link->file)<a class="small d-block mt-1" href="{{ asset(\App\Models\Disclosure::DIR.'/'.$link->file) }}" target="_blank">Current PDF ↗</a>@endif
+            <input class="form-control" type="file" name="links[{{ $link->id }}][file]" accept=".pdf,.doc,.docx,.zip">
+            <a class="js-file-preview small d-block mt-1" href="{{ $link->file ? asset(\App\Models\Disclosure::DIR.'/'.$link->file) : '#' }}" target="_blank" style="{{ $link->file ? '' : 'display:none;' }}">Preview PDF ↗</a>
           </td>
           <td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-link>&times;</button></td>
         </tr>
@@ -80,7 +80,8 @@
       </tbody>
     </table>
   </div>
-  <small class="text-secondary">For each link: set the <b>Link Text</b> (e.g. "View", "View MOA") and either paste a <b>URL</b> or upload a <b>PDF</b> (PDF takes priority). A row can have multiple links (e.g. MOA + AOA).</small>
+  <small class="text-secondary">For each link: set the <b>Link Text</b> (e.g. "View", "View MOA") and either paste a <b>URL</b> or upload a <b>document</b> — PDF, DOC, DOCX or ZIP, max 5 MB (file takes priority). A row can have multiple links (e.g. MOA + AOA).</small>
+  @foreach($errors->get('links.*') as $errs)@foreach($errs as $e)<div class="text-danger small mt-1">{{ $e }}</div>@endforeach @endforeach
 </div>
 
 {{-- ===== QUARTERLY TABS ===== --}}
@@ -106,6 +107,7 @@
       </tbody>
     </table>
   </div>
+  @foreach($errors->get('tabs.*') as $errs)@foreach($errs as $e)<div class="text-danger small mt-1">{{ $e }}</div>@endforeach @endforeach
 </div>
 
 <script>
@@ -117,7 +119,8 @@
             '<td class="js-name-col" style="display:none;"><textarea class="form-control" name="links[n'+i+'][name]" rows="2" placeholder="a. Notice of meeting…"></textarea></td>' +
             '<td><input class="form-control" type="text" name="links[n'+i+'][label]" value="View"></td>' +
             '<td><input class="form-control" type="text" name="links[n'+i+'][url]" placeholder="https://… or /path"></td>' +
-            '<td><input class="form-control" type="file" name="links[n'+i+'][file]" accept=".pdf"></td>' +
+            '<td><input class="form-control" type="file" name="links[n'+i+'][file]" accept=".pdf,.doc,.docx,.zip">' +
+            '<a class="js-file-preview small d-block mt-1" href="#" target="_blank" style="display:none;">Preview PDF ↗</a></td>' +
             '<td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-link>&times;</button></td>' +
         '</tr>';
     }
@@ -161,6 +164,20 @@
         document.addEventListener('click', function (e) {
             if (e.target.closest('[data-remove-link]')) e.target.closest('tr').remove();
             if (e.target.closest('[data-remove-tab]')) e.target.closest('tr').remove();
+        });
+
+        // PDF preview for selected files (works for existing + dynamically added rows).
+        document.addEventListener('change', function (e) {
+            var inp = e.target;
+            if (inp.tagName !== 'INPUT' || inp.type !== 'file') return;
+            var prev = inp.parentNode.querySelector('.js-file-preview');
+            if (!prev) return;
+            var f = inp.files && inp.files[0];
+            if (f) {
+                prev.href = URL.createObjectURL(f);
+                prev.textContent = 'Preview selected PDF ↗';
+                prev.style.display = 'block';
+            }
         });
     });
 })();

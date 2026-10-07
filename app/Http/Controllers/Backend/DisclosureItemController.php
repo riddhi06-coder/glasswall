@@ -187,13 +187,13 @@ class DisclosureItemController extends Controller
             'links.*.name'    => 'nullable|string',
             'links.*.label'   => 'nullable|string|max:100',
             'links.*.url'     => 'nullable|string|max:500',
-            'links.*.file'    => 'nullable|file|mimes:pdf|max:10240',
+            'links.*.file'    => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
             'tabs'            => 'nullable|array',
             'tabs.*.label'    => 'nullable|string|max:100',
             'tabs.*.content'  => 'nullable|string',
         ], [
-            'links.*.file.mimes' => 'Documents must be PDF files.',
-            'links.*.file.max'   => 'Each PDF may not be larger than 10 MB.',
+            'links.*.file.mimes' => 'Documents must be a PDF, DOC, DOCX or ZIP file.',
+            'links.*.file.max'   => 'Each document may not be larger than 5 MB.',
         ]);
     }
 
