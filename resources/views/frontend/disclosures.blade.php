@@ -3,134 +3,7 @@
   <head>
 
     @include('components.frontend.head')
-<style>
-/* =========================================
-   FINANCIAL DISCLOSURE - ITEM 14
-   ========================================= */
-
-.financial-disclosure-new {
-  width: 100%;
-    padding: 25px 30px 30px;
-  border-bottom: 1px solid #ddd;
-  box-sizing: border-box;
-}
-.financial-row-row {
-    margin-left: 55px;
-}
-.financial-row{
-
-    display: flex;
-    gap: 40px;
-}
-
-/* NUMBER */
-
-.financial-disclosure-new-number {
-  font-size: 13px;
-  font-weight: 600;
-  color: #888;
-  margin-bottom: 10px;
-}
-
-
-/* HEADING */
-
-.financial-disclosure-new-heading {
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 4px;
-}
-
-
-/* YEAR */
-
-.financial-disclosure-new-year {
-  font-size: 15px;
-  line-height: 1.5;
-  color: #888;
-  margin-bottom: 6px;
-}
-
-
-/* THREE COLUMN AREA */
-
-.financial-disclosure-new-items {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 45px;
-  width: 100%;
-}
-
-
-/* EACH COLUMN */
-
-.financial-disclosure-new-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 0;
-}
-
-
-/* a / b / c */
-
-.financial-disclosure-new-letter {
-  font-size: 15px;
-  line-height: 1.5;
-  color: #222;
-  margin-bottom: 4px;
-}
-
-
-/* DOCUMENT NAME */
-
-.financial-disclosure-new-name {
-  font-size: 15px;
-  line-height: 1.55;
-  color: #222;
-  max-width: 100%;
-}
-
-
-/* VIEW */
-
-.financial-disclosure-new-view {
-  margin-top: 5px;
-  color: #222;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  transition: color 0.25s ease;
-}
-
-
-/* HOVER */
-
-.financial-disclosure-new-view:hover {
-  color: #777;
-}
-
-
-/* =========================================
-   MOBILE
-   ========================================= */
-
-@media (max-width: 767px) {
-
-  .financial-disclosure-new {
-    padding: 24px 20px 30px;
-  }
-
-  .financial-disclosure-new-items {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-
-}
-</style>
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/disclosures.css') }}">
   </head>
   <body>
 
@@ -175,7 +48,7 @@
               <span class="disclosure-number">{{ $row->number }}</span>
               <span>{!! $row->title !!}</span>
             </div>
-            <div class="disclosure-link" @if($row->links->count() > 1) style="flex-direction: column;" @endif>
+            <div class="disclosure-link {{ $row->links->count() > 1 ? 'disclosure-link--stacked' : '' }}">
               @forelse($row->links as $link)
                 <a href="{{ $link->href ?: '#' }}" @if($link->href) target="_blank" rel="noopener" @endif>{{ $link->label ?: 'View' }}</a>
               @empty
