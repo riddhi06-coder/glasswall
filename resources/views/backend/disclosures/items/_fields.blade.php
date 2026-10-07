@@ -55,7 +55,7 @@
         <th class="js-name-col" style="width:34%;display:none;">Item Name (financial a/b/c)</th>
         <th style="width:14%;">Link Text</th>
         <th>URL / Path</th>
-        <th style="width:24%;">Document (PDF/DOC/ZIP)</th>
+        <th style="width:24%;">Document (PDF/DOC/ZIP/MP3)</th>
         <th style="width:50px;">×</th>
       </tr></thead>
       <tbody id="linksBody">
@@ -68,7 +68,7 @@
           <td><input class="form-control" type="text" name="links[{{ $link->id }}][label]" value="{{ $link->label }}" placeholder="View"></td>
           <td><input class="form-control" type="text" name="links[{{ $link->id }}][url]" value="{{ $link->url }}" placeholder="https://… or /path"></td>
           <td>
-            <input class="form-control" type="file" name="links[{{ $link->id }}][file]" accept=".pdf,.doc,.docx,.zip">
+            <input class="form-control" type="file" name="links[{{ $link->id }}][file]" accept=".pdf,.doc,.docx,.zip,.mp3">
             <a class="js-file-preview small mt-1" href="{{ $link->href ?: '#' }}" target="_blank" style="{{ $link->href ? 'display:block;' : 'display:none;' }}">Preview ↗</a>
           </td>
           <td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-link>&times;</button></td>
@@ -77,7 +77,7 @@
       </tbody>
     </table>
   </div>
-  <small class="text-secondary">For each link: set the <b>Link Text</b> (e.g. "View", "View MOA") and either paste a <b>URL</b> or upload a <b>document</b> — PDF, DOC, DOCX or ZIP, max 5 MB (file takes priority). A row can have multiple links (e.g. MOA + AOA).</small>
+  <small class="text-secondary">For each link: set the <b>Link Text</b> (e.g. "View", "View MOA") and either paste a <b>URL</b> or upload a <b>document</b> — PDF, DOC, DOCX, ZIP or MP3, max 5 MB (file takes priority). A row can have multiple links (e.g. MOA + AOA).</small>
   @foreach($errors->get('links.*') as $errs)@foreach($errs as $e)<div class="text-danger small mt-1">{{ $e }}</div>@endforeach @endforeach
 </div>
 
@@ -99,7 +99,7 @@
         </div>
         <div class="table-responsive">
           <table class="table table-bordered align-middle mb-2">
-            <thead><tr><th>Document Name</th><th style="width:40%;">Attachment (PDF/DOC/ZIP)</th><th style="width:50px;">×</th></tr></thead>
+            <thead><tr><th>Document Name</th><th style="width:40%;">Attachment (PDF/DOC/ZIP/MP3)</th><th style="width:50px;">×</th></tr></thead>
             <tbody class="tab-items-body" data-tabkey="{{ $tab->id }}">
               @foreach($tab->tabItems as $it)
               <tr>
@@ -108,7 +108,7 @@
                   <textarea class="form-control" name="tabs[{{ $tab->id }}][items][{{ $it->id }}][title]" rows="2" placeholder="Document name">{{ $it->title }}</textarea>
                 </td>
                 <td>
-                  <input class="form-control" type="file" name="tabs[{{ $tab->id }}][items][{{ $it->id }}][file]" accept=".pdf,.doc,.docx,.zip">
+                  <input class="form-control" type="file" name="tabs[{{ $tab->id }}][items][{{ $it->id }}][file]" accept=".pdf,.doc,.docx,.zip,.mp3">
                   <a class="js-file-preview small mt-1" href="{{ $it->href ?: '#' }}" target="_blank" style="{{ $it->href ? 'display:block;' : 'display:none;' }}">Preview ↗</a>
                 </td>
                 <td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-item>&times;</button></td>
@@ -122,7 +122,7 @@
     </div>
     @endforeach
   </div>
-  <small class="text-secondary">The <b>No.</b> is assigned automatically (01, 02, 03 …) in row order. For each document give a <b>Name</b> and upload the <b>attachment</b> — PDF, DOC, DOCX or ZIP, max 5 MB. An empty tab shows "Coming Soon" on the page.</small>
+  <small class="text-secondary">The <b>No.</b> is assigned automatically (01, 02, 03 …) in row order. For each document give a <b>Name</b> and upload the <b>attachment</b> — PDF, DOC, DOCX, ZIP or MP3, max 5 MB. An empty tab shows "Coming Soon" on the page.</small>
   @foreach($errors->get('tabs.*') as $errs)@foreach($errs as $e)<div class="text-danger small mt-1">{{ $e }}</div>@endforeach @endforeach
 </div>
 
@@ -135,7 +135,7 @@
             '<td class="js-name-col" style="display:none;"><textarea class="form-control" name="links[n'+i+'][name]" rows="2" placeholder="a. Notice of meeting…"></textarea></td>' +
             '<td><input class="form-control" type="text" name="links[n'+i+'][label]" value="View"></td>' +
             '<td><input class="form-control" type="text" name="links[n'+i+'][url]" placeholder="https://… or /path"></td>' +
-            '<td><input class="form-control" type="file" name="links[n'+i+'][file]" accept=".pdf,.doc,.docx,.zip">' +
+            '<td><input class="form-control" type="file" name="links[n'+i+'][file]" accept=".pdf,.doc,.docx,.zip,.mp3">' +
             '<a class="js-file-preview small mt-1" href="#" target="_blank" style="display:none;">Preview PDF ↗</a></td>' +
             '<td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-link>&times;</button></td>' +
         '</tr>';
@@ -143,7 +143,7 @@
     function docRow(tabKey, i) {
         return '<tr>' +
             '<td><textarea class="form-control" name="tabs['+tabKey+'][items][n'+i+'][title]" rows="2" placeholder="Document name"></textarea></td>' +
-            '<td><input class="form-control" type="file" name="tabs['+tabKey+'][items][n'+i+'][file]" accept=".pdf,.doc,.docx,.zip">' +
+            '<td><input class="form-control" type="file" name="tabs['+tabKey+'][items][n'+i+'][file]" accept=".pdf,.doc,.docx,.zip,.mp3">' +
             '<a class="js-file-preview small mt-1" href="#" target="_blank" style="display:none;">Preview ↗</a></td>' +
             '<td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-item>&times;</button></td>' +
         '</tr>';
@@ -156,7 +156,7 @@
               '<button type="button" class="btn btn-sm btn-outline-danger ms-auto" data-remove-tab>Remove Tab</button>' +
             '</div>' +
             '<div class="table-responsive"><table class="table table-bordered align-middle mb-2">' +
-              '<thead><tr><th>Document Name</th><th style="width:40%;">Attachment (PDF/DOC/ZIP)</th><th style="width:50px;">×</th></tr></thead>' +
+              '<thead><tr><th>Document Name</th><th style="width:40%;">Attachment (PDF/DOC/ZIP/MP3)</th><th style="width:50px;">×</th></tr></thead>' +
               '<tbody class="tab-items-body" data-tabkey="'+tabKey+'"></tbody>' +
             '</table></div>' +
             '<button type="button" class="btn btn-sm btn-light border add-doc mt-2" data-tabkey="'+tabKey+'">+ Add Document</button>' +

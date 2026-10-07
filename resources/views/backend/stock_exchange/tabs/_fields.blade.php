@@ -26,7 +26,7 @@
     <table class="table table-bordered align-middle">
       <thead><tr>
         <th>Document Name</th>
-        <th style="width:40%;">Attachment (PDF/DOC/ZIP)</th>
+        <th style="width:40%;">Attachment (PDF/DOC/ZIP/MP3)</th>
         <th style="width:50px;">×</th>
       </tr></thead>
       <tbody id="itemsBody">
@@ -37,7 +37,7 @@
             <textarea class="form-control" name="items[{{ $item->id }}][title]" rows="2" placeholder="Document name">{{ $item->title }}</textarea>
           </td>
           <td>
-            <input class="form-control" type="file" name="items[{{ $item->id }}][file]" accept=".pdf,.doc,.docx,.zip">
+            <input class="form-control" type="file" name="items[{{ $item->id }}][file]" accept=".pdf,.doc,.docx,.zip,.mp3">
             <a class="js-file-preview small mt-1" href="{{ $item->href ?: '#' }}" target="_blank" style="{{ $item->href ? 'display:block;' : 'display:none;' }}">Preview ↗</a>
           </td>
           <td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-item>&times;</button></td>
@@ -46,7 +46,7 @@
       </tbody>
     </table>
   </div>
-  <small class="text-secondary">The <b>No.</b> is assigned automatically (01, 02, 03 …) in row order. For each document give a <b>Name</b> and upload the <b>attachment</b> — PDF, DOC, DOCX or ZIP, max 5 MB.</small>
+  <small class="text-secondary">The <b>No.</b> is assigned automatically (01, 02, 03 …) in row order. For each document give a <b>Name</b> and upload the <b>attachment</b> — PDF, DOC, DOCX, ZIP or MP3, max 5 MB.</small>
   @foreach($errors->get('items.*') as $errs)@foreach($errs as $e)<div class="text-danger small mt-1">{{ $e }}</div>@endforeach @endforeach
 </div>
 
@@ -56,7 +56,7 @@
     function itemRow(i) {
         return '<tr>' +
             '<td><textarea class="form-control" name="items[n'+i+'][title]" rows="2" placeholder="Document name"></textarea></td>' +
-            '<td><input class="form-control" type="file" name="items[n'+i+'][file]" accept=".pdf,.doc,.docx,.zip">' +
+            '<td><input class="form-control" type="file" name="items[n'+i+'][file]" accept=".pdf,.doc,.docx,.zip,.mp3">' +
             '<a class="js-file-preview small mt-1" href="#" target="_blank" style="display:none;">Preview ↗</a></td>' +
             '<td class="text-center"><button type="button" class="btn btn-sm btn-danger" data-remove-item>&times;</button></td>' +
         '</tr>';

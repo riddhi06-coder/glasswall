@@ -254,16 +254,16 @@ class DisclosureItemController extends Controller
             'links.*.name'          => 'nullable|string',
             'links.*.label'         => 'nullable|string|max:100',
             'links.*.url'           => 'nullable|string|max:500',
-            'links.*.file'          => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
+            'links.*.file'          => 'nullable|file|mimes:pdf,doc,docx,zip,mp3|max:5120',
             'tabs'                  => 'nullable|array',
             'tabs.*.label'          => 'nullable|string|max:100',
             'tabs.*.items'          => 'nullable|array',
             'tabs.*.items.*.title'  => 'nullable|string',
-            'tabs.*.items.*.file'   => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
+            'tabs.*.items.*.file'   => 'nullable|file|mimes:pdf,doc,docx,zip,mp3|max:5120',
         ], [
-            'links.*.file.mimes'        => 'Documents must be a PDF, DOC, DOCX or ZIP file.',
+            'links.*.file.mimes'        => 'Documents must be a PDF, DOC, DOCX, ZIP or MP3 file.',
             'links.*.file.max'          => 'Each document may not be larger than 5 MB.',
-            'tabs.*.items.*.file.mimes' => 'Documents must be a PDF, DOC, DOCX or ZIP file.',
+            'tabs.*.items.*.file.mimes' => 'Documents must be a PDF, DOC, DOCX, ZIP or MP3 file.',
             'tabs.*.items.*.file.max'   => 'Each document may not be larger than 5 MB.',
         ]);
     }

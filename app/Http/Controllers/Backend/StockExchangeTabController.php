@@ -121,9 +121,9 @@ class StockExchangeTabController extends Controller
             'label'         => 'required|string|max:100',
             'items'         => 'nullable|array',
             'items.*.title'  => 'nullable|string',
-            'items.*.file'   => 'nullable|file|mimes:pdf,doc,docx,zip|max:5120',
+            'items.*.file'   => 'nullable|file|mimes:pdf,doc,docx,zip,mp3|max:5120',
         ], [
-            'items.*.file.mimes' => 'Documents must be a PDF, DOC, DOCX or ZIP file.',
+            'items.*.file.mimes' => 'Documents must be a PDF, DOC, DOCX, ZIP or MP3 file.',
             'items.*.file.max'   => 'Each document may not be larger than 5 MB.',
         ]);
     }
