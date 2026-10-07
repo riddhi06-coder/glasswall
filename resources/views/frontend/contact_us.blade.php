@@ -129,12 +129,12 @@
                           </div>
                         </div>
                         <div class="tp-contect-box-input mb-15">
-                          <div class="d-flex justify-content-center">
+                          <div class="d-flex justify-content-start">
                             <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
                           </div>
-                          <small class="form-error {{ $errors->contact->has('g-recaptcha-response') ? 'show' : '' }}" data-for="g-recaptcha-response" style="display:block;text-align:center;margin-top:6px;">{{ $errors->contact->first('g-recaptcha-response') }}</small>
+                          <small class="form-error {{ $errors->contact->has('g-recaptcha-response') ? 'show' : '' }}" data-for="g-recaptcha-response" style="display:block;text-align:left;margin-top:6px;">{{ $errors->contact->first('g-recaptcha-response') }}</small>
                         </div>
-                        <div class="tp-contect-box-input mb-10 text-center">
+                        <div class="tp-contect-box-input mb-10">
                           <button type="submit" class="tp-btn tp-btn-white">
                             <span class="tp-btn-text tp-btn-white">Submit</span>
                             <span class="tp-btn-icon">
