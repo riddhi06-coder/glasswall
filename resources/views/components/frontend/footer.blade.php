@@ -93,7 +93,7 @@
                                 <li><a href="{{ route('frontend.about_us') }}">About Us</a></li>
                                 <li><a href="{{ route('frontend.board_of_directors') }}">Our Team</a></li>
                                 <li><a href="{{ route('frontend.contact_us') }}">Contact Us</a></li>
-                                <li><a href="https://stafflogin.glasswallsystems.in/SPINEHRMS/login.aspx" target="_blank" rel="noopener" title="Glass Wall Systems HRMS">Glass Wall Systems HRMS</a></li>
+                                <li><a href="https://stafflogin.glasswallsystems.in/SPINEHRMS/login.aspx" target="_blank" rel="noopener" title="Glass Wall Systems HRMS">HRMS Employee Login</a></li>
                             </ul>
 
                         </div>
