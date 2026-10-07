@@ -3,7 +3,134 @@
   <head>
 
     @include('components.frontend.head')
+<style>
+/* =========================================
+   FINANCIAL DISCLOSURE - ITEM 14
+   ========================================= */
 
+.financial-disclosure-new {
+  width: 100%;
+    padding: 25px 30px 30px;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+}
+.financial-row-row {
+    margin-left: 55px;
+}
+.financial-row{
+    
+    display: flex;
+    gap: 40px;
+}
+
+/* NUMBER */
+
+.financial-disclosure-new-number {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+
+/* HEADING */
+
+.financial-disclosure-new-heading {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+
+/* YEAR */
+
+.financial-disclosure-new-year {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+
+/* THREE COLUMN AREA */
+
+.financial-disclosure-new-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 45px;
+  width: 100%;
+}
+
+
+/* EACH COLUMN */
+
+.financial-disclosure-new-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+
+/* a / b / c */
+
+.financial-disclosure-new-letter {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+
+/* DOCUMENT NAME */
+
+.financial-disclosure-new-name {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #222;
+  max-width: 100%;
+}
+
+
+/* VIEW */
+
+.financial-disclosure-new-view {
+  margin-top: 5px;
+  color: #222;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.25s ease;
+}
+
+
+/* HOVER */
+
+.financial-disclosure-new-view:hover {
+  color: #777;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 767px) {
+
+  .financial-disclosure-new {
+    padding: 24px 20px 30px;
+  }
+
+  .financial-disclosure-new-items {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+}
+</style>
   </head>
   <body>
 
@@ -185,34 +312,118 @@
       </div>
 
       <!-- 14 -->
-      <div class="disclosure-row">
-        <div class="disclosure-title">
-          <span class="disclosure-number">14</span>
-          <span>
-            Financial information including:
-            <br>
-            a. Notice of meeting of the board of directors where financial results shall be discussed
-            <br>
-            b. Financial Results
-            <br>
-            c. Annual Report
-          </span>
-        </div>
-        <div class="disclosure-link">
-          <a href="#">View</a>
-        </div>
+      <!--<div class="disclosure-row">-->
+      <!--  <div class="disclosure-title">-->
+      <!--    <span class="disclosure-number">14</span>-->
+      <!--    <span>-->
+      <!--      Financial information including:-->
+      <!--      <br>-->
+      <!--      a. Notice of meeting of the board of directors where financial results shall be discussed-->
+      <!--      <br>-->
+      <!--      b. Financial Results-->
+      <!--      <br>-->
+      <!--      c. Annual Report-->
+      <!--    </span>-->
+      <!--  </div>-->
+      <!--  <div class="disclosure-link">-->
+      <!--    <a href="#">View</a>-->
+      <!--  </div>-->
+      <!--</div>-->
+      
+      
+    <div class="financial-disclosure-new">
+<div class="financial-row">
+  <div class="financial-disclosure-new-number">
+    14
+  </div>
+
+  <div class="financial-disclosure-new-heading">
+    Financial information including:
+  </div>
+</div>
+<div class="financial-row-row">
+  <div class="financial-disclosure-new-year">
+    2026–2027
+  </div>
+
+  <div class="financial-disclosure-new-items">
+
+    <div class="financial-disclosure-new-item">
+
+      <div class="financial-disclosure-new-name">
+       a. Notice of meeting of the board of directors where financial results shall be discussed
       </div>
 
+      <a href="#" class="financial-disclosure-new-view">
+        View
+      </a> 
+    </div>
+
+
+    <div class="financial-disclosure-new-item">
+
+      <div class="financial-disclosure-new-name">
+        b. Financial Results
+      </div>
+
+      <a href="#" class="financial-disclosure-new-view">
+        View
+      </a>
+    </div>
+
+
+    <div class="financial-disclosure-new-item">
+
+      <div class="financial-disclosure-new-name">
+        c. Annual Report
+      </div>
+
+      <a href="#" class="financial-disclosure-new-view">
+        View
+      </a>
+    </div>
+
+  </div>
+</div>
+</div>
+
       <!-- 15 -->
-      <div class="disclosure-row">
-        <div class="disclosure-title">
-          <span class="disclosure-number">15</span>
+      <div class="year-row">
+        <div class="year-title">
+          <span class="year-number">15</span>
           <span>Shareholding pattern</span>
         </div>
-        <div class="disclosure-link">
-          <a href="#">View</a>
+        
+        <div class="year-box">
+            <h2 class="year-heading">2026–2027</h2>
+            <div class="financial-tabs">
+            <div class="financial-tab-buttons">
+                <button type="button" class="financial-tab-btn active" data-tab="financial-q1">Q1</button>
+                <button type="button" class="financial-tab-btn" data-tab="financial-q2">Q2</button>
+                <button type="button" class="financial-tab-btn" data-tab="financial-q3">Q3</button>
+            </div>
+            
+            <div class="financial-tab-content active" id="financial-q1">
+               <div class="coming-text">
+                    <h6>Coming Soon Q1</h6>
+                </div>
+            </div>
+            <div class="financial-tab-content" id="financial-q2">
+                <div class="coming-text">
+                    <h6>Coming Soon Q2</h6>
+                </div>
+            </div>
+            
+            <div class="financial-tab-content" id="financial-q3">
+               <div class="coming-text">
+                    <h6>Coming Soon Q3</h6>
+                </div>
+            </div>
+            </div>
         </div>
       </div>
+      
+      
 
       <!-- 16 -->
       <div class="disclosure-row">
@@ -224,17 +435,52 @@
           <a href="#">View</a>
         </div>
       </div>
-
-      <!-- 17 -->
-      <div class="disclosure-row">
-        <div class="disclosure-title">
-          <span class="disclosure-number">17</span>
+      
+      <div class="year-row">
+        <div class="year-title">
+          <span class="year-number">15</span>
           <span>Schedule of analyst or institutional investor meet</span>
         </div>
-        <div class="disclosure-link">
-          <a href="#">View</a>
+        
+        <div class="year-box">
+            <h2 class="year-heading">2026–2027</h2>
+            <div class="financial-tabs">
+            <div class="financial-tab-buttons">
+                <button type="button" class="financial-tab-btn active" data-tab="financial-q4">Q1</button>
+                <button type="button" class="financial-tab-btn" data-tab="financial-q5">Q2</button>
+                <button type="button" class="financial-tab-btn" data-tab="financial-q6">Q3</button>
+            </div>
+            
+            <div class="financial-tab-content active" id="financial-q4">
+               <div class="coming-text">
+                    <h6>Coming Soon Q1</h6>
+                </div>
+            </div>
+            <div class="financial-tab-content" id="financial-q5">
+                <div class="coming-text">
+                    <h6>Coming Soon Q2</h6>
+                </div>
+            </div>
+            
+            <div class="financial-tab-content" id="financial-q6">
+               <div class="coming-text">
+                    <h6>Coming Soon Q3</h6>
+                </div>
+            </div>
+            </div>
         </div>
       </div>
+
+      <!-- 17 -->
+      <!--<div class="disclosure-row">-->
+      <!--  <div class="disclosure-title">-->
+      <!--    <span class="disclosure-number">17</span>-->
+      <!--    <span>Schedule of analyst or institutional investor meet</span>-->
+      <!--  </div>-->
+      <!--  <div class="disclosure-link">-->
+      <!--    <a href="#">View</a>-->
+      <!--  </div>-->
+      <!--</div>-->
 
       <!-- 18 -->
       <div class="disclosure-row">
@@ -403,6 +649,40 @@
     </div>
 
     @include('components.frontend.main-js')
+<script>
+document.addEventListener('click', function(e) {
 
+    const button = e.target.closest('.financial-tab-btn');
+
+    if (!button) return;
+
+    /* Find the tab group where the button was clicked */
+    const tabGroup = button.closest('.financial-tabs');
+
+    if (!tabGroup) return;
+
+    /* Get the target tab */
+    const tabId = button.dataset.tab;
+    const targetContent = tabGroup.querySelector(
+        '.financial-tab-content[id="' + tabId + '"]'
+    );
+
+    if (!targetContent) return;
+
+    /* Remove active state only from this tab group */
+    tabGroup.querySelectorAll('.financial-tab-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+
+    tabGroup.querySelectorAll('.financial-tab-content').forEach(function(content) {
+        content.classList.remove('active');
+    });
+
+    /* Activate selected tab */
+    button.classList.add('active');
+    targetContent.classList.add('active');
+
+});
+</script>
   </body>
 </html>

@@ -439,7 +439,8 @@
 
               <div class="col-md-12">
                 <script src="{{ optional($blog)->api_link ?? 'https://elfsightcdn.com/platform.js' }}" async></script>
-                <div class="elfsight-app-906929a6-8d58-4c4c-975d-c93289ffce3b" data-elfsight-app-lazy></div>
+                <!--<div class="elfsight-app-906929a6-8d58-4c4c-975d-c93289ffce3b" data-elfsight-app-lazy></div>-->
+<div class="elfsight-app-c16d9f35-6b13-4796-a643-e9c7e94030f4" data-elfsight-app-lazy></div>
               </div>
             </div>
           </div>
