@@ -7,6 +7,11 @@
 
     {{-- Title & meta description now come from admin → SEO Manager (per-URL). --}}
     <meta name="google-site-verification" content="PIxuVoyRAbtq2aje11Hq0upbsj7O66AiAhoTukQjSWw" />
+
+    {{-- Preload the hero (LCP) image — it's set via JS data-background, so the browser can't discover it otherwise --}}
+    @if(optional($banners->first())->media_type === 'image')
+    <link rel="preload" as="image" fetchpriority="high" href="{{ asset('home/bannerimagevideo/'.$banners->first()->banner_media) }}">
+    @endif
 </head>
 
 <body>
