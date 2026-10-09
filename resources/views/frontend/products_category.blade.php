@@ -203,7 +203,7 @@
                 @forelse($products as $product)
                   <div class="col-lg-4 col-md-6">
                     <article class="product-card large">
-                      <img src="{{ $product->image_url }}" alt="{{ $product->name }}" />
+                      <img loading="lazy" decoding="async" src="{{ $product->image_url }}" alt="{{ $product->name }}" />
 
                       <div class="overlay"></div>
 

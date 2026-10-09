@@ -44,7 +44,7 @@
 
                             <div class="col-lg-6">
                                 <!--<div class="tp-about-image br-20 p-relative">-->
-                                <!--   <img class=" tp_fade_anim" data-delay=".2" data-duration=".9" src="assets/images/home/facility.webp" alt="">-->
+                                <!--   <img loading="lazy" decoding="async" class=" tp_fade_anim" data-delay=".2" data-duration=".9" src="assets/images/home/facility.webp" alt="">-->
                                 <!--</div>-->
                                 <div class="tp-about-heading pb-70 tp-text-center ml-35">
                                     <h2 class="tp-section-title margin-0">{{ optional($facility)->about_heading }}</h2>
@@ -82,7 +82,7 @@
                                 <div class="facade-feature-box h-100">
                                     <div class="facade-feature-icon">
                                         @if($feature->image)
-                                        <img src="{{ $feature->image_url }}" alt="{{ $feature->title }}">
+                                        <img loading="lazy" decoding="async" src="{{ $feature->image_url }}" alt="{{ $feature->title }}">
                                         @endif
                                     </div>
 
@@ -104,7 +104,7 @@
                         <!--<div class="tp-solid-bg tp-bg br-20 p-relative jarallax" data-background="assets/images/home/facility.webp">-->
                         <!--</div>-->
                         @if($facility && $facility->counter_image)
-                        <img src="{{ $facility->assetUrl($facility->counter_image) }}" />
+                        <img loading="lazy" decoding="async" src="{{ $facility->assetUrl($facility->counter_image) }}" />
                         @endif
 
                     </div>
@@ -177,7 +177,7 @@
                             @foreach(optional($facility)->galleries ?? [] as $gallery)
                             <div class="col-md-4">
                                 <div class="unit-item">
-                                    <img src="{{ $gallery->image_url }}" class="br-20" alt="{{ $gallery->heading ?: 'image' }}">
+                                    <img loading="lazy" decoding="async" src="{{ $gallery->image_url }}" class="br-20" alt="{{ $gallery->heading ?: 'image' }}">
                                     @if($gallery->heading)
                                     <div class="unit-title tp_fade_anim" data-duration=".9" data-delay=".3">
                                         {{ $gallery->heading }}
@@ -234,12 +234,12 @@
                             </div>
                             @if($f->testing_image1)
                             <div class="col-md-3">
-                                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing_image1) }}" alt=""></div>
+                                <div class="gws-testing-image"><img loading="lazy" decoding="async" src="{{ $f->assetUrl($f->testing_image1) }}" alt=""></div>
                             </div>
                             @endif
                             @if($f->testing_image2)
                             <div class="col-md-3">
-                                <div class="gws-testing-image"><img src="{{ $f->assetUrl($f->testing_image2) }}" alt=""></div>
+                                <div class="gws-testing-image"><img loading="lazy" decoding="async" src="{{ $f->assetUrl($f->testing_image2) }}" alt=""></div>
                             </div>
                             @endif
                         </div>
@@ -253,7 +253,7 @@
                                 <div class="image-grid">
                                     @foreach($f->testingImages->where('block', 'calibration') as $img)
                                         <div class="image-item">
-                                            <img src="{{ $img->image_url }}" alt="">
+                                            <img loading="lazy" decoding="async" src="{{ $img->image_url }}" alt="">
                                         </div>
                                     @endforeach
                                 </div>
@@ -274,7 +274,7 @@
                             </div>
                             @if($f->nabl_image)
                             <div class="col-md-6">
-                                <div class="gws-nabl-image"><img src="{{ $f->assetUrl($f->nabl_image) }}" alt=""></div>
+                                <div class="gws-nabl-image"><img loading="lazy" decoding="async" src="{{ $f->assetUrl($f->nabl_image) }}" alt=""></div>
                             </div>
                             @endif
                         </div>
@@ -304,7 +304,7 @@
                             @foreach($f->testingImages->where('block', 'mockup') as $mockup)
                             <div class="col-md-4">
                                 <div class="gws-testing-image">
-                                    <img src="{{ $mockup->image_url }}" alt="{{ $mockup->caption }}">
+                                    <img loading="lazy" decoding="async" src="{{ $mockup->image_url }}" alt="{{ $mockup->caption }}">
                                     @if($mockup->caption)<h6>{{ $mockup->caption }}</h6>@endif
                                 </div>
                             </div>

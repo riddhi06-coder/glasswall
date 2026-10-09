@@ -45,7 +45,7 @@
                                         <a href="{{ $report->pdf_url }}" class="document-box" target="_blank" rel="noopener">
                                             <span class="document-title">{{ $report->title }}</span>
                                             <span class="document-icon">
-                                                <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                                                <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
                                             </span>
                                         </a>
                                     @empty

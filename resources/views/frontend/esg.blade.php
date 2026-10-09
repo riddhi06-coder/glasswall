@@ -52,7 +52,7 @@
                             <!-- Left Side -->
                             <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
                                 <div class="md-img">
-                                    <img
+                                    <img loading="lazy" decoding="async"
                                         class="tp_fade_anim br-20"
                                         data-duration=".9"
                                         data-delay=".7"
@@ -143,7 +143,7 @@
                             <!-- Left Side -->
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <div class="sustainability-img">
-                                    <img
+                                    <img loading="lazy" decoding="async"
                                         class="tp_fade_anim br-20"
                                         data-duration=".9"
                                         data-delay=".7"
@@ -164,7 +164,7 @@
                             <div class="container">
                                 <div class="tp-contect-main tp-bg-secoundery br-20 pt-70 pb-70 p-relative fix">
                                     <div class="tp-contect-shape-inner p-absolute">
-                                        <img
+                                        <img loading="lazy" decoding="async"
                                             class="tp_fade_anim"
                                             data-fade-from="top"
                                             data-fade-offset="50"
@@ -225,7 +225,7 @@
                                     @foreach(optional($esg)->impacts ?? [] as $im)
                                         <div class="tpwork">
                                             <div class="tpwork__thumb p-relative fix">
-                                                <img src="{{ $esg->assetUrl($im->image) }}" alt="{{ $im->impact }}" />
+                                                <img loading="lazy" decoding="async" src="{{ $esg->assetUrl($im->image) }}" alt="{{ $im->impact }}" />
                                                 <h3 class="tpwork__num">{{ $im->year }}</h3>
                                             </div>
                                             <div class="tpwork__content">
@@ -261,7 +261,7 @@
                             <!-- Left Side -->
                             <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
                                 <div class="stackholder-img">
-                                    <img
+                                    <img loading="lazy" decoding="async"
                                         class="tp_fade_anim br-20"
                                         data-duration=".9"
                                         data-delay=".7"
@@ -293,7 +293,7 @@
                                     <div class="tpserv__card tp-text-center br-20 bg-blue fix mb-30">
                                         <div class="tpserv__card-icon">
                                             @if($w->image)
-                                                <img src="{{ $esg->assetUrl($w->image) }}" alt="{{ $w->feature }}">
+                                                <img loading="lazy" decoding="async" src="{{ $esg->assetUrl($w->image) }}" alt="{{ $w->feature }}">
                                             @endif
                                         </div>
                                         <h3 class="tpserv__card-title tp-fs-24">

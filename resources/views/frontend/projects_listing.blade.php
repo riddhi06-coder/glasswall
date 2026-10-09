@@ -58,7 +58,7 @@
                 @forelse($categories as $category)
                   <div class="col-lg-4">
                     <article class="product-card large">
-                      <img src="{{ $category->thumbnail_url }}" alt="{{ $category->name }}" />
+                      <img loading="lazy" decoding="async" src="{{ $category->thumbnail_url }}" alt="{{ $category->name }}" />
 
                       <div class="overlay"></div>
 

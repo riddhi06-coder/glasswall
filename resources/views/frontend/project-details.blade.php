@@ -62,7 +62,7 @@
               <div class="row">
                 <div class="col-lg-8 mx-auto">
                   <div class="tp-project-details-info br-20 mb-40 text-center">
-                    <img src="{{ $detailImgUrl }}" alt="{{ $project->name }}" class="w-100 br-20" />
+                    <img loading="lazy" decoding="async" src="{{ $detailImgUrl }}" alt="{{ $project->name }}" class="w-100 br-20" />
                   </div>
                 </div>
               </div>

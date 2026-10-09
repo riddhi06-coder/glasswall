@@ -62,7 +62,7 @@
                                                 @if($iconIsSvg)
                                                     {!! file_get_contents($iconAbs) !!}
                                                 @elseif($pointer->image)
-                                                    <img src="{{ $pointer->image_url }}" alt="">
+                                                    <img loading="lazy" decoding="async" src="{{ $pointer->image_url }}" alt="">
                                                 @endif
                                                 <p>{{ $pointer->pointer }}</p>
                                             </div>

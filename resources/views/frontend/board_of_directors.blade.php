@@ -47,7 +47,7 @@
                       <div class="col-lg-3 col-md-4">
                         <div class="director-figure">
                           <div class="pane">
-                            <img src="{{ $director->assetUrl($director->image) }}" alt="{{ $director->name }}" />
+                            <img loading="lazy" decoding="async" src="{{ $director->assetUrl($director->image) }}" alt="{{ $director->name }}" />
                           </div>
                         </div>
                       </div>

@@ -67,7 +67,7 @@
                       </div>
                     </div>
                     <div class="tpportpost__thumb p-relative">
-                      <img src="{{ $innovation->assetUrl($innovation->image) }}" alt="{{ $innovation->heading }}" />
+                      <img loading="lazy" decoding="async" src="{{ $innovation->assetUrl($innovation->image) }}" alt="{{ $innovation->heading }}" />
                     </div>
                   </div>
                 @empty

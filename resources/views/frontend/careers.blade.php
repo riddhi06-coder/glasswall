@@ -47,7 +47,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-5">
                     <div class="career-img">
-                        <img src="{{ $career && $career->section_image ? $career->assetUrl($career->section_image) : asset('frontend/assets/images/home/careerimg.webp') }}" class="br-20"/>
+                        <img loading="lazy" decoding="async" src="{{ $career && $career->section_image ? $career->assetUrl($career->section_image) : asset('frontend/assets/images/home/careerimg.webp') }}" class="br-20"/>
                     </div>
                 </div>
                 <div class="col-md-7">

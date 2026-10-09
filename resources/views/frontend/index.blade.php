@@ -206,7 +206,7 @@
             data-delay=".7"
             data-duration="3"
             data-fade-offset="200">
-            <img src="assets/images/about-shape-home.webp" alt="" />
+            <img loading="lazy" decoding="async" src="assets/images/about-shape-home.webp" alt="" />
           </div>
           <div class="container">
             <div class="tp-about-heading tp-text-center">
@@ -230,7 +230,7 @@
               @endphp
               <div class="tpfact">
                 <div class="tpfact__icon">
-                  <img src="{{ asset('home/aboutmilestones/'.$m->icon) }}" alt="" style="max-height:60px;" />
+                  <img loading="lazy" decoding="async" src="{{ asset('home/aboutmilestones/'.$m->icon) }}" alt="" style="max-height:60px;" />
                 </div>
                 <h3 class="tpfact__title">
                   <span class="odometer" data-count="{{ $num }}">0</span>
@@ -292,7 +292,7 @@
               <div class="col-lg-4 col-md-10 col-sm-10 tp_fade_anim" data-duration=".9" data-delay=".{{ $loop->iteration }}">
                 <div class="tpservices2 p-relative mb-30">
                   <div class="tpservices2__thumb br-15 mb-40">
-                    <img src="{{ $cat->image_url ?? asset('frontend/assets/images/products/home-product/'.(($loop->index % 3) + 1).'.webp') }}" alt="{{ $cat->name }}" />
+                    <img loading="lazy" decoding="async" src="{{ $cat->image_url ?? asset('frontend/assets/images/products/home-product/'.(($loop->index % 3) + 1).'.webp') }}" alt="{{ $cat->name }}" />
                   </div>
                   <div class="tpservices2__main">
                     <div class="tpservices2__icon mb-25">
@@ -376,7 +376,7 @@
 
                       <div class="col-xl-4 col-md-5 col-sm-12">
                         <div class="tp-services-img br-20">
-                          <img src="{{ $category->thumbnail_url ?? asset('frontend/assets/images/home/eb1.jpg') }}" alt="{{ $category->name }}" />
+                          <img loading="lazy" decoding="async" src="{{ $category->thumbnail_url ?? asset('frontend/assets/images/home/eb1.jpg') }}" alt="{{ $category->name }}" />
                         </div>
                       </div>
 
@@ -448,7 +448,7 @@
                 <div class="{{ $layout['col'] }}">
                   <div class="{{ $layout['wrap'] }}">
                     <div class="tpportfolio__thumb tp-text-center p-relative mb-30">
-                      <img src="{{ $project->thumbnail_url }}" alt="{{ $project->name }}" />
+                      <img loading="lazy" decoding="async" src="{{ $project->thumbnail_url }}" alt="{{ $project->name }}" />
                     </div>
                     <div class="tpportfolio__content tp-flex-center tp-justify-between mb-20 ml-30 mr-30">
                       <div class="tpportfolio__content--wrap">
@@ -506,7 +506,7 @@
                 @foreach(optional($clientele)->images ?? [] as $img)
                 <div class="swiper-slide tp-brand-slide-element">
                   <div class="tp-brand-item">
-                    <img src="{{ asset('home/clienteleimages/'.$img->image) }}" alt="Client" />
+                    <img loading="lazy" decoding="async" src="{{ asset('home/clienteleimages/'.$img->image) }}" alt="Client" />
                   </div>
                 </div>
                 @endforeach

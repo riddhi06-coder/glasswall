@@ -47,7 +47,7 @@
                                         <a href="{{ $doc->pdf_url }}" class="document-box" target="_blank" rel="noopener">
                                             <span class="document-title">{{ $doc->title }}</span>
                                             <span class="document-icon">
-                                                <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                                                <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
                                             </span>
                                         </a>
                                     @endforeach
@@ -65,7 +65,7 @@
                                                     @foreach($groupDocs as $doc)
                                                         <a href="{{ $doc->pdf_url }}" target="_blank" rel="noopener" class="document-subbox">
                                                             <span>{{ $doc->title }}</span>
-                                                            <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                                                            <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
                                                         </a>
                                                     @endforeach
                                                 </div>

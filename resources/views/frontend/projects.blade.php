@@ -60,7 +60,7 @@
                   <div class="grid-item col-lg-4 col-md-6 col-sm-6 mb-30">
                     <div class="tpservices2 p-relative">
                       <div class="tpservices2__thumb br-15 mb-40">
-                        <img src="{{ $project->thumbnail_url }}" alt="{{ $project->name }}" class="project-thumb-img" style="height: {{ $h }}px;">
+                        <img loading="lazy" decoding="async" src="{{ $project->thumbnail_url }}" alt="{{ $project->name }}" class="project-thumb-img" style="height: {{ $h }}px;">
                       </div>
                       <div class="tpservices2__main">
                         <div class="tpservices2__content">

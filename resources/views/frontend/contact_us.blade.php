@@ -37,7 +37,7 @@
 
                 <div class="col-md-4">
                   <div class="contact-item">
-                    <img src="{{ asset('frontend/assets/images/icons/email.svg') }}" />
+                    <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/email.svg') }}" />
                     <h5>Email</h5>
                     <p class="mb-0">
                       <a href="mailto:{{ optional($contact)->email_1 }}">{{ optional($contact)->email_1 }}</a>
@@ -47,7 +47,7 @@
 
                 <div class="col-md-4">
                   <div class="contact-item">
-                    <img src="{{ asset('frontend/assets/images/icons/pin.svg') }}" />
+                    <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/pin.svg') }}" />
                     <h5>Location</h5>
                     @if(optional($contact)->map_url)
                       <a href="{{ $contact->map_url }}" target="_blank" rel="noopener" class="mb-0 d-block text-reset">
@@ -63,7 +63,7 @@
 
                 <div class="col-md-4">
                   <div class="contact-item">
-                    <img src="{{ asset('frontend/assets/images/icons/phone.svg') }}" />
+                    <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/phone.svg') }}" />
                     <h5>Call</h5>
                     <p class="mb-0">
                       <a href="tel:{{ preg_replace('/\s+/', '', optional($contact)->phone ?? '') }}">{{ optional($contact)->phone }}</a>

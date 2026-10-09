@@ -39,7 +39,7 @@
                 @foreach($categories as $category)
                   <button type="button" class="gw-tab-btn {{ $loop->first ? 'active' : '' }}" data-target="gwPanel{{ $category->id }}">
                     <span class="gw-tab-icon">
-                      <img src="{{ $category->image_url }}" alt="{{ $category->name }}">
+                      <img loading="lazy" decoding="async" src="{{ $category->image_url }}" alt="{{ $category->name }}">
                     </span>
                     {{ $category->name }}
                   </button>
@@ -55,7 +55,7 @@
                       <div class="gw-card">
                         <div class="gw-card-media">
                           <a href="{{ $award->assetUrl($award->main_image) }}" class="glightbox">
-                            <img src="{{ $award->assetUrl($award->thumbnail_image) }}" alt="{{ $award->title }}">
+                            <img loading="lazy" decoding="async" src="{{ $award->assetUrl($award->thumbnail_image) }}" alt="{{ $award->title }}">
                             <div class="gw-overlay"></div>
                             @if($award->year)
                               <span class="gw-year-badge">{{ $award->year }}</span>

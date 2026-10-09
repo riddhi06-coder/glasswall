@@ -37,7 +37,7 @@
           <section class="tp-about-area tp-about-spacing-3 tp_fade_line_wrap p-relative fix">
             <div class="tp-about-shape-home p-absolute d-none d-md-block tp_fade_anim"
                  data-fade-from="right" data-delay=".7" data-duration="3" data-fade-offset="200">
-              <img src="{{ asset('frontend/assets/images/about-shape-home.webp') }}" alt="" />
+              <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/about-shape-home.webp') }}" alt="" />
             </div>
             <div class="container">
               <div class="tp-about-heading pb-70 tp-text-center">
@@ -52,14 +52,14 @@
                       <div class="swiper-wrapper">
                         @foreach($about->sectionImages as $img)
                         <div class="swiper-slide">
-                          <img class="w-100 br-20" src="{{ $img->image_url }}" alt="{{ optional($about)->section_heading }}" />
+                          <img loading="lazy" decoding="async" class="w-100 br-20" src="{{ $img->image_url }}" alt="{{ optional($about)->section_heading }}" />
                         </div>
                         @endforeach
                       </div>
                       <div class="swiper-pagination"></div>
                     </div>
                     @else
-                    <img class="w-100 br-20" src="{{ optional($about) && $about->section_image ? $about->assetUrl($about->section_image) : asset('frontend/assets/images/home/Gulita.webp') }}" alt="{{ optional($about)->section_heading }}" />
+                    <img loading="lazy" decoding="async" class="w-100 br-20" src="{{ optional($about) && $about->section_image ? $about->assetUrl($about->section_image) : asset('frontend/assets/images/home/Gulita.webp') }}" alt="{{ optional($about)->section_heading }}" />
                     @endif
                   </div>
                 </div>
@@ -91,7 +91,7 @@
                     <li class="nav-item">
                       <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#vision">
                         <span class="tab-icon">
-                          <img src="{{ optional($about) && $about->vision_logo ? $about->assetUrl($about->vision_logo) : asset('frontend/assets/images/icons/vision.svg') }}" alt="Vision" />
+                          <img loading="lazy" decoding="async" src="{{ optional($about) && $about->vision_logo ? $about->assetUrl($about->vision_logo) : asset('frontend/assets/images/icons/vision.svg') }}" alt="Vision" />
                         </span>
                         <span>{{ optional($about)->vision_title ?: 'Vision' }}</span>
                       </button>
@@ -100,7 +100,7 @@
                     <li class="nav-item">
                       <button class="nav-link" data-bs-toggle="pill" data-bs-target="#mission">
                         <span class="tab-icon">
-                          <img src="{{ optional($about) && $about->mission_logo ? $about->assetUrl($about->mission_logo) : asset('frontend/assets/images/icons/mission.svg') }}" alt="Mission" />
+                          <img loading="lazy" decoding="async" src="{{ optional($about) && $about->mission_logo ? $about->assetUrl($about->mission_logo) : asset('frontend/assets/images/icons/mission.svg') }}" alt="Mission" />
                         </span>
                         <span>{{ optional($about)->mission_title ?: 'Mission' }}</span>
                       </button>
@@ -118,7 +118,7 @@
                           </div>
 
                           <div class="col-lg-5 text-center">
-                            <img src="{{ optional($about) && $about->vision_image ? $about->assetUrl($about->vision_image) : asset('frontend/assets/images/about/vision/glasswall-corner.png') }}" class="img-fluid" alt="Vision" />
+                            <img loading="lazy" decoding="async" src="{{ optional($about) && $about->vision_image ? $about->assetUrl($about->vision_image) : asset('frontend/assets/images/about/vision/glasswall-corner.png') }}" class="img-fluid" alt="Vision" />
                           </div>
                         </div>
                       </div>
@@ -134,7 +134,7 @@
                           </div>
 
                           <div class="col-lg-5 text-center">
-                            <img src="{{ optional($about) && $about->mission_image ? $about->assetUrl($about->mission_image) : asset('frontend/assets/images/about/vision/glasswall-skyscraper.png') }}" class="img-fluid" alt="Mission" />
+                            <img loading="lazy" decoding="async" src="{{ optional($about) && $about->mission_image ? $about->assetUrl($about->mission_image) : asset('frontend/assets/images/about/vision/glasswall-skyscraper.png') }}" class="img-fluid" alt="Mission" />
                           </div>
                         </div>
                       </div>
@@ -156,7 +156,7 @@
               </div>
               <div class="tp-text-center">
                 <div class="value-img">
-                  <img src="{{ optional($about) && $about->core_image ? $about->assetUrl($about->core_image) : asset('frontend/assets/images/home/value2.webp') }}" alt="Core Values" />
+                  <img loading="lazy" decoding="async" src="{{ optional($about) && $about->core_image ? $about->assetUrl($about->core_image) : asset('frontend/assets/images/home/value2.webp') }}" alt="Core Values" />
                 </div>
               </div>
             </div>

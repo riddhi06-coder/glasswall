@@ -47,7 +47,7 @@
 
                         <div class="technology-grid">
                             <div class="technology-quote">
-                                <!--<span class="quote-icon"><img src="assets/images/icons/text.svg"/></span>-->
+                                <!--<span class="quote-icon"><img loading="lazy" decoding="async" src="assets/images/icons/text.svg"/></span>-->
                                 <p>{{ optional($design)->features_heading }}</p>
                             </div>
 
@@ -68,7 +68,7 @@
                         <div class="row">
                             @foreach($design->teamImages as $img)
                                 <div class="col-md-4 mx-auto">
-                                    <img src="{{ $img->image_url }}" alt="{{ optional($design)->features_heading }}">
+                                    <img loading="lazy" decoding="async" src="{{ $img->image_url }}" alt="{{ optional($design)->features_heading }}">
                                 </div>
                             @endforeach
                         </div>

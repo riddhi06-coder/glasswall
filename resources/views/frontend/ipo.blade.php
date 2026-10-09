@@ -51,7 +51,7 @@
                                         <a href="{{ route('frontend.ipo_disclaimer') }}" class="document-box">
                                             <span class="document-title">DRHP</span>
                                             <span class="document-icon">
-                                                <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                                                <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
                                             </span>
                                         </a>
                                     @endif
@@ -61,7 +61,7 @@
                                         <a href="{{ $doc->link_url }}" class="document-box" target="_blank" rel="noopener">
                                             <span class="document-title">{{ $doc->title }}</span>
                                             <span class="document-icon">
-                                                <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                                                <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
                                             </span>
                                         </a>
                                     @endforeach
@@ -91,9 +91,9 @@
                                                             <a href="{{ $doc->link_url }}" target="_blank" rel="noopener" class="document-subbox {{ $isAudio($doc) ? 'is-audio' : '' }}">
                                                                 <span>{{ $doc->title }}</span>
                                                                 @if($isAudio($doc))
-                                                                    <img src="{{ asset('frontend/assets/images/icons/volume.svg') }}" alt="Audio">
+                                                                    <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/volume.svg') }}" alt="Audio">
                                                                 @else
-                                                                    <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                                                                    <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
                                                                 @endif
                                                             </a>
                                                         @endforeach

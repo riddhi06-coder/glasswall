@@ -64,7 +64,7 @@
                       @foreach($banner->documents as $doc)
                         <a href="{{ $doc->pdf_url ?: '#' }}" target="_blank" rel="noopener" class="document-subbox">
                           <span>{!! $doc->title !!}</span>
-                          <img src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
+                          <img loading="lazy" decoding="async" src="{{ asset('frontend/assets/images/icons/pdf.svg') }}" alt="PDF">
                         </a>
                       @endforeach
                     </div>
