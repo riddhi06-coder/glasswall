@@ -93,7 +93,7 @@
                                 <li><a href="{{ route('frontend.about_us') }}">About Us</a></li>
                                 <li><a href="{{ route('frontend.board_of_directors') }}">Our Team</a></li>
                                 <li><a href="{{ route('frontend.contact_us') }}">Contact Us</a></li>
-                                <li><a href="https://stafflogin.glasswallsystems.in/SPINEHRMS/login.aspx" target="_blank" rel="noopener" title="Glass Wall Systems HRMS">HRMS Employee Login</a></li>
+                                <!-- <li><a href="https://stafflogin.glasswallsystems.in/SPINEHRMS/login.aspx" target="_blank" rel="noopener" title="Glass Wall Systems HRMS">HRMS Employee Login</a></li> -->
                             </ul>
 
                         </div>
@@ -162,8 +162,11 @@
 
                     <div class="col-md-6 text-md-end">
                         <div class="tp-footer-links">
-                            <a href="{{ route('frontend.privacy_policy') }}"
-                                class=" me-3">
+                            <a href="https://stafflogin.glasswallsystems.in/SPINEHRMS/login.aspx" target="_blank" rel="noopener" title="Glass Wall Systems HRMS" class="me-3">
+                                HRMS Employee Login
+                            </a>
+
+                            <a href="{{ route('frontend.privacy_policy') }}" class="me-3">
                                 Privacy Policy
                             </a>
 
