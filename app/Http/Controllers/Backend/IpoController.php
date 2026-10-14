@@ -157,7 +157,17 @@ class IpoController extends Controller
             mkdir($folder, 0755, true);
         }
 
-        $fileName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+        // Keep the original file name; just replace spaces with underscores so the URL doesn't break.
+        $ext  = $file->getClientOriginalExtension();
+        $base = preg_replace('/\s+/', '_', trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+        $base = $base !== '' ? $base : 'file';
+
+        $fileName = $base.'.'.$ext;
+        $i = 1;
+        while (file_exists($folder.'/'.$fileName)) {
+            $fileName = $base.'_'.(++$i).'.'.$ext;
+        }
+
         $file->move($folder, $fileName);
 
         return $fileName;
