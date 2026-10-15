@@ -14,7 +14,7 @@ Light blue:       #a2d9f5
 Fonts: Manrope, Playfair Display, Poppins, Sora
 ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@400;500;600;700;800&family=Sora:wght@100..800&display=swap");
+/* Google Fonts moved to a parallel <link> in <head> for faster load (see components/frontend/head.blade.php) */
 
 /* =========================================================
 1. RESET & BASE
