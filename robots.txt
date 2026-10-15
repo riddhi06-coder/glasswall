@@ -1,0 +1,26 @@
+The staff login is on a separate subdomain, 
+and a robots.txt only applies to the host it sits on, 
+so it needs its own file.
+
+------------------------------------------------------------
+1. Main site: https://www.glasswallsystems.in/robots.txt
+------------------------------------------------------------
+User-agent: *
+Allow: /
+Disallow: /ipo/disclaimer/confirm
+Disallow: /cdn-cgi/
+
+Sitemap: https://www.glasswallsystems.in/sitemap.xml
+------------------------------------------------------------
+
+
+
+
+
+
+------------------------------------------------------------
+2. Staff login: https://stafflogin.glasswallsystems.in/robots.txt
+------------------------------------------------------------
+User-agent: *
+Disallow: /
+------------------------------------------------------------

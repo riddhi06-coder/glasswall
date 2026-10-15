@@ -4,6 +4,15 @@
     </IfModule>
 
     RewriteEngine On
+    
+    RewriteCond %{HTTP_HOST} ^glasswallsystems\.in$ [NC]
+    RewriteRule ^(.*)$ https://www.glasswallsystems.in/$1 [R=301,L]
+    
+    
+    # Redirect trailing slashes if not a real folder (301)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ https://www.glasswallsystems.in%1 [L,R=301]
 
     # Redirect to https
     RewriteCond %{HTTPS} off
