@@ -66,6 +66,7 @@
     # ===== /301 Redirects =====
 
     # ===== 301 Redirects: GSC 404 URLs -> new targets (Oct 2026 GSC sheet) =====
+    RewriteRule ^thank-you/?$ /contact-thank-you [R=301,L,NC]
     RewriteRule ^faq_category/financial\-details\-of\-group\-company/?$ /investor-resources [R=301,L,NC]
     RewriteRule ^green\-initiative\-new/?$ /esg [R=301,L,NC]
     RewriteRule ^international/ballys\-chicago\-casino\-hotel/?$ /international-projects/ballys-chicago-casino-hotel [R=301,L,NC]
